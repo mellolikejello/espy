@@ -1,0 +1,14 @@
+c:\my-test-app\platforms\wp8\Bin\Debug\ApplicationIcon.png
+c:\my-test-app\platforms\wp8\Bin\Debug\Background.png
+c:\my-test-app\platforms\wp8\Bin\Debug\com.phonegap.helloworld.dll
+c:\my-test-app\platforms\wp8\Bin\Debug\com.phonegap.helloworld.pdb
+c:\my-test-app\platforms\wp8\Bin\Debug\AppManifest.xaml
+c:\my-test-app\platforms\wp8\Bin\Debug\Properties\WMAppManifest.xml
+c:\my-test-app\platforms\wp8\Bin\Debug\CordovaAppProj_Debug_AnyCPU.xap
+c:\my-test-app\platforms\wp8\obj\Debug\App.g.cs
+c:\my-test-app\platforms\wp8\obj\Debug\cordovalib\CordovaView.g.cs
+c:\my-test-app\platforms\wp8\obj\Debug\MainPage.g.cs
+c:\my-test-app\platforms\wp8\obj\Debug\com.phonegap.helloworld.g.resources
+c:\my-test-app\platforms\wp8\obj\Debug\com.phonegap.helloworld.dll
+c:\my-test-app\platforms\wp8\obj\Debug\com.phonegap.helloworld.pdb
+c:\my-test-app\platforms\wp8\obj\Debug\XapCacheFile.xml

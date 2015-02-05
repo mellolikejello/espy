@@ -1,0 +1,1 @@
+c:\my-test-app\platforms\windows\CordovaApp.Windows80.jsproj;neutral

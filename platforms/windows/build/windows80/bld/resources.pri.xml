@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PriInfo>
+	<ResourceMap name="com.phonegap.helloworld" version="1.0" primary="true">
+		<Qualifiers>
+			<Scale>100</Scale>
+		</Qualifiers>
+		<ResourceMapSubtree name="Files">
+			<NamedResource name="config.xml" uri="ms-resource://com.phonegap.helloworld/Files/config.xml">
+				<Candidate type="Path">
+					<Value>config.xml</Value>
+				</Candidate>
+			</NamedResource>
+			<ResourceMapSubtree name="images">
+				<NamedResource name="SplashScreen.png" uri="ms-resource://com.phonegap.helloworld/Files/images/SplashScreen.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>images\SplashScreen.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Square150x150Logo.png" uri="ms-resource://com.phonegap.helloworld/Files/images/Square150x150Logo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>images\Square150x150Logo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Square30x30Logo.png" uri="ms-resource://com.phonegap.helloworld/Files/images/Square30x30Logo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>images\Square30x30Logo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Square310x310Logo.png" uri="ms-resource://com.phonegap.helloworld/Files/images/Square310x310Logo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>images\Square310x310Logo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Square70x70Logo.png" uri="ms-resource://com.phonegap.helloworld/Files/images/Square70x70Logo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>images\Square70x70Logo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="StoreLogo.png" uri="ms-resource://com.phonegap.helloworld/Files/images/StoreLogo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>images\StoreLogo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Wide310x150Logo.png" uri="ms-resource://com.phonegap.helloworld/Files/images/Wide310x150Logo.png">
+					<Candidate qualifiers="Scale-100" isDefault="true" type="Path">
+						<Value>images\Wide310x150Logo.scale-100.png</Value>
+					</Candidate>
+				</NamedResource>
+			</ResourceMapSubtree>
+			<ResourceMapSubtree name="www">
+				<NamedResource name="cordova.js" uri="ms-resource://com.phonegap.helloworld/Files/www/cordova.js">
+					<Candidate type="Path">
+						<Value>www\cordova.js</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="cordova_plugins.js" uri="ms-resource://com.phonegap.helloworld/Files/www/cordova_plugins.js">
+					<Candidate type="Path">
+						<Value>www\cordova_plugins.js</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="icon.png" uri="ms-resource://com.phonegap.helloworld/Files/www/icon.png">
+					<Candidate type="Path">
+						<Value>www\icon.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="index.html" uri="ms-resource://com.phonegap.helloworld/Files/www/index.html">
+					<Candidate type="Path">
+						<Value>www\index.html</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="spec.html" uri="ms-resource://com.phonegap.helloworld/Files/www/spec.html">
+					<Candidate type="Path">
+						<Value>www\spec.html</Value>
+					</Candidate>
+				</NamedResource>
+				<ResourceMapSubtree name="css">
+					<NamedResource name="index.css" uri="ms-resource://com.phonegap.helloworld/Files/www/css/index.css">
+						<Candidate type="Path">
+							<Value>www\css\index.css</Value>
+						</Candidate>
+					</NamedResource>
+				</ResourceMapSubtree>
+				<ResourceMapSubtree name="img">
+					<NamedResource name="logo.png" uri="ms-resource://com.phonegap.helloworld/Files/www/img/logo.png">
+						<Candidate type="Path">
+							<Value>www\img\logo.png</Value>
+						</Candidate>
+					</NamedResource>
+				</ResourceMapSubtree>
+				<ResourceMapSubtree name="js">
+					<NamedResource name="index.js" uri="ms-resource://com.phonegap.helloworld/Files/www/js/index.js">
+						<Candidate type="Path">
+							<Value>www\js\index.js</Value>
+						</Candidate>
+					</NamedResource>
+				</ResourceMapSubtree>
+				<ResourceMapSubtree name="res">
+					<NamedResource name=".pgbomit" uri="ms-resource://com.phonegap.helloworld/Files/www/res/.pgbomit">
+						<Candidate type="Path">
+							<Value>www\res\.pgbomit</Value>
+						</Candidate>
+					</NamedResource>
+					<ResourceMapSubtree name="icon">
+						<ResourceMapSubtree name="android">
+							<NamedResource name="icon-36-ldpi.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/android/icon-36-ldpi.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\android\icon-36-ldpi.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-48-mdpi.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/android/icon-48-mdpi.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\android\icon-48-mdpi.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-72-hdpi.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/android/icon-72-hdpi.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\android\icon-72-hdpi.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-96-xhdpi.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/android/icon-96-xhdpi.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\android\icon-96-xhdpi.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="bada">
+							<NamedResource name="icon-128.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/bada/icon-128.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\bada\icon-128.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="bada-wac">
+							<NamedResource name="icon-48-type5.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/bada-wac/icon-48-type5.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\bada-wac\icon-48-type5.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-50-type3.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/bada-wac/icon-50-type3.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\bada-wac\icon-50-type3.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-80-type4.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/bada-wac/icon-80-type4.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\bada-wac\icon-80-type4.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="blackberry">
+							<NamedResource name="icon-80.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/blackberry/icon-80.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\blackberry\icon-80.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="ios">
+							<NamedResource name="icon-57-2x.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/ios/icon-57-2x.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\ios\icon-57-2x.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-57.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/ios/icon-57.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\ios\icon-57.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-72-2x.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/ios/icon-72-2x.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\ios\icon-72-2x.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-72.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/ios/icon-72.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\ios\icon-72.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="tizen">
+							<NamedResource name="icon-128.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/tizen/icon-128.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\tizen\icon-128.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="webos">
+							<NamedResource name="icon-64.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/webos/icon-64.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\webos\icon-64.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="windows-phone">
+							<NamedResource name="icon-173-tile.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/windows-phone/icon-173-tile.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\windows-phone\icon-173-tile.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-48.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/windows-phone/icon-48.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\windows-phone\icon-48.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="icon-62-tile.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/icon/windows-phone/icon-62-tile.png">
+								<Candidate type="Path">
+									<Value>www\res\icon\windows-phone\icon-62-tile.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+					</ResourceMapSubtree>
+					<ResourceMapSubtree name="screen">
+						<ResourceMapSubtree name="android">
+							<NamedResource name="screen-hdpi-landscape.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/android/screen-hdpi-landscape.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\android\screen-hdpi-landscape.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-hdpi-portrait.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/android/screen-hdpi-portrait.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\android\screen-hdpi-portrait.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-ldpi-landscape.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/android/screen-ldpi-landscape.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\android\screen-ldpi-landscape.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-ldpi-portrait.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/android/screen-ldpi-portrait.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\android\screen-ldpi-portrait.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-mdpi-landscape.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/android/screen-mdpi-landscape.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\android\screen-mdpi-landscape.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-mdpi-portrait.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/android/screen-mdpi-portrait.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\android\screen-mdpi-portrait.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-xhdpi-landscape.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/android/screen-xhdpi-landscape.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\android\screen-xhdpi-landscape.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-xhdpi-portrait.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/android/screen-xhdpi-portrait.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\android\screen-xhdpi-portrait.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="bada">
+							<NamedResource name="screen-portrait.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/bada/screen-portrait.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\bada\screen-portrait.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="bada-wac">
+							<NamedResource name="screen-type3.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/bada-wac/screen-type3.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\bada-wac\screen-type3.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-type4.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/bada-wac/screen-type4.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\bada-wac\screen-type4.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-type5.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/bada-wac/screen-type5.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\bada-wac\screen-type5.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="blackberry">
+							<NamedResource name="screen-225.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/blackberry/screen-225.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\blackberry\screen-225.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="ios">
+							<NamedResource name="screen-ipad-landscape-2x.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/ios/screen-ipad-landscape-2x.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\ios\screen-ipad-landscape-2x.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-ipad-landscape.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/ios/screen-ipad-landscape.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\ios\screen-ipad-landscape.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-ipad-portrait-2x.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/ios/screen-ipad-portrait-2x.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\ios\screen-ipad-portrait-2x.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-ipad-portrait.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/ios/screen-ipad-portrait.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\ios\screen-ipad-portrait.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-iphone-landscape-2x.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/ios/screen-iphone-landscape-2x.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\ios\screen-iphone-landscape-2x.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-iphone-landscape.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/ios/screen-iphone-landscape.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\ios\screen-iphone-landscape.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-iphone-portrait-2x.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/ios/screen-iphone-portrait-2x.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\ios\screen-iphone-portrait-2x.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-iphone-portrait-568h-2x.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/ios/screen-iphone-portrait-568h-2x.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\ios\screen-iphone-portrait-568h-2x.png</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="screen-iphone-portrait.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/ios/screen-iphone-portrait.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\ios\screen-iphone-portrait.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="tizen">
+							<NamedResource name="README.md" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/tizen/README.md">
+								<Candidate type="Path">
+									<Value>www\res\screen\tizen\README.md</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="webos">
+							<NamedResource name="screen-64.png" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/webos/screen-64.png">
+								<Candidate type="Path">
+									<Value>www\res\screen\webos\screen-64.png</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="windows-phone">
+							<NamedResource name="screen-portrait.jpg" uri="ms-resource://com.phonegap.helloworld/Files/www/res/screen/windows-phone/screen-portrait.jpg">
+								<Candidate type="Path">
+									<Value>www\res\screen\windows-phone\screen-portrait.jpg</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+					</ResourceMapSubtree>
+				</ResourceMapSubtree>
+				<ResourceMapSubtree name="spec">
+					<NamedResource name="helper.js" uri="ms-resource://com.phonegap.helloworld/Files/www/spec/helper.js">
+						<Candidate type="Path">
+							<Value>www\spec\helper.js</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="index.js" uri="ms-resource://com.phonegap.helloworld/Files/www/spec/index.js">
+						<Candidate type="Path">
+							<Value>www\spec\index.js</Value>
+						</Candidate>
+					</NamedResource>
+					<ResourceMapSubtree name="lib">
+						<ResourceMapSubtree name="jasmine-1.2.0">
+							<NamedResource name="jasmine-html.js" uri="ms-resource://com.phonegap.helloworld/Files/www/spec/lib/jasmine-1.2.0/jasmine-html.js">
+								<Candidate type="Path">
+									<Value>www\spec\lib\jasmine-1.2.0\jasmine-html.js</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="jasmine.css" uri="ms-resource://com.phonegap.helloworld/Files/www/spec/lib/jasmine-1.2.0/jasmine.css">
+								<Candidate type="Path">
+									<Value>www\spec\lib\jasmine-1.2.0\jasmine.css</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="jasmine.js" uri="ms-resource://com.phonegap.helloworld/Files/www/spec/lib/jasmine-1.2.0/jasmine.js">
+								<Candidate type="Path">
+									<Value>www\spec\lib\jasmine-1.2.0\jasmine.js</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="MIT.LICENSE" uri="ms-resource://com.phonegap.helloworld/Files/www/spec/lib/jasmine-1.2.0/MIT.LICENSE">
+								<Candidate type="Path">
+									<Value>www\spec\lib\jasmine-1.2.0\MIT.LICENSE</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+					</ResourceMapSubtree>
+				</ResourceMapSubtree>
+			</ResourceMapSubtree>
+		</ResourceMapSubtree>
+	</ResourceMap>
+</PriInfo>
