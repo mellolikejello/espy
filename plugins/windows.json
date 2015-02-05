@@ -6,6 +6,10 @@
     "config_munge": {
         "files": {}
     },
-    "installed_plugins": {},
+    "installed_plugins": {
+        "pl.makingwaves.estimotebeacons": {
+            "PACKAGE_NAME": "Hello World"
+        }
+    },
     "dependent_plugins": {}
 }

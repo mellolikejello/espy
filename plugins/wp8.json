@@ -6,6 +6,10 @@
     "config_munge": {
         "files": {}
     },
-    "installed_plugins": {},
+    "installed_plugins": {
+        "pl.makingwaves.estimotebeacons": {
+            "PACKAGE_NAME": "{cc997ca0-acd5-11e4-95d9-779b9ec046f2}"
+        }
+    },
     "dependent_plugins": {}
 }
