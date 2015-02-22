@@ -25,8 +25,8 @@ app.main = {
   orginLong:undefined,
   originLat:undefined,
 
-//nw 43.088647,-77.685272
-//se 43.080071, -77.665784
+//nw 43.086354,-77.681498
+//se 	
 
 //Width Points
 	//43.083168, -77.685272
@@ -36,6 +36,12 @@ app.main = {
   //43.088647, -77.675077
    //43.080071, -77.675077
     
+	
+	
+// west 43.083130, -77.681498
+// east  43.083130,  -77.670863
+  // north 43.086354, -77.675766
+  // south 43.081586, -77.675766
     // methods
 	init : function() {
 
@@ -46,11 +52,11 @@ app.main = {
     
     this.canvas = document.querySelector('canvas');
 
-    console.log('width: '+ this.getDistance(43.083168, -77.685272,43.083168 ,-77.665784,'M') * 5280  );
-    console.log('Height: ' + this.getDistance(43.088647, -77.675077,43.080071, -77.675077,'M') * 5280  );
+   // console.log('width: '+ this.getDistance(43.083130, -77.681498, 43.083130, -77.681498,'M')   );
+    //console.log('Height: ' + this.getDistance(43.088647, -77.675077,43.080071, -77.675077,'M')  );
 
-    this.WIDTH = this.getDistance(43.083168, -77.685272,43.083168 ,-77.665784,'M') * 5280 ;
-    this.HEIGHT = this.getDistance(43.088647, -77.675077,43.080071, -77.675077,'M') * 5280 ;
+    this.WIDTH = this.getDistance(43.083130, -77.681498,43.083130,  -77.670863,'M')  ;
+    this.HEIGHT = this.getDistance(43.086354, -77.675766,43.081586, -77.675766,'M')  ;
 
     this.canvas.width = this.WIDTH;
     this.canvas.height = this.HEIGHT;
@@ -60,8 +66,8 @@ app.main = {
     console.log(this.canvas.height);
 
 
-    this.orginLong = -77.685272;
-    this.originLat = 43.088647;
+     this.orginLong = -77.681498;
+    this.originLat = 43.086354;
     
    
     
@@ -81,6 +87,7 @@ app.main = {
     dist = Math.acos(dist);
     dist = dist * 180/Math.PI;
     dist = dist * 60 * 1.1515;
+	dist = dist* 5280;
 
     if (unit=="K") { dist = dist * 1.609344 };
 
@@ -101,8 +108,8 @@ app.main = {
     var pLong = -77.679932;
     var pLat = 43.084492;
 
-    var x = this.getDistance(pLat,this.orginLong,pLat,pLong,'M') * 5280;
-    var y = this.getDistance(this.originLat,pLong,pLat,pLong,'M') * 5280;
+    var x = this.getDistance(pLat,this.orginLong,pLat,pLong,'M') ;
+    var y = this.getDistance(this.originLat,pLong,pLat,pLong,'M') ;
 
     app.drawLib.circle(this.ctx,x,y,radius,'#ff0000');
 		
