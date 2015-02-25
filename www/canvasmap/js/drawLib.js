@@ -16,10 +16,11 @@ app.drawLib = {
 		ctx.fillRect(x,y,w,h);
 		ctx.restore();
 	},
-	circle: function(ctx,centerX, centerY, radius,col){
+	circle: function(ctx,centerX, centerY, radius,col,alph){
 
 		ctx.save();
 		ctx.beginPath();
+		ctx.globalAlpha=alph;
       	ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
       	ctx.fillStyle = col;
       	ctx.fill();
@@ -97,6 +98,11 @@ app.drawLib = {
 		ctx.globalAlpha=alph;
 		ctx.fillStyle = col;
 		ctx.fillRect(x,y,w,h);
+		ctx.restore();
+	},
+	drawImage : function(ctx,image, x, y,w,h){
+		ctx.save();
+		ctx.drawImage(image, x, y, w, h);
 		ctx.restore();
 	},
 };
