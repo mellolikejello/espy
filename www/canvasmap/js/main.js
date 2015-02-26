@@ -220,12 +220,25 @@ app.main = {
 			}
 		}
 	}, 
+	showPosition: function (position) {
+		this.userLat =  position.coords.latitude;
+		this.userLong =  position.coords.longitude; 
+	
+	},
+	getLocation: function () {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(this.showPosition);
+			
+		} else {
+			console.log("didnt work");
+		}
+	},
+	
 	updateUserLocation: function (){
 	//set collison radius for user
 	this.userColRad = 5;
 	//set these variables to the geolcation lon/lat
-	this.userLong = -77.679932;
-	this.userLat = 43.084492;
+	
 	//convert user lon/lat to X/Y
 	this.userX = this.getDistance(this.userLat,this.orginLong,this.userLat,this.userLong,'M') ;
 	this.userY = this.getDistance(this.originLat,this.userLong,this.userLat,this.userLong,'M') ;
@@ -234,18 +247,19 @@ app.main = {
 	
 	update: function(){
 		requestAnimationFrame(this.update.bind(this));
+		console.log(this.userLat);
+		this.getLocation();
+		this.updateUserLocation();
 		
-		//this.updateUserLocation();
-		
-		//this.rotate();
+		this.rotate();
 	
 		this.Collisions();
-		this.moveUser();
+		//this.moveUser();
 		this.draw();
 	},
 	
 	moveUser: function(){
-		var speed = .1;
+		var speed = 5;
 		//right
 		if(app.keydown[39]){
 			this.userX += speed;
