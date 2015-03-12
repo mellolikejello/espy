@@ -1,1 +1,15 @@
-/* Empty. Add your own CSS if you like */
+.pane {
+    background-color: lightgray;
+}
+
+.home-view .home-title {
+    text-align: center;
+}
+
+.exhibit-container {
+    text-align: center;
+}
+
+.exhibit-img {
+    max-width: 100px;
+}

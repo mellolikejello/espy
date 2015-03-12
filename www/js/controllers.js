@@ -2,7 +2,11 @@ angular.module('starter.controllers', [])
 
 .controller('HomeCtrl', function($scope) {})
 
+.controller('SearchCtrl', function($scope) {})
+
 .controller('MapCtrl', function($scope) {})
+
+.controller('QueueCtrl', function($scope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
