@@ -1,6 +1,8 @@
 angular.module('starter.controllers', [])
 
-.controller('HomeCtrl', function($scope) {})
+.controller('HomeCtrl', function($scope, Exhibits) {
+	$scope.exhibits = Exhibits.all();
+})
 
 .controller('SearchCtrl', function($scope) {})
 

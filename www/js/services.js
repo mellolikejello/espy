@@ -1,5 +1,25 @@
 angular.module('starter.services', [])
 
+.factory('Exhibits', function() {
+	var exhibits = [{
+		id: 0,
+		name: 'Exhibit Name',
+		rating: 4,
+		img: 'img/logo.png'
+	}, {
+		id: 1,
+		name: 'Exhibit 2',
+		rating: 3,
+		img: 'img/logo.png'
+	}];
+
+	return {
+		all: function() {
+			return exhibits;
+		}
+	};
+})
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
