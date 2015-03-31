@@ -17,3 +17,11 @@
 .exhibit-img {
     max-width: 100px;
 }
+
+.exhibit-queue-icon {
+    /* positioning */
+}
+
+.exhibit-queue-icon i{
+    font-size: 30px;
+}

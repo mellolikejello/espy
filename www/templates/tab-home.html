@@ -1,15 +1,44 @@
 <ion-view view-title="Home" class="home-view">
 	<ion-content class="padding">
+<!--
 		<label class="item-input-wrapper search">
 			<i class="icon ion-ios-search placeholder-icon"></i>
 			<input type="search" placeholder="Search">
 		</label>
+-->
+        <div class="list list-inset">
+          <label class="item item-input">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="text" placeholder="Search">
+          </label>
+        </div>
 		<p class="home-title">Suggestions for you</p>
 		<!-- bind with model -->
 		<ion-list>
 			<div class="row">
-				<div class="col">
-				<ion-item ng-repeat="exhibit in exhibits" class="card">
+				<div class="col col-50 padding">
+				<ion-item ng-repeat="exhibit in exhibits" ng-if="$even" class="card">
+                    <!-- TODO: make this a widget or something? repeated for odds/evens to get 2 col layout -->
+					<div class="item item-body exhibit-container">
+						<div class="item-image">
+							<img class="full-image exhibit-img" src="{{exhibit.img}}">
+						</div>
+                        <div class="exhibit-queue-icon">
+                            <i class="icon ion-social-buffer-outline"></i>
+                        </div>
+						<div class="rating">
+							<i class="icon ion-android-star"></i>
+							<i class="icon ion-android-star"></i>
+							<i class="icon ion-android-star"></i>
+							<i class="icon ion-android-star"></i>
+							<i class="icon ion-android-star-outline"></i>
+						</div>
+						<p>{{exhibit.name}}</p>
+					</div>
+				</ion-item>
+				</div>
+                <div class="col col-50 padding">
+                    <ion-item ng-repeat="exhibit in exhibits" ng-if="$odd" class="card">
 					<div class="item item-body exhibit-container">
 						<div class="item-image">
 							<img class="full-image exhibit-img" src="{{exhibit.img}}">
@@ -24,7 +53,7 @@
 						<p>{{exhibit.name}}</p>
 					</div>
 				</ion-item>
-				</div>
+                </div>
 			</div>
 		</ion-list>
 	</ion-content>

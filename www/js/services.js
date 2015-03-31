@@ -3,12 +3,42 @@ angular.module('starter.services', [])
 .factory('Exhibits', function() {
 	var exhibits = [{
 		id: 0,
-		name: 'Exhibit Name',
+		name: 'The Application of Critical Thinking in Statistics',
 		rating: 4,
 		img: 'img/logo.png'
 	}, {
 		id: 1,
 		name: 'Exhibit 2',
+		rating: 3,
+		img: 'img/logo.png'
+    }, {
+		id: 3,
+		name: 'Zombies: Flash as a Medium',
+		rating: 3,
+		img: 'img/logo.png'
+    }, {
+		id: 4,
+		name: 'The Application of Critical Thinking in Statistics',
+		rating: 3,
+		img: 'img/logo.png'
+    }, {
+		id: 5,
+		name: 'Zombies: Flash as a Medium',
+		rating: 3,
+		img: 'img/logo.png'
+    }, {
+		id: 6,
+		name: 'Zombies: Flash as a Medium',
+		rating: 3,
+		img: 'img/logo.png'
+    }, {
+		id: 7,
+		name: 'The Application of Critical Thinking in Statistics',
+		rating: 3,
+		img: 'img/logo.png'
+    }, {
+		id: 8,
+		name: 'Zombies: Flash as a Medium',
 		rating: 3,
 		img: 'img/logo.png'
 	}];
