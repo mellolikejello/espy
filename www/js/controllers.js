@@ -1,7 +1,8 @@
 angular.module('starter.controllers', [])
 
-.controller('HomeCtrl', function($scope, Exhibits) {
+.controller('HomeCtrl', function($scope, Exhibits, Categories) {
 	$scope.exhibits = Exhibits.all();
+    $scope.categories = Categories.all();
 })
 
 .controller('SearchCtrl', function($scope) {})
@@ -10,6 +11,7 @@ angular.module('starter.controllers', [])
 
 .controller('QueueCtrl', function($scope) {})
 
+/* TODO: remove, using as example for now */
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
@@ -17,6 +19,7 @@ angular.module('starter.controllers', [])
   }
 })
 
+/* TODO: remove, using as example for now */
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 })

@@ -1,5 +1,17 @@
 angular.module('starter.services', [])
 
+/* TODO: make this a db call*/
+.factory('Categories', function() {
+    var categories = ['Art', 'Science', 'Games'];
+
+    return {
+        all: function() {
+            return categories;
+        }
+    }
+})
+
+/* TODO: make this a db call*/
 .factory('Exhibits', function() {
 	var exhibits = [{
 		id: 0,
@@ -50,6 +62,7 @@ angular.module('starter.services', [])
 	};
 })
 
+/* TODO: remove, using as example for now */
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
