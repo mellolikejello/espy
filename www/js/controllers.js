@@ -5,7 +5,9 @@ angular.module('starter.controllers', [])
     $scope.categories = Categories.all();
 })
 
-.controller('SearchCtrl', function($scope) {})
+.controller('SearchCtrl', function($scope, Categories) {
+    $scope.categories = Categories.all();
+})
 
 .controller('MapCtrl', function($scope) {})
 
