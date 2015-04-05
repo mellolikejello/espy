@@ -19,20 +19,20 @@
     cursor: pointer;
 }
 
-.home-row {
+.exhibit-list-row {
     padding-left: 0;
     padding-right: 0;
 }
 
-.home-col {
+.exhibit-list {
     padding: 0;
 }
 
-.home-col-left {
+.exhibit-list-left {
     padding-right: 10px;
 }
 
-.home-col-right {
+.exhibit-list-right {
     padding-left: 10px;
 }
 

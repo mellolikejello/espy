@@ -41,6 +41,13 @@ angular.module('espy.services', [])
     }
 })
 
+.directive('exbList', function(){
+    return {
+        restrict: 'A',
+        templateUrl: '/templates/exhibit-list.html'
+    }
+})
+
 /* TODO: make this a db call*/
 .factory('Categories', function() {
     var categories = ['Art', 'Science', 'Games'];
@@ -111,6 +118,18 @@ angular.module('espy.services', [])
                 }
             }
             return null;
+        },
+        
+        // n - number of top exhibits to return
+        // TODO: complete
+        getTopRated: function(n) {
+            return null;
+        },
+        
+        // n - number of top exhibits to return
+        // TODO: complete
+        getMostPopular: function(n) {
+            return null;   
         }
 	};
 })
