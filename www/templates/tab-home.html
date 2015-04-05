@@ -14,8 +14,8 @@
         </div>
 		<p class="center-text">Suggestions for you</p>
 		<ion-list>
-			<div class="row">
-				<div class="col col-50 padding">
+			<div class="row home-row">
+				<div class="col col-50 home-col home-col-left">
 				<ion-item ng-repeat="exhibit in exhibits" ng-if="$even" class="card">
                     <!-- TODO: make this a widget or something? repeated for odds/evens to get 2 col layout -->
 					<div class="item item-body exhibit-container">
@@ -25,18 +25,12 @@
                         <div class="exhibit-queue-icon">
                             <i class="icon ion-social-buffer-outline"></i>
                         </div>
-						<div class="rating">
-							<i class="icon ion-android-star"></i>
-							<i class="icon ion-android-star"></i>
-							<i class="icon ion-android-star"></i>
-							<i class="icon ion-android-star"></i>
-							<i class="icon ion-android-star-outline"></i>
-						</div>
+                        <div exb-rating rating-value="exhibit.rating" max="5" on-rating-selected="saveRatingToServer(rating)"></div>
 						<p>{{exhibit.name}}</p>
 					</div>
 				</ion-item>
 				</div>
-                <div class="col col-50 padding">
+                <div class="col col-50 home-col home-col-right">
                     <ion-item ng-repeat="exhibit in exhibits" ng-if="$odd" class="card">
 					<div class="item item-body exhibit-container">
 						<div class="item-image">
@@ -45,13 +39,7 @@
                         <div class="exhibit-queue-icon">
                             <i class="icon ion-social-buffer-outline"></i>
                         </div>
-						<div class="rating">
-							<i class="icon ion-android-star"></i>
-							<i class="icon ion-android-star"></i>
-							<i class="icon ion-android-star"></i>
-							<i class="icon ion-android-star"></i>
-							<i class="icon ion-android-star-outline"></i>
-						</div>
+                        <div exb-rating rating-value="exhibit.rating" max="5" on-rating-selected="saveRatingToServer(rating)"></div>
 						<p>{{exhibit.name}}</p>
 					</div>
 				</ion-item>

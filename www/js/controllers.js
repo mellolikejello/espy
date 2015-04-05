@@ -1,8 +1,12 @@
-angular.module('starter.controllers', [])
+angular.module('espy.controllers', [])
 
 .controller('HomeCtrl', function($scope, Exhibits, Categories) {
 	$scope.exhibits = Exhibits.all();
     $scope.categories = Categories.all();
+    $scope.saveRatingToServer = function(rating) {
+      /* TODO - add server call, update rating */
+      console.log('Rating selected - ' + rating);
+    };
 })
 
 .controller('SearchCtrl', function($scope, Categories) {

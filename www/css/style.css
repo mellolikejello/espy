@@ -10,6 +10,32 @@
     width: 100%;
 }
 
+.rating li {
+    display: inline-block;
+    padding: 2px;
+}
+
+.rating li:hover {
+    cursor: pointer;
+}
+
+.home-row {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.home-col {
+    padding: 0;
+}
+
+.home-col-left {
+    padding-right: 10px;
+}
+
+.home-col-right {
+    padding-left: 10px;
+}
+
 .exhibit-container {
     text-align: center;
 }
@@ -20,6 +46,9 @@
 
 .exhibit-queue-icon i{
     font-size: 30px;
+    position: absolute;
+    top: 5vh;
+    left: 32vw;
 }
 
 .queue-empty {
