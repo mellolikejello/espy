@@ -57,17 +57,20 @@ angular.module('espy.services', [])
 	var exhibits = [{
 		id: 0,
 		name: 'The Application of Critical Thinking in Statistics',
+        categories: ['Science', 'Art'],
 		rating: 4,
 		img: 'img/logo.png'
 	}, {
 		id: 1,
 		name: 'Exhibit 2',
 		rating: 3,
+        categories: ['Games', 'Art'],
 		img: 'img/logo.png'
     }, {
 		id: 3,
 		name: 'Zombies: Flash as a Medium',
 		rating: 3,
+        categories: ['Games', 'Science'],
 		img: 'img/logo.png'
     }, {
 		id: 4,
@@ -99,7 +102,16 @@ angular.module('espy.services', [])
 	return {
 		all: function() {
 			return exhibits;
-		}
+		},
+        
+        get: function(exhibitId) {
+            for(var i in exhibits) {
+                if (exhibits[i].id === parseInt(exhibitId)) {
+                    return exhibits[i];
+                }
+            }
+            return null;
+        }
 	};
 })
 

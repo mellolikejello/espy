@@ -16,7 +16,7 @@
 		<ion-list>
 			<div class="row home-row">
 				<div class="col col-50 home-col home-col-left">
-				<ion-item ng-repeat="exhibit in exhibits" ng-if="$even" class="card">
+				<ion-item href="#/tab/exhibits/{{exhibit.id}}" ng-repeat="exhibit in exhibits" ng-if="$even" class="card">
                     <!-- TODO: make this a widget or something? repeated for odds/evens to get 2 col layout -->
 					<div class="item item-body exhibit-container">
 						<div class="item-image">

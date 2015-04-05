@@ -30,6 +30,10 @@ angular.module('espy.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
+.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits) {
+  $scope.exhibit = Exhibits.get($stateParams.exhibitId);
+})
+
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
