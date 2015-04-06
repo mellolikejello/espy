@@ -14,5 +14,13 @@
         </div>
 		<p class="center-text">Suggestions for you</p>
         <div exb-list></div>
+        <p class="center-text">Suggested Searches</p>
+        <ion-list>
+            <ion-item ng-repeat="category in categories" class="card">
+                <div class="item">
+                    {{category}}
+                </div>
+            </ion-item>
+        </ion-list>
 	</ion-content>
 </ion-view>

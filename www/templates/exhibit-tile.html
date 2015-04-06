@@ -1,0 +1,10 @@
+<div class="item item-body exhibit-container">
+    <div class="item-image">
+        <img class="full-image exhibit-img" src="{{exhibit.img}}">
+    </div>
+    <div class="exhibit-queue-icon">
+        <i class="icon ion-social-buffer-outline"></i>
+    </div>
+    <div exb-rating rating-value="exhibit.rating" max="5" on-rating-selected="saveRatingToServer(rating)"></div>
+    <p>{{exhibit.name}}</p>
+</div>

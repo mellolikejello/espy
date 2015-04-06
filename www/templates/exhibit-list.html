@@ -1,42 +1,14 @@
 <ion-list>
-			<div class="row exhibit-list-row">
-				<div class="col col-50 exhibit-list exhibit-list-left">
-				<ion-item href="#/tab/exhibits/{{exhibit.id}}" ng-repeat="exhibit in exhibits" ng-if="$even" class="card">
-                    <!-- TODO: make this a widget or something? repeated for odds/evens to get 2 col layout -->
-					<div class="item item-body exhibit-container">
-						<div class="item-image">
-							<img class="full-image exhibit-img" src="{{exhibit.img}}">
-						</div>
-                        <div class="exhibit-queue-icon">
-                            <i class="icon ion-social-buffer-outline"></i>
-                        </div>
-                        <div exb-rating rating-value="exhibit.rating" max="5" on-rating-selected="saveRatingToServer(rating)"></div>
-						<p>{{exhibit.name}}</p>
-					</div>
-				</ion-item>
-				</div>
-                <div class="col col-50 exhibit-list exhibit-list-right">
-                    <ion-item href="#/tab/exhibits/{{exhibit.id}}" ng-repeat="exhibit in exhibits" ng-if="$odd" class="card">
-                    <!-- TODO: make this a widget or something? repeated for odds/evens to get 2 col layout -->
-					<div class="item item-body exhibit-container">
-						<div class="item-image">
-							<img class="full-image exhibit-img" src="{{exhibit.img}}">
-						</div>
-                        <div class="exhibit-queue-icon">
-                            <i class="icon ion-social-buffer-outline"></i>
-                        </div>
-                        <div exb-rating rating-value="exhibit.rating" max="5" on-rating-selected="saveRatingToServer(rating)"></div>
-						<p>{{exhibit.name}}</p>
-					</div>
-				  </ion-item>
-                </div>
-			</div>
-		</ion-list>
-        <p class="center-text">Suggested Searches</p>
-        <ion-list>
-            <ion-item ng-repeat="category in categories" class="card">
-                <div class="item">
-                    {{category}}
-                </div>
-            </ion-item>
-        </ion-list>
+    <div class="row exhibit-list-row">
+        <div class="col col-50 exhibit-list exhibit-list-left">
+        <ion-item href="#/tab/exhibits/{{exhibit.id}}" ng-repeat="exhibit in exhibits" ng-if="$even" class="card">
+            <div exb-tile></div>
+        </ion-item>
+        </div>
+        <div class="col col-50 exhibit-list exhibit-list-right">
+            <ion-item href="#/tab/exhibits/{{exhibit.id}}" ng-repeat="exhibit in exhibits" ng-if="$odd" class="card">
+            <div exb-tile></div>
+          </ion-item>
+        </div>
+    </div>
+</ion-list>

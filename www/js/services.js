@@ -1,5 +1,12 @@
 angular.module('espy.services', [])
 
+.directive('exbTile', function() {
+    return {
+        restrict: 'A',
+        templateUrl: '/templates/exhibit-tile.html'
+    }
+})
+
 .directive('exbRating', function () {
     return {
       restrict: 'A',
@@ -66,7 +73,8 @@ angular.module('espy.services', [])
 		name: 'The Application of Critical Thinking in Statistics',
         categories: ['Science', 'Art'],
 		rating: 4,
-		img: 'img/logo.png'
+		img: 'img/logo.png',
+        description: 'This page will display lots of information. LOLOLOL'
 	}, {
 		id: 1,
 		name: 'Exhibit 2',

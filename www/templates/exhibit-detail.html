@@ -1,7 +1,23 @@
 <ion-view view-title="{{exhibit.name}}">
-  <ion-content class="padding">
-    <p>
-      {{exhibit.rating}}
-    </p>
+    <ion-content class="padding item text-center">
+    <ion-slide-box on-slide-changed="slideHasChanged($index)">
+      <ion-slide>
+        <div class="box blue">
+            <div class="item-image">
+                <img class="full-image exhibit-img" src="{{exhibit.img}}">
+            </div>
+            <div exb-rating rating-value="exhibit.rating" max="5" on-rating-selected="saveRatingToServer(rating)"></div>
+            <p>{{exhibit.name}}</p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box yellow"><h1>YELLOW</h1></div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box pink"><h1>PINK</h1></div>
+      </ion-slide>
+    </ion-slide-box>
+    ion-ios-circle-outline
+        ion-ios-circle-filled
   </ion-content>
 </ion-view>
