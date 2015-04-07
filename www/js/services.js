@@ -1,5 +1,73 @@
 angular.module('espy.services', [])
 
+.factory('MapService', function() {
+  var WIDHT = undefined;
+  var HEIGHT = undefined;
+
+  var dt = 1/60.0;
+  var canvas = undefined;
+  var ctx = undefined;
+
+  var canvasWidth = undefined;
+  var canvasHeight = undefined;
+
+  var drawLib = undefined;
+  var user = undefined;
+  var userCollider = undefined;
+
+  var MapImg = undefined;
+  var golFirst = undefined;
+
+  var userLong = undefined;
+  var useLat = undefined;
+  var userX = undefined;
+  var userY = undefined;
+  var userColRad = undefined;
+
+  var exhibits = [];
+  var exColliders = [];
+	var exLong = [];
+	var exLat = [];
+	var exName = [];
+	var exRad = [];
+
+	var beacons = [];
+	var beacLon = [];
+	var beacLat = [];
+	var beacID = [];
+	var beacFloor = [];
+
+  var panSides =  undefined;
+  var panTopBot =  undefined;
+
+  var angle = undefined;
+  var orginLong = undefined;
+  var originLat = undefined;
+
+  var zoomtick = undefined;
+
+  var zoomLevel = undefined;
+  var floor = undefined;
+  var building = undefined,;
+
+  var panspeed = undefined;
+
+  var zoomH = undefined;
+  var zoomW = undefined;
+
+  var trilat = undefined;
+
+	return {
+		init: function() {
+			return;
+		},
+
+		resizeCanvas: function(element) {
+			//element.width = window
+		}
+	}
+})
+
 /* TODO: make this a db call*/
 .factory('Categories', function() {
     var categories = ['Art', 'Science', 'Games'];

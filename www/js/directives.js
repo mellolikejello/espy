@@ -1,5 +1,22 @@
 angular.module('espy.directives', [])
 
+.directive('detectGestures', function($ionicGesture) {
+  return {
+    restrict :  'A',
+
+    link : function(scope, elem, attrs) {
+      var gestureType = attrs.gestureType;
+
+      switch(gestureType) {
+        case 'pinchin':
+          $ionicGesture.on('pinchin', scope.reportEvent, elem);
+          break;
+      }
+
+    }
+  }
+})
+
 .directive('exbTile', function() {
     return {
         restrict: 'A',

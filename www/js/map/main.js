@@ -80,7 +80,6 @@ app.main = {
     
 	// methods
 	init : function() {
-	
 	//var c = document.createElement("canvas");
    // document.body.appendChild(c);
 	this.canvas = document.querySelector('canvas');
@@ -615,12 +614,12 @@ window.onload = function() {
 //startup();
 
 	window.addEventListener("keydown", function(e){
-		//console.log("keydown " + e.keyCode);
+		console.log("keydown " + e.keyCode);
 		app.keydown[e.keyCode] = true;
 	});
 	
 	window.addEventListener("keyup", function(e){
-		//console.log("keyup");
+		console.log("keyup");
 		app.keydown[e.keyCode] = false;
 	});
 
