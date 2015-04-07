@@ -1,15 +1,53 @@
 <ion-view view-title="Map">
-  <ion-content>
-<!--    ==============REMOVE BELOW===============-->
-    <p>MAP</p>
-      <div class="list card">
-      <div class="item item-divider">Title</div>
-      <div class="item item-body">
-        <div>
-          Information
-        </div>
-      </div>
-    </div>
-<!--    ==================REMOVE ABOVE==============-->
-  </ion-content>
+	<ion-content>
+			<style type="text/css">
+		html, body {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+		
+      }
+
+	  #snap{
+		  width:60px;
+		  height:60px;
+		  
+		  background:#DEDEDE;
+		  position:absolute;
+		  top:0;
+		  left:0;
+		  font-size:50px;
+		  border: 1px solid #000;
+		  top:20px;
+	  }
+	  #plus{
+		top:80px;
+	  }
+	  #snap{
+		top:10px;
+		left:10px;
+		color:#ff0000;
+	  }
+		
+	</style>
+		<canvas id="container">Canvas not loaded...</canvas>
+<!--      TODO: make this a directive-->
+		<button  onclick="app.main.snap()" id="snap">R</button>
+
+		<script>
+		// Redirect console.log to Evothings Workbench.
+		if (window.hyper && window.hyper.log) { console.log = hyper.log }
+		</script>
+		<script src="js/map/hammer.js"></script>
+		<script src="libs/jquery/jquery.js"></script>
+		<script src="libs/evothings/evothings.js"></script>
+		<script src="js/map/app.js"></script>
+		<script src="js/map/utils.js"></script>
+<!--	<script src="cordova.js"></script>-->
+
+		<script src="js/main.js"></script>
+		<script src="js/map/drawLib.js"></script>
+		<script src="js/map/user.js"></script>
+		<script src="js/map/exhibit.js"></script>
+	</ion-content>
 </ion-view>
