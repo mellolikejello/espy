@@ -35,16 +35,16 @@ app.main = {
 	exLat:[],
 	exName:[],
 	exRad:[],
-	
+
 	beacons:[],
 	beacLon:[],
 	beacLat:[],
 	beacID:[],
 	beacFloor:[],
-	
+
 	panSides: undefined,
 	panTopBot: undefined,
-	
+
 	angle:undefined,
 	orginLong:undefined,
 	originLat:undefined,
@@ -56,7 +56,7 @@ app.main = {
 	building:undefined, 
 
 	panspeed:undefined,
-	
+
 	zoomH:undefined,
 	zoomW:undefined,
 
@@ -84,10 +84,10 @@ app.main = {
 	//var c = document.createElement("canvas");
    // document.body.appendChild(c);
 	this.canvas = document.querySelector('canvas');
-	
+
 	// Sets up search for beacons
 	app.trilateration.initialize();
-	
+
 	//set up array values
     this.exLong =[-77.679945,-77.676694, -77.671845];
     this.exLat = [43.083855,43.084232, 43.085096];
@@ -99,9 +99,7 @@ app.main = {
 	this.orginLong = -77.681498;
     this.originLat = 43.086354;
 	//set image src's
-   
-   
-  
+
 	//set canvas width and height
 	this.WIDTH = this.getDistance(43.083130, -77.681498,43.083130,  -77.670863,'M')  ;
     this.HEIGHT = this.getDistance(43.086354, -77.675766,43.081586, -77.675766,'M')  ;
@@ -611,19 +609,10 @@ app.main = {
 	  	 	break;
 	  }
 });
- 
-
-  
-
-
-
-
 
 window.onload = function() {
 
 //startup();
-
-
 
 	window.addEventListener("keydown", function(e){
 		//console.log("keydown " + e.keyCode);
@@ -634,7 +623,7 @@ window.onload = function() {
 		//console.log("keyup");
 		app.keydown[e.keyCode] = false;
 	});
-	
+
 
 	app.main.init();
 }
