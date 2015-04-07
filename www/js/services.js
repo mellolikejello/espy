@@ -48,7 +48,7 @@ angular.module('espy.services', [])
 
   var zoomLevel = undefined;
   var floor = undefined;
-  var building = undefined,;
+  var building = undefined;
 
   var panspeed = undefined;
 
