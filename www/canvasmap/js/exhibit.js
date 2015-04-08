@@ -7,7 +7,7 @@ var app = app || {};
 app.Exhibit = function()
 {
 	
-	function Exhibit(radius, x, y, name)
+	function Exhibit(radius, x, y, name,ro)
 	{
 	
 		this.radius = radius;
@@ -15,7 +15,8 @@ app.Exhibit = function()
 		this.y = y;
 		this.color = "#ff0000";
 		this.name  = name;
-		
+		this.rotate = ro;
+		//console.log(ro);
 		
 	}
 	
@@ -33,8 +34,23 @@ app.Exhibit = function()
 	
 	p.draw = function(ctx)
 	{
+		//console.log(this.rotate)
+		var longer = 40;
+		var shorter = 20;
+		var W;
+		var H;
+		if(this.rotate == 2){
+			 W = shorter;
+			 H = longer;
+			//console.log("rotate = two");
+		}
+		else{
+			W = longer;
+		    H = shorter;
+		}
 		
 		app.drawLib.circle(ctx, this.x, this.y, this.radius, this.color,1);
+		//app.drawLib.outRect(ctx, this.x - W/2, this.y - H/2, W, H, "#fff" ,5);
 		
 	};
 	

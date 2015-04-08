@@ -2,35 +2,62 @@
 <html>
 <head>
 <meta charset="utf-8" />
+
 	<style type="text/css">
 		html, body {
         height: 100%;
         margin: 0px;
         padding: 0px
+		
       }
       canvas{
 
     
       	
       }
+	  #snap{
+		  width:60px;
+		  height:60px;
+		  
+		  background:#DEDEDE;
+		  position:absolute;
+		  top:0;
+		  left:0;
+		  font-size:50px;
+		  border: 1px solid #000;
+		  top:20px;
+	  }
+	  #plus{
+		top:80px;
+	  }
+	  #snap{
+		top:10px;
+		left:10px;
+		color:#ff0000;
+	  }
 		
 	</style>
     <title>Espy</title>
 
    
-  
 	
+	
+  <script src="js/hammer.js"></script>
+  
 </head>
 
 <body>
 
-	
+<canvas id="container">Canvas not loaded...</canvas>
 
+<button  onclick="app.main.snap()" id="snap">R</button>
 
 	
 	<script src="js/main.js"></script>
 	<script src="js/drawLib.js"></script>
 	<script src="js/user.js"></script>
 	<script src="js/exhibit.js"></script>
+	
+	
 </body>
 </html>

@@ -8,6 +8,12 @@ app.drawLib = {
 	{
 		ctx.clearRect(x,y,w,h); 
 	},
+	scaleCanvas : function(ctx, w, h){
+		
+		//ctx.save();
+			ctx.scale(	w,h);
+		//ctx.restore();
+	},
 	
 	rect : function(ctx, x, y, w, h, col)
 	{
@@ -70,6 +76,8 @@ app.drawLib = {
 		ctx.fillStyle = col;
 		ctx.strokeStyle = out;
 		ctx.lineWidth = 5;
+		
+		
 		ctx.fillRect(x,y,w,h);
 		ctx.strokeRect(x,y,w,h);
 		ctx.restore();
