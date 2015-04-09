@@ -27,18 +27,12 @@
 		<canvas width="{{viewWidth}}" height="{{viewHeight}}"  detect-gestures gesture-type="hold" id="map-container">Canvas not loaded...</canvas>
 <!--      TODO: make this a directive-->
 		<button onclick="app.main.snap()" id="snap">R</button>
-<!--		<p class="debug-log"></p>-->
 
-		<script>
-		// Redirect console.log to Evothings Workbench.
-		if (window.hyper && window.hyper.log) { console.log = hyper.log }
-		</script>
 		<script src="js/map/hammer.js"></script>
 		<script src="libs/jquery/jquery.js"></script>
 		<script src="libs/evothings/evothings.js"></script>
 		<script src="js/map/app.js"></script>
 		<script src="js/map/utils.js"></script>
-<!--	<script src="cordova.js"></script>-->
 
 		<script src="js/main.js"></script>
 		<script src="js/map/drawLib.js"></script>

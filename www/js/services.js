@@ -2,17 +2,27 @@ angular.module('espy.services', [])
 
 // TODO: replace all app.* This data needs to be sent to this service
 .factory('BeaconService', function() {
+	// Question - this was outside of your app to begin with. Would it be better to store it oustide of this service?
+	var BEACONS = {};
 	// Timer that displays list of beacons.
 	var updateTimer = null;
 	// Custom timer to get users location
-	var locationTimer = null;
+	var locationTimer = null;	
 
 	return {
-		init: function() {
+		init: function($window) {
 			console.log('initializing beacons');
-			return;
-			window.estimote = EstimoteBeacons;
-			this.startScan();
+			
+			if(typeof EstimoteBeacons != 'undefined') {
+				// Question - does this need to be added to window for evothings, or should we just reference it within this service?
+				// This may need to be done in the main app.js
+				// Specify a shortcut for the location manager holding the iBeacon functions.
+				$window.estimote = EstimoteBeacons;
+				this.startScan();
+			} else {
+				console.log('estimote plugin not detected');
+			}
+
 			return;
 		},
 
@@ -26,7 +36,7 @@ angular.module('espy.services', [])
 						var beacon = beaconInfo.beacons[i];
 						beacon.timeStamp = Date.now();
 						var key = beacon.major + ":" + beacon.minor;
-						app.BEACONS[key] = beacon;
+						BEACONS[key] = beacon;
 					}
 				}
 			function onError(errorMessage)
@@ -49,15 +59,14 @@ angular.module('espy.services', [])
 		
 		getLocation: function()
 		{
-			timeNow = Date.now();
+			var timeNow = Date.now();
 
 			var nearestBeacon;
 			var secondNearestBeacon;
 			var thirdNearestBeacon;
 
 			// Update beacon list.
-			// TODO - get beacons (app.BEACONS)
-			$.each(app.BEACONS, function(key, beacon)
+			$.each(BEACONS, function(key, beacon)
 			{
 				// Only show beacons that are updated during the last 20 seconds.
 				if (beacon.timeStamp + 20000 > timeNow)
@@ -66,6 +75,7 @@ angular.module('espy.services', [])
 					if(key == "12350:52257")
 					{
 						//Window Beacon
+						// TODO - figure out where getDistance should live. This service and grab data from map service? Vice versa? A separate service or something?
 						beacon.x = app.main.getDistance(43.084678, app.main.orginLong, 43.084678, -77.679919, 'M');
 						beacon.y = app.main.getDistance(app.main.originLat, -77.679919, 43.084678, -77.679919, 'M');
 
@@ -232,18 +242,15 @@ angular.module('espy.services', [])
 	return {
 		init: function() {
 			console.log('init maps');
+			// NOTE: dynamic CSS changes and updates should be made in directives.js
+			// touch event responses might also work best in the directives file
 
-			// resize canvas
-			
 			// set up necessary variables
-			
-			// initiliaze exhibits and colliders
-			
-			// init user location
-			return;
-		},
 
-		initVariables: function() {
+			// initiliaze exhibits and colliders
+
+			// init user location
+
 			return;
 		}
 	}

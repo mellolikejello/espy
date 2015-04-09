@@ -18,10 +18,15 @@ angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.dire
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
     }
-    });
+			
+		// Redirect console.log to Evothings Workbench.
+		if (window.hyper && window.hyper.log) { 
+			console.log = hyper.log 
+		}
 
-	BeaconService.init();
-	MapService.init();
+		BeaconService.init();
+		MapService.init();
+		})
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
