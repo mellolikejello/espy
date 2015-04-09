@@ -54,3 +54,11 @@
 .queue-empty {
     padding-top: 35vh;
 }
+
+/* Map Styling */
+#map-container {
+/*
+	height: 100%;
+	width: 100%;
+*/
+}

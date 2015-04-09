@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.directives'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, MapService, BeaconService) {
     $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -18,7 +18,15 @@ angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.dire
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
     }
-    });
+			
+		// Redirect console.log to Evothings Workbench.
+		if (window.hyper && window.hyper.log) { 
+			console.log = hyper.log 
+		}
+
+		BeaconService.init();
+		MapService.init();
+		})
 })
 
 .config(function($stateProvider, $urlRouterProvider) {

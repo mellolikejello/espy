@@ -1,5 +1,32 @@
 angular.module('espy.directives', [])
 
+.directive('detectGestures', function($ionicGesture) {
+  return {
+    restrict: 'A',
+
+    link: function(scope, element, attrs) {
+      var gestureType = attrs.gestureType;
+
+      switch(gestureType) {
+        case 'pinchin':
+          $ionicGesture.on('pinchin', scope.reportEvent, element);
+          break;
+      }
+
+    }
+  }
+})
+
+.directive('mapFillView', function() {
+	return {
+		restrict: 'A',
+		link: function(scope, element, attrs) {
+			scope.viewWidth = element[0].clientWidth;
+			scope.viewHeight = element[0].clientHeight;
+		}
+	}
+})
+
 .directive('exbTile', function() {
     return {
         restrict: 'A',
