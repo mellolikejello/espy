@@ -1,39 +1,33 @@
-<ion-view view-title="Map">
-	<ion-content>
-			<style type="text/css">
-		html, body {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-		
-      }
+<ion-view view-title="Map" map-fill-view>
+	<ion-content class="map-content">
+		<style type="text/css">
+			#snap {
+				width:60px;
+				height:60px;
 
-	  #snap{
-		  width:60px;
-		  height:60px;
-		  
-		  background:#DEDEDE;
-		  position:absolute;
-		  top:0;
-		  left:0;
-		  font-size:50px;
-		  border: 1px solid #000;
-		  top:20px;
-	  }
-	  #plus{
-		top:80px;
-	  }
-	  #snap{
-		top:10px;
-		left:10px;
-		color:#ff0000;
-	  }
-		
-	</style>
-		<canvas detect-gestures gesture-type="hold" id="map-container">Canvas not loaded...</canvas>
+				background:#DEDEDE;
+				position:absolute;
+				top:0;
+				left:0;
+				font-size:50px;
+				border: 1px solid #000;
+				top:20px;
+			}
+
+			#plus {
+				top:80px;
+			}
+
+			#snap {
+				top:10px;
+				left:10px;
+				color:#ff0000;
+			}
+		</style>
+		<canvas width="{{viewWidth}}" height="{{viewHeight}}"  detect-gestures gesture-type="hold" id="map-container">Canvas not loaded...</canvas>
 <!--      TODO: make this a directive-->
-		<button  onclick="app.main.snap()" id="snap">R</button>
-		<p class="debug-log"></p>
+		<button onclick="app.main.snap()" id="snap">R</button>
+<!--		<p class="debug-log"></p>-->
 
 		<script>
 		// Redirect console.log to Evothings Workbench.

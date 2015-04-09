@@ -14,7 +14,7 @@ angular.module('espy.controllers', [])
 })
 
 .controller('MapCtrl', function($scope, MapService) {
-	$scope.init = MapService.init();
+	// init maps?
 })
 
 .controller('QueueCtrl', function($scope) {})

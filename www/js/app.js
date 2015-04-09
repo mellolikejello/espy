@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.directives'])
 
-.run(function($ionicPlatform, MapService) {
+.run(function($ionicPlatform, MapService, BeaconService) {
     $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,6 +19,9 @@ angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.dire
         StatusBar.styleDefault();
     }
     });
+
+	BeaconService.init();
+	MapService.init();
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
