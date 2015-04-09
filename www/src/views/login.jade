@@ -1,0 +1,34 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Login
+    block style
+  body
+    div
+      h1 Login
+      form#loginForm(name="loginForm", action="/login", method="POST")
+        input#user(name="username", type="text", placeholder="Username")
+        button#login-btn Sign In
+    block footer
+      script(type="text/javascript", src="https://code.jquery.com/jquery-1.11.0.min.js")
+      script.
+        $('#login-btn').on('click', function(e) {
+          e.preventDefault();
+          $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '/login',
+            data: $('#loginForm').serialize(),
+            dataType: 'json',
+            success: function(result, status, xhr) {
+              function(result) {
+                window.location.href = result.redirect;
+              }
+            },
+            error: function(xhr, status, error) {
+              var msg = JSON.parse(xhr.responseText).error;
+              console.log(msg);
+            }
+          });
+        });

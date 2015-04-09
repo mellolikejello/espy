@@ -19,10 +19,6 @@ var ExhibitSchema = new mongoose.Schema({
     type: String
   },
 
-  floor: {
-    type: Number
-  },
-
   description: {
     type: String
   },
@@ -33,16 +29,28 @@ var ExhibitSchema = new mongoose.Schema({
 
   contributors: {
     type: String
-  }
+  },
 
-  collisionRadius: {
+  radius: {
     type: Number
   },
 
   events: {
     type: Array
+  },
+
+  ratings: {
+    type: Array
   }
 });
+
+ExhibitSchema.statics.findByTag = function(tag, callback) {
+  var search = {
+    tags: { $contains: tag }
+  };
+
+  return ExhibitModel.find(search, callback);
+};
 
 ExhibitModel = mongoose.model('Exhibit', ExhibitSchema);
 
