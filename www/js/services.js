@@ -339,7 +339,22 @@ angular.module('espy.services', [])
         // TODO: complete
         getMostPopular: function(n) {
             return null;   
-        }
+        },
+		
+				getCategoryList: function(category) {
+					var categoryList = [];
+					for(var exbIndex in exhibits) {
+						for(var catIndex in exhibits[exbIndex].categories){
+							console.log(exhibits[exbIndex].categories[catIndex] + ' =? ' + category);
+							if(exhibits[exbIndex].categories[catIndex] == category) {
+								
+								 categoryList.push(exhibits[exbIndex]);
+							}
+						}
+					}
+					console.log(categoryList.length);
+					return categoryList;
+				}
 	};
 })
 

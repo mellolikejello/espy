@@ -27,7 +27,7 @@ var router = require('./router.js');
 router(app);
 
 // Server
-var port = process.env.PORT || process.env.NODE_PORT || 3000;
+var port = process.env.PORT || process.env.NODE_PORT || 8080;
 var server = app.listen(port, function(err) {
   if (err) {
     throw err;

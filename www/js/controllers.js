@@ -9,7 +9,7 @@ angular.module('espy.controllers', [])
     };
 })
 
-.controller('SearchCtrl', function($scope, Categories) {
+.controller('SearchCtrl', function($scope, Categories, Exhibits) {
     $scope.categories = Categories.all();
 })
 

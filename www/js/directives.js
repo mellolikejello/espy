@@ -17,7 +17,23 @@ angular.module('espy.directives', [])
   }
 })
 
-.directive('mapFillView', function() {
+.directive('categorySelector', function(Exhibits) {
+	return {
+		restrict: 'A',
+		
+		link: function(scope, element, attrs) {
+			var category = element.textContent;
+			scope.categoryClick = function(e, category) {
+				debugger;
+				// add list to scope
+				Exhibits.getCategoryList(category); 
+			};
+    	element.bind('click', scope.categoryClick); 
+		}
+	}
+})
+
+.directive('mapViewSize', function() {
 	return {
 		restrict: 'A',
 		link: function(scope, element, attrs) {
