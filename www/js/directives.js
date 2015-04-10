@@ -43,23 +43,6 @@ angular.module('espy.directives', [])
 	}
 })
 
-.directive('paginationDots', function() {
-	return {
-		restrict: 'A',
-		template: '<ul class="pagination-wrapper">' +
-								'<li ng-repeat="page in pages" ng-click="toggle($index)">' +
-								'<i class="ion-ios-circle-outline pagination-dots"></i></li>' +
-							'</ul>',
-		scope: {
-			selectedIndex: '='
-		},
-
-		link: function(scope, element, attrs) {
-			debugger;
-		}
-	}
-})
-
 .directive('exbTile', function() {
     return {
         restrict: 'A',
