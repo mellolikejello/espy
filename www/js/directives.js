@@ -17,21 +17,22 @@ angular.module('espy.directives', [])
   }
 })
 
-.directive('categorySelector', function(Exhibits) {
+.directive('categorySelector', ['$location', function(Exhibits) {
 	return {
 		restrict: 'A',
 
 		link: function(scope, element, attrs) {
-			var category = element.textContent;
 			scope.categoryClick = function(e, category) {
-				debugger;
+				//TODO: encode category for special characters in URL
+				var category = e.target.getAttribute('value');
+				location.assign('#/tab/search/' + category);
 				// add list to scope
-				Exhibits.getCategoryList(category);
+				//Exhibits.getCategoryList(category);
 			};
     	element.bind('click', scope.categoryClick);
 		}
 	}
-})
+}])
 
 .directive('mapViewSize', function() {
 	return {

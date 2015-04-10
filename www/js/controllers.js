@@ -13,6 +13,12 @@ angular.module('espy.controllers', [])
     $scope.categories = Categories.all();
 })
 
+.controller('CategoryCtrl', function($scope, $stateParams, Exhibits) {
+	// get current category
+	$scope.category = $stateParams.categoryName;
+	$scope.exhibits = Exhibits.getCategoryList($stateParams.categoryName);
+})
+
 .controller('MapCtrl', function($scope, MapService) {
 	// init maps?
 })

@@ -12,10 +12,10 @@
     </div>
     <p class="center-text">Explore</p>
     <ion-list>
-        <ion-item ng-repeat="category in categories" class="card">
-            <div class="item" category-selector>
-                {{category}}
-            </div>
+        <ion-item href="#/tab/category/{{category}}" ng-repeat="category in categories" class="card">
+            <div class="item" value="{{category}}" category-selector>
+							{{category}}
+						</div>
         </ion-item>
     </ion-list>
   </ion-content>

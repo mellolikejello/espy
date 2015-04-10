@@ -346,14 +346,12 @@ angular.module('espy.services', [])
 					var categoryList = [];
 					for(var exbIndex in exhibits) {
 						for(var catIndex in exhibits[exbIndex].categories){
-							console.log(exhibits[exbIndex].categories[catIndex] + ' =? ' + category);
 							if(exhibits[exbIndex].categories[catIndex] == category) {
-
 								 categoryList.push(exhibits[exbIndex]);
 							}
 						}
 					}
-					console.log(categoryList.length);
+					console.log('exhibits in category: ' + categoryList.length);
 					return categoryList;
 				}
 	};
