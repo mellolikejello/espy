@@ -26,9 +26,9 @@ angular.module('espy.directives', [])
 			scope.categoryClick = function(e, category) {
 				debugger;
 				// add list to scope
-				Exhibits.getCategoryList(category); 
+				Exhibits.getCategoryList(category);
 			};
-    	element.bind('click', scope.categoryClick); 
+    	element.bind('click', scope.categoryClick);
 		}
 	}
 })
@@ -39,6 +39,23 @@ angular.module('espy.directives', [])
 		link: function(scope, element, attrs) {
 			scope.viewWidth = element[0].clientWidth;
 			scope.viewHeight = element[0].clientHeight;
+		}
+	}
+})
+
+.directive('paginationDots', function() {
+	return {
+		restrict: 'A',
+		template: '<ul class="pagination-wrapper">' +
+								'<li ng-repeat="page in pages" ng-click="toggle($index)">' +
+								'<i class="ion-ios-circle-outline pagination-dots"></i></li>' +
+							'</ul>',
+		scope: {
+			selectedIndex: '='
+		},
+
+		link: function(scope, element, attrs) {
+			debugger;
 		}
 	}
 })

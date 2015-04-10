@@ -54,3 +54,43 @@
 .queue-empty {
     padding-top: 35vh;
 }
+
+.exhibit-detail-view {
+	background-color: white;
+}
+
+.exhibit-bottom-detail {
+	padding-top: 10px;
+}
+
+.slider {
+	background-color: lightgray;
+}
+
+.slider-slide {
+	height: 100%;
+	padding-bottom: 40px;
+}
+
+.slider-pager-page {
+	cursor: pointer;
+}
+
+.button-list {
+	display: flex;
+	justify-content: space-around;
+}
+
+.button-list-item {
+	display: inline-block;
+}
+
+.button-list-item i {
+	font-size: 30px;
+}
+
+.button-list-border {
+	width: 80%;
+}
+
+

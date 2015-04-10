@@ -1,23 +1,41 @@
 <ion-view view-title="{{exhibit.name}}">
-    <ion-content class="padding item text-center">
-    <ion-slide-box on-slide-changed="slideHasChanged($index)">
+    <ion-content class="text-center exhibit-detail-view">
+    <ion-slide-box show-pager="true" on-slide-changed="slideHasChanged($index)">
+<!--			<ion-slide-pager ng-click='slideHasChanged($index)'></ion-slide-pager>-->
       <ion-slide>
-        <div class="box blue">
+				<div class="box">
             <div class="item-image">
                 <img class="full-image exhibit-img" src="{{exhibit.img}}">
             </div>
             <div exb-rating rating-value="exhibit.rating" max="5" on-rating-selected="saveRatingToServer(rating)"></div>
-            <p>{{exhibit.name}}</p>
-        </div>
+            <h4>{{exhibit.name}}</h4>
+						<span ng-repeat="exhibitor in exhibit.exhibitors">
+							{{exhibitor}} <span ng-show="!$last">&bull;</span>
+						</span>
+				</div>
       </ion-slide>
       <ion-slide>
-        <div class="box yellow"><h1>YELLOW</h1></div>
-      </ion-slide>
-      <ion-slide>
-        <div class="box pink"><h1>PINK</h1></div>
+        <div class="box">
+					<p>{{exhibit.description}}</p>
+				</div>
       </ion-slide>
     </ion-slide-box>
-    <p>ion-ios-circle-outline
-        ion-ios-circle-filled</p>
+		<div class="exhibit-bottom-detail">
+			<ul class="button-list">
+				<li class="button-list-item">
+					<i class="icon ion-ios-search placeholder-icon"></i><br>
+					<span>Queue</span>
+				</li>
+				<li class="button-list-item">
+					<i class="icon ion-ios-search placeholder-icon"></i><br>
+					<span>Rate</span>
+				</li>
+				<li class="button-list-item">
+					<i class="icon ion-ios-search placeholder-icon"></i><br>
+					<span>Share</span>
+				</li>
+			</ul>
+			<hr class="button-list-border">
+		</div>
   </ion-content>
 </ion-view>

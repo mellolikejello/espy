@@ -272,10 +272,11 @@ angular.module('espy.services', [])
 	var exhibits = [{
 		id: 0,
 		name: 'The Application of Critical Thinking in Statistics',
-        categories: ['Science', 'Art'],
+    categories: ['Science', 'Art'],
+		exhibitors: ['Rachael Stroebel', 'Kat Pillman'],
 		rating: 4,
 		img: 'img/logo.png',
-        description: 'This page will display lots of information. LOLOLOL'
+        description: 'This page will display lots of information.'
 	}, {
 		id: 1,
 		name: 'Exhibit 2',
