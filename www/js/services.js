@@ -12,7 +12,7 @@ angular.module('espy.services', [])
 	return {
 		init: function($window) {
 			console.log('initializing beacons');
-			
+
 			if(typeof EstimoteBeacons != 'undefined') {
 				// Question - does this need to be added to window for evothings, or should we just reference it within this service?
 				// This may need to be done in the main app.js
@@ -56,7 +56,7 @@ angular.module('espy.services', [])
 				onError);
 
 		},
-		
+
 		getLocation: function()
 		{
 			var timeNow = Date.now();
@@ -319,7 +319,7 @@ angular.module('espy.services', [])
 		all: function() {
 			return exhibits;
 		},
-        
+
         get: function(exhibitId) {
             for(var i in exhibits) {
                 if (exhibits[i].id === parseInt(exhibitId)) {
@@ -328,26 +328,26 @@ angular.module('espy.services', [])
             }
             return null;
         },
-        
+
         // n - number of top exhibits to return
         // TODO: complete
         getTopRated: function(n) {
             return null;
         },
-        
+
         // n - number of top exhibits to return
         // TODO: complete
         getMostPopular: function(n) {
-            return null;   
+            return null;
         },
-		
+
 				getCategoryList: function(category) {
 					var categoryList = [];
 					for(var exbIndex in exhibits) {
 						for(var catIndex in exhibits[exbIndex].categories){
 							console.log(exhibits[exbIndex].categories[catIndex] + ' =? ' + category);
 							if(exhibits[exbIndex].categories[catIndex] == category) {
-								
+
 								 categoryList.push(exhibits[exbIndex]);
 							}
 						}

@@ -20,7 +20,7 @@ angular.module('espy.directives', [])
 .directive('categorySelector', function(Exhibits) {
 	return {
 		restrict: 'A',
-		
+
 		link: function(scope, element, attrs) {
 			var category = element.textContent;
 			scope.categoryClick = function(e, category) {

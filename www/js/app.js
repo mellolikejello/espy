@@ -18,10 +18,10 @@ angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.dire
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
     }
-			
+
 		// Redirect console.log to Evothings Workbench.
-		if (window.hyper && window.hyper.log) { 
-			console.log = hyper.log 
+		if (window.hyper && window.hyper.log) {
+			console.log = hyper.log;
 		}
 
 		BeaconService.init();
@@ -104,7 +104,7 @@ angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.dire
         }
       }
     })
-    
+
     .state('tab.exhibit-detail', {
       url: '/exhibits/:exhibitId',
       views: {
