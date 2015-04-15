@@ -66,7 +66,7 @@ angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.dire
   })
 
 	.state('tab.category', {
-    url: '/category/:categoryName',
+    url: '/search/category/:categoryName',
     views: {
       'tab-search': {
         templateUrl: 'templates/tab-category.html',

@@ -1,4 +1,8 @@
-angular.module('espy.services', [])
+angular.module('espy.services', ['ngResource'])
+
+ .factory('Database', function ($resource) {
+		 return $resource('http://ionic-directory.herokuapp.com/employees/:employeeId/:data');
+ })
 
 // TODO: replace all app.* This data needs to be sent to this service
 .factory('BeaconService', function() {

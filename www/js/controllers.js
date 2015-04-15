@@ -17,6 +17,8 @@ angular.module('espy.controllers', [])
 	// get current category
 	$scope.category = $stateParams.categoryName;
 	$scope.exhibits = Exhibits.getCategoryList($stateParams.categoryName);
+	//TODO: Database.query();
+//	$scope.employees = Employees.query();
 })
 
 .controller('MapCtrl', function($scope, MapService) {
