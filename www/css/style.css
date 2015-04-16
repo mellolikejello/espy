@@ -28,6 +28,11 @@
     padding: 0;
 }
 
+/* TODO: add exhibit card classes to switch color types */
+.exhibit-list .card {
+	border-left: 3px solid red;
+}
+
 .exhibit-list-left {
     padding-right: 10px;
 }
