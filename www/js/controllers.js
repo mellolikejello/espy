@@ -12,17 +12,20 @@ angular.module('espy.controllers', [])
 .controller('SearchCtrl', function($scope, $stateParams, $location, $state, Categories, Exhibits) {
 	var category = $stateParams.category;
 	$scope.categories = Categories.all();
-	$location.search('category', null);
-	// TODO: remove query string!!
-	if(category != null) {
-		$state.go('tab.category', {name: category});
-	}
+//	$location.search('category', null);
+//	// TODO: remove query string!!
+//	if(category != null) {
+////		$state.go('tab.category', {name: category});
+//		delete $location.$$search.category;
+//		$location.$$compose();
+//		$state.go('tab.category', {name: category});
+//	}
 })
 
 .controller('CategoryCtrl', function($scope, $stateParams, Exhibits) {
 	// get current category
-	$scope.category = $stateParams.name;
-	$scope.exhibits = Exhibits.getCategoryList($stateParams.name);
+	$scope.category = $stateParams.category;
+	$scope.exhibits = Exhibits.getCategoryList($stateParams.category);
 	//TODO: Database.query();
 //	$scope.employees = Employees.query();
 })

@@ -139,8 +139,8 @@
 .exhibit-queue-icon i{
     font-size: 30px;
     position: absolute;
-    top: 5vh;
-    left: 32vw;
+    top: 2vh;
+    left: 27vw;
 }
 
 .queue-empty {
