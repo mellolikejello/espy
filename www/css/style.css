@@ -1,9 +1,89 @@
+/*
+	style guide colors
+
+	TODO: remove once all colors are set
+*/
+.colors {
+	/* text colors */
+/*	white*/
+	color: #FFFFFF;
+/*	light gray */
+	color: #DBE1E8;
+/*	mid gray */
+	color: #9EA7B3;
+/*	dark gray */
+	color: #5E6D81;
+
+/*	background colors */
+/*	top header */
+	color: #3DB4C8;
+/*	card tiles */
+	color: #FFFFFF;
+/*	background */
+	color: #F2F2F2;
+/*	bottom nav */
+	color: #323A45;
+
+/*	main colors */
+/*	light blue */
+	color: #3DB4C8;
+/*	yellow */
+	color: #FFD464;
+
+/* college colors */
+/*	green place */
+	color: #4BE530;
+/*	business dist */
+	color: #3DB549;
+/*	computer zone */
+	color: #07C2AF;
+/*	tech quarter */
+	color: #3AC7E8;
+/*	field house */
+	color: #3C91E5;
+/*	innovation center */
+	color: #354AA5;
+/*	global village */
+	color: #EC6A80;
+/*	think tank */
+	color: #D11E1E;
+/*	engineering park */
+	color: #F27935;
+/*	info section */
+	color: #ED9A37;
+/*	RIT central */
+	color: #F4C031;
+/*	science center */
+	color: #F7EF4A;
+/*	artistic alley */
+	color: #A053BC;
+}
+
+.bar.bar-positive {
+	background-color: #3DB4C8;
+	border-color: #3DB4C8;
+}
+
+.tabs-positive > .tabs {
+	background-color: #323A45;
+	border-color: #323A45;
+}
+
+.card {
+	box-shadow: none;
+	border: none;
+}
+
 .pane {
-    background-color: lightgray;
+    background-color: #F2F2F2;
 }
 
 .center-text {
     text-align: center;
+}
+
+.item-input {
+	border: none;
 }
 
 .search input {
@@ -30,7 +110,14 @@
 
 /* TODO: add exhibit card classes to switch color types */
 .exhibit-list .card {
-	border-left: 3px solid red;
+	border-top: 5px solid #4BE530;
+	border-right: none;
+	border-bottom: none;
+	border-left: none;
+	box-shadow: none;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	/* border radius*/
 }
 
 .exhibit-list-left {
