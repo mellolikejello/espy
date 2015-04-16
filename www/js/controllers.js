@@ -9,14 +9,20 @@ angular.module('espy.controllers', [])
     };
 })
 
-.controller('SearchCtrl', function($scope, Categories, Exhibits) {
-    $scope.categories = Categories.all();
+.controller('SearchCtrl', function($scope, $stateParams, $location, $state, Categories, Exhibits) {
+	var category = $stateParams.category;
+	$scope.categories = Categories.all();
+	$location.search('category', null);
+	// TODO: remove query string!!
+	if(category != null) {
+		$state.go('tab.category', {name: category});
+	}
 })
 
 .controller('CategoryCtrl', function($scope, $stateParams, Exhibits) {
 	// get current category
-	$scope.category = $stateParams.categoryName;
-	$scope.exhibits = Exhibits.getCategoryList($stateParams.categoryName);
+	$scope.category = $stateParams.name;
+	$scope.exhibits = Exhibits.getCategoryList($stateParams.name);
 	//TODO: Database.query();
 //	$scope.employees = Employees.query();
 })

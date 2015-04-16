@@ -1,22 +1,30 @@
 <ion-view view-title="Search">
   <ion-content class="padding">
-    <div class="list list-inset">
-      <label class="item item-input">
-        <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="text" placeholder="Search">
-      </label>
-    </div>
-    <div class="card row">
-        <div class="col col-50 text-center">Top Rated</div>
-        <div class="col col-50 text-center">Popular</div>
-    </div>
-    <p class="center-text">Explore</p>
-    <ion-list>
-        <ion-item href="#/tab/search/category/{{category}}?category={{category}}" ng-repeat="category in categories" class="card">
-            <div class="item" value="{{category}}" category-selector>
-							{{category}}
-						</div>
-        </ion-item>
-    </ion-list>
+		<div ui-view>
+			<div class="list list-inset">
+				<label class="item item-input">
+					<i class="icon ion-ios-search placeholder-icon"></i>
+					<input type="text" placeholder="Search">
+				</label>
+			</div>
+			<div class="card row">
+					<div class="col col-50 text-center">Top Rated</div>
+					<div class="col col-50 text-center">Popular</div>
+			</div>
+			<p class="center-text">Explore</p>
+			<ion-list>
+					<ion-item ui-sref="tab.search({category: '{{category}}'})" ng-repeat="category in categories" class="card">
+							<div class="item" value="{{category}}" category-selector>
+								{{category}}
+							</div>
+					</ion-item>
+			</ion-list>
+		</div>
+<!--
+		<div ui-view="tab-searched">
+			<p>hereherheh</p>
+			<div exb-list></div>
+		</div>
+-->
   </ion-content>
 </ion-view>
