@@ -11,7 +11,7 @@ angular.module('espy.services', ['ngResource'])
 	// Timer that displays list of beacons.
 	var updateTimer = null;
 	// Custom timer to get users location
-	var locationTimer = null;	
+	var locationTimer = null;
 
 	return {
 		init: function($window) {
