@@ -16,7 +16,7 @@
         <div exb-list></div>
         <p class="center-text">Suggested Searches</p>
         <ion-list>
-            <ion-item href="#/tab/search/category/{{category}}" ng-repeat="category in categories" class="card">
+            <ion-item ui-sref="tab.search({category: '{{category}}'})" ng-repeat="category in categories" class="card">
                 <div class="item">
                     {{category}}
                 </div>
