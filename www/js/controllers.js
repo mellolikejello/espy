@@ -37,19 +37,6 @@ angular.module('espy.controllers', [])
 
 .controller('QueueCtrl', function($scope) {})
 
-/* TODO: remove, using as example for now */
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
-})
-
-/* TODO: remove, using as example for now */
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
 .controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
 })
