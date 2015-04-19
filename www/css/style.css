@@ -1,5 +1,5 @@
-/*
-	style guide colors
+@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
+/*	style guide colors
 
 	TODO: remove once all colors are set
 */
@@ -59,6 +59,46 @@
 	color: #A053BC;
 }
 
+/* Fonts */
+* {
+	font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, h7, .bar.title {
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+}
+
+h1, .bar.title {
+	color: #FFFFFF;
+	font-size: 32px;
+}
+
+h2 {
+	color: #9EA7B3;
+	font-size: 32px;
+}
+
+h3 {
+	color: #FFFFFF;
+	font-size: 26px;
+}
+
+h4 {
+	color: #DBE1E8;
+	font-size: 26px;
+}
+
+h5 {
+	color: #9EA7B3;
+	font-size: 26px;
+}
+
+h6 {
+	color: #5E6D81;
+	font-size: 26px;
+}
+
 .bar.bar-positive {
 	background-color: #3DB4C8;
 	border-color: #3DB4C8;
@@ -80,6 +120,10 @@
 
 .center-text {
     text-align: center;
+}
+
+.all-caps {
+	text-transform: uppercase;
 }
 
 .item-input {
