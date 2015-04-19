@@ -219,18 +219,20 @@ angular.module('espy.services', ['ngResource'])
 
 .factory('Exhibits', function($http) {
   var exhibits = [];
-  $http.get('https://imagine-rit-espy.herokuapp.com/api/exhibits').
-	success(function(data, status, headers, config) {
-		// this callback will be called asynchronously
-		// when the response is available
-		exhibits = data;
-		console.log('Exhibits found: ' + data.length);
-	}).
-	error(function(data, status, headers, config) {
-		// called asynchronously if an error occurs
-		// or server returns response with an error status.
-		console.log('error getting exhibit data');
-	});
+  var synced = false;
+//  $http.get('https://imagine-rit-espy.herokuapp.com/api/exhibits').
+//	success(function(data, status, headers, config) {
+//		// this callback will be called asynchronously
+//		// when the response is available
+//		exhibits = data;
+//		synced = true;
+//		console.log('Exhibits found: ' + data.length);
+//	}).
+//	error(function(data, status, headers, config) {
+//		// called asynchronously if an error occurs
+//		// or server returns response with an error status.
+//		console.log('error getting exhibit data');
+//	});
 //	var exhibits = [{
 //		id: 0,
 //		name: 'The Application of Critical Thinking in Statistics',
@@ -280,7 +282,21 @@ angular.module('espy.services', ['ngResource'])
 
 	return {
 		all: function() {
+		  if(!synced) {
+			return $http.get("https://imagine-rit-espy.herokuapp.com/api/exhibits")
+			  	.then(function(result){
+			  		synced = true;
+			  		exhibits = result.data;
+			  		console.log('exhibits loaded: ' + exhibits.length);
+			  		return exhibits;
+		  		});
+		  } else {
 			return exhibits;
+		  }
+		},
+
+	  	isSynced: function() {
+		  return synced;
 		},
 
         get: function(exhibitId) {

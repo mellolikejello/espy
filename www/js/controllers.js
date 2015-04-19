@@ -1,12 +1,22 @@
 angular.module('espy.controllers', [])
 
 .controller('HomeCtrl', function($scope, Exhibits, Categories) {
-	$scope.exhibits = Exhibits.all();
     $scope.categories = Categories.all();
     $scope.saveRatingToServer = function(rating) {
       /* TODO - add server call, update rating */
       console.log('Rating selected - ' + rating);
     };
+
+//	if exhibit list hasn't been retrieved from db
+	if(! Exhibits.isSynced()) {
+		var dataPromise = Exhibits.all();
+		// this is only run after $http completes
+		dataPromise.then(function(result) {
+		   $scope.exhibits = result;
+		});
+	} else {
+		$scope.exhibits = Exhibits.all();
+	}
 })
 
 // TODO: remove unneeded params
