@@ -9,16 +9,16 @@
         <div class="list list-inset">
           <label class="item item-input">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="text" placeholder="Search">
+            <h4><input type="text" placeholder="Search"></h4>
           </label>
         </div>
-		<p class="center-text">Suggestions for you</p>
+		<h6 class="center-text all-caps">Suggestions for you</h6>
         <div exb-list></div>
         <p class="center-text">Suggested Searches</p>
         <ion-list>
             <ion-item href="#/tab/search/{{category}}" ng-repeat="category in categories" class="card">
                 <div class="item">
-                    {{category}}
+                    <h2>{{category}}</h2>
                 </div>
             </ion-item>
         </ion-list>
