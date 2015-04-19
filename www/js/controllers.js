@@ -9,6 +9,7 @@ angular.module('espy.controllers', [])
     };
 })
 
+// TODO: remove unneeded params
 .controller('SearchCtrl', function($scope, $stateParams, $location, $state, Categories, Exhibits) {
 	var category = $stateParams.category;
 	$scope.categories = Categories.all();

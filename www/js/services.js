@@ -1,9 +1,5 @@
 angular.module('espy.services', ['ngResource'])
 
- .factory('Database', function ($resource) {
-		 return $resource('http://ionic-directory.herokuapp.com/employees/:employeeId/:data');
- })
-
 // TODO: replace all app.* This data needs to be sent to this service
 .factory('BeaconService', function() {
 	// Question - this was outside of your app to begin with. Would it be better to store it oustide of this service?
@@ -189,59 +185,6 @@ angular.module('espy.services', ['ngResource'])
 .factory('MapService', function() {
 	// TODO: decide which variables are needed for MapService
 	// and which should be specific to each function
-  var WIDHT = undefined;
-  var HEIGHT = undefined;
-
-  var dt = 1/60.0;
-  var canvas = undefined;
-  var ctx = undefined;
-
-  var canvasWidth = undefined;
-  var canvasHeight = undefined;
-
-  var drawLib = undefined;
-  var user = undefined;
-  var userCollider = undefined;
-
-  var MapImg = undefined;
-  var golFirst = undefined;
-
-  var userLong = undefined;
-  var useLat = undefined;
-  var userX = undefined;
-  var userY = undefined;
-  var userColRad = undefined;
-
-  var exhibits = [];
-  var exColliders = [];
-	var exLong = [];
-	var exLat = [];
-	var exName = [];
-	var exRad = [];
-
-	var beacons = [];
-	var beacLon = [];
-	var beacLat = [];
-	var beacID = [];
-	var beacFloor = [];
-
-  var panSides =  undefined;
-  var panTopBot =  undefined;
-
-  var angle = undefined;
-  var orginLong = undefined;
-  var originLat = undefined;
-
-  var zoomtick = undefined;
-
-  var zoomLevel = undefined;
-  var floor = undefined;
-  var building = undefined;
-
-  var panspeed = undefined;
-
-  var zoomH = undefined;
-  var zoomW = undefined;
 
 	return {
 		init: function() {
@@ -260,65 +203,80 @@ angular.module('espy.services', ['ngResource'])
 	}
 })
 
-/* TODO: make this a db call*/
 .factory('Categories', function() {
-    var categories = ['Art', 'Science', 'Games'];
+    var categories = ['Art', 'Business', 'Communication', 'Community',
+		'Dance', 'Design', 'Energy', 'Engineering', 'Environment', 'Gaming',
+		'Global', 'Health', 'Music', 'Senior Projects', 'Science', 'Software',
+		'Student Organization', 'Sustainability', 'Technology', 'Photography',
+		'Math', 'Sports', 'Multidisciplinary', 'STEM', 'Entrepreneurship'];
 
-    return {
+	return {
         all: function() {
             return categories;
         }
     }
 })
 
-/* TODO: make this a db call*/
-.factory('Exhibits', function() {
-	var exhibits = [{
-		id: 0,
-		name: 'The Application of Critical Thinking in Statistics',
-    categories: ['Science', 'Art'],
-		exhibitors: ['Rachael Stroebel', 'Kat Pillman'],
-		rating: 4,
-		img: 'img/logo.png',
-        description: 'This page will display lots of information.'
-	}, {
-		id: 1,
-		name: 'Exhibit 2',
-		rating: 3,
-        categories: ['Games', 'Art'],
-		img: 'img/logo.png'
-    }, {
-		id: 3,
-		name: 'Zombies: Flash as a Medium',
-		rating: 3,
-        categories: ['Games', 'Science'],
-		img: 'img/logo.png'
-    }, {
-		id: 4,
-		name: 'The Application of Critical Thinking in Statistics',
-		rating: 3,
-		img: 'img/logo.png'
-    }, {
-		id: 5,
-		name: 'Zombies: Flash as a Medium',
-		rating: 3,
-		img: 'img/logo.png'
-    }, {
-		id: 6,
-		name: 'Zombies: Flash as a Medium',
-		rating: 3,
-		img: 'img/logo.png'
-    }, {
-		id: 7,
-		name: 'The Application of Critical Thinking in Statistics',
-		rating: 3,
-		img: 'img/logo.png'
-    }, {
-		id: 8,
-		name: 'Zombies: Flash as a Medium',
-		rating: 3,
-		img: 'img/logo.png'
-	}];
+.factory('Exhibits', function($http) {
+  var exhibits = [];
+  $http.get('https://imagine-rit-espy.herokuapp.com/api/exhibits').
+	success(function(data, status, headers, config) {
+		// this callback will be called asynchronously
+		// when the response is available
+		exhibits = data;
+		console.log('Exhibits found: ' + data.length);
+	}).
+	error(function(data, status, headers, config) {
+		// called asynchronously if an error occurs
+		// or server returns response with an error status.
+		console.log('error getting exhibit data');
+	});
+//	var exhibits = [{
+//		id: 0,
+//		name: 'The Application of Critical Thinking in Statistics',
+//    categories: ['Science', 'Art'],
+//		exhibitors: ['Rachael Stroebel', 'Kat Pillman'],
+//		rating: 4,
+//		img: 'img/logo.png',
+//        description: 'This page will display lots of information.'
+//	}, {
+//		id: 1,
+//		name: 'Exhibit 2',
+//		rating: 3,
+//        categories: ['Games', 'Art'],
+//		img: 'img/logo.png'
+//    }, {
+//		id: 3,
+//		name: 'Zombies: Flash as a Medium',
+//		rating: 3,
+//        categories: ['Games', 'Science'],
+//		img: 'img/logo.png'
+//    }, {
+//		id: 4,
+//		name: 'The Application of Critical Thinking in Statistics',
+//		rating: 3,
+//		img: 'img/logo.png'
+//    }, {
+//		id: 5,
+//		name: 'Zombies: Flash as a Medium',
+//		rating: 3,
+//		img: 'img/logo.png'
+//    }, {
+//		id: 6,
+//		name: 'Zombies: Flash as a Medium',
+//		rating: 3,
+//		img: 'img/logo.png'
+//    }, {
+//		id: 7,
+//		name: 'The Application of Critical Thinking in Statistics',
+//		rating: 3,
+//		img: 'img/logo.png'
+//    }, {
+//		id: 8,
+//		name: 'Zombies: Flash as a Medium',
+//		rating: 3,
+//		img: 'img/logo.png'
+//	}];
 
 	return {
 		all: function() {
@@ -346,18 +304,18 @@ angular.module('espy.services', ['ngResource'])
             return null;
         },
 
-				getCategoryList: function(category) {
-					var categoryList = [];
-					for(var exbIndex in exhibits) {
-						for(var catIndex in exhibits[exbIndex].categories){
-							if(exhibits[exbIndex].categories[catIndex] == category) {
-								 categoryList.push(exhibits[exbIndex]);
-							}
-						}
+		getCategoryList: function(category) {
+			var categoryList = [];
+			for(var exbIndex in exhibits) {
+				for(var catIndex in exhibits[exbIndex].categories){
+					if(exhibits[exbIndex].categories[catIndex] == category) {
+						 categoryList.push(exhibits[exbIndex]);
 					}
-					console.log('exhibits in category: ' + categoryList.length);
-					return categoryList;
 				}
+			}
+			console.log('exhibits in category: ' + categoryList.length);
+			return categoryList;
+		}
 	};
 })
 
