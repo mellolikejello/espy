@@ -108,6 +108,10 @@ h6 {
 	border-color: #323A45;
 }
 
+.tab-item .icon {
+	font-size: 24px;
+}
+
 .card {
 	box-shadow: none;
 	border: none;
@@ -209,6 +213,10 @@ h6 {
 ================================================
 */
 
+.category-list h2 {
+	line-height: 2;
+}
+
 .category-icon {
 	float: left;
 	font-size: 32px;
@@ -231,11 +239,14 @@ h6 {
     max-width: 100px;
 }
 
-.exhibit-queue-icon i{
+.exhibit-queue-icon img{
+/*
     font-size: 30px;
     position: absolute;
     top: 2vh;
     left: 27vw;
+*/
+	width: 30px;
 }
 
 .queue-empty {
