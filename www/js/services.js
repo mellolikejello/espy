@@ -207,7 +207,7 @@ angular.module('espy.services', ['ngResource'])
     var categories = ['Art', 'Business', 'Communication', 'Community',
 		'Dance', 'Design', 'Energy', 'Engineering', 'Environment', 'Gaming',
 		'Global', 'Health', 'Music', 'Senior Projects', 'Science', 'Software',
-		'Student Organization', 'Sustainability', 'Technology', 'Photography',
+		'Student Organizations', 'Sustainability', 'Technology', 'Photography',
 		'Math', 'Sports', 'Multidisciplinary', 'STEM', 'Entrepreneurship'];
 
 	return {
