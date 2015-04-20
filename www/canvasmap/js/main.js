@@ -1,7 +1,4 @@
-
 "use strict";
-
-
 
 var app = app || {};
 
@@ -9,216 +6,663 @@ app.keydown = [];
 
 app.main = {
 	//variables
-	WIDHT:undefined,
-    HEIGHT:undefined,
-	
-	dt:1/60.0,
+	WIDTH: undefined,
+	HEIGHT:undefined,
+
 	canvas:undefined,
-    ctx:undefined,
-
-	canvasWidth:undefined,
-    canvasHeight:undefined,
-
-	drawLib:undefined,
+	ctx:undefined,
+	
 	user:undefined,
-	userCollider:undefined,
-
-	MapImg:undefined,
-	golFirst:undefined,
-	
-
-
+	userLat:undefined,
 	userLong:undefined,
-	useLat:undefined,
-	userX:undefined,
-	userY:undefined,
-	userColRad:undefined,
-
-	exhibits:[],
-	exColliders:[],
-	exLong:[],
-	exLat:[],
-	exName:[],
-	exRad:[],
 	
-	beacons:[],
-	beacLon:[],
-	beacLat:[],
-	beacID:[],
-	beacFloor:[],
-	
-	panSides: undefined,
-	panTopBot: undefined,
-	
-	angle:undefined,
-	orginLong:undefined,
-	originLat:undefined,
+	exhibits:undefined,
 
-	zoomtick:undefined,
+	originLong:-77.685955,
+	originLat: 43.087979,
 
-	zoomLevel:undefined,
-	floor:undefined,
-	building:undefined, 
+	panspeed:15,
 
-	panspeed:undefined,
-	
-	zoomH:undefined,
-	zoomW:undefined,
+	triLat:undefined,
 
-	trilat:undefined,
+	fhOlat:43.085403,
+	fhOlong: -77.672272,
+
+	FHN: this.fhOlat,
+	FHS:43.084853,
+	FHE: -77.671043,
+	FHW: this.fhOlong,
+
+	maxuserCircW:undefined,
+
+	fhx:undefined,
+	fhy:undefined,
 
 	fhWidth:undefined,
 	fhHeight:undefined,
 
 	FHcol:undefined,
-	mapState:undefined,
+
+
+
+	building:undefined,
+	zoomLevel:undefined,
+ 	matrix:[],
+ 	mat2:[],
+ 	fhMode:undefined,
+	zoomtick:undefined,
+ 	FieldHouse:undefined,
+	fhMult:undefined,
+	zoomTick:undefined,
+	center:undefined,
+	currentInfo: [],
+	snapButton:undefined,
+	topText:undefined,
+
+	xOffset: 30,
+	yOffset: -15,
+	exImgs:[],
+	userAnimate:undefined,
+	textCol : {
+   		white:"#fff",
+   		light:"#DBE1E8",
+   		mid: "#9ea7b3",
+   		dark: "#5e6d81",
+   },
+   colors:{
+   		teal: "#3db4c8",
+   		gold: "#FFD464",
+   		alert: "#DE5B5B",
+   },
+	wholeMapLocations: [],
+
+	backBut:undefined,
+	qCirc:undefined,
+	currentCollider:[],
+	clock:undefined,
+	buffer:undefined,
+	times:[1800,3600,5400,7200,9000,10800,18000,28800,36000],
+	tapTimer:undefined,
+	taps:[],
+	userisInZone:undefined,
+	qUp:undefined,
+	qAup:undefined,
+	zoomedOut:undefined,
+	panTopAllowed:undefined,
+	panBotAllowed:undefined,
+	panLeftAllowed:undefined,
+	panRightAllowed:undefined,
+
+	queued:undefined,
+	exhibits: undefined,
+	zoneColliders:undefined,
+	canv: undefined,
+	alertTimer:undefined,
+	tut1:undefined,
+	tut2:undefined,
+	tut3:undefined,
+	
+
 //nw 43.086354,-77.681498
-//se 	43.081586,-77.670863
 
-//Width Points
-//43.083168, -77.685272
-//43.083168 ,-77.665784
-
-//Height Points
-//43.088647, -77.675077
-//43.080071, -77.675077
-    
-// west 43.083130, -77.681498
-// east  43.083130,  -77.670863
-// north 43.086354, -77.675766
-// south 43.081586, -77.675766
     
 	// methods
 	init : function() {
-	
-	//var c = document.createElement("canvas");
-   // document.body.appendChild(c);
-	this.canvas = document.querySelector('canvas');
 
-	this.orginLong = -77.681498;
-    this.originLat = 43.086354;
-	
-	var FHN = 43.085387;
-	var FHS = 43.084847;
-	var FHHLong = -77.671668;
+		var t = this;
+		this.canvas = document.querySelector('canvas');
+		this.ctx = this.canvas.getContext('2d');
+		this.initExZones();
+		this.userAnimate = 60;
+		this.zoomLevel = 0;
+		this.zoomTick = 0;
+		this.maxuserCircW = 60;
+		this.topText = "Imagine RIT";
+		this.qCirc = 60;
+		this.clock = 0;
+		this.buffer = 180;
+		this.tapTimer = 30;
+		this.taps =  [{ x:0, y:0, }, {x:100, y:100,}];
+		this.userisInZone = false;
+		this.qUp = false;
+		this.qAup = false;
+		this.zoomedOut = false;
+		this.panTopAllowed = true;
+		this.panRightAllowed = true;
+		this.panLeftAllowed = true;
+		this.panBotAllowed = true;
+		this.queued = ['Delete before Ionic'];
+		this.matrix = [1,0,0,1,0,0];
+		this.alertTimer = 0;
+		this.fhx = this.getDistance(t.fhOlat,t.originLong,t.fhOlat,t.fhOlong,'M');
+		this.fhy = this.getDistance(t.originLat,t.fhOlong,t.fhOlat,t.fhOlong,'M') ;
+		this.triLat = app.trilateration;
+		this.initLocalStorage();
 
-	var FHE = -77.672238;
-	var FHW = -77.671047;
-	var FHWLat = 43.085075;
+		this.tut1 = window.localStorage.getItem("tut1");
+		this.tut2 = window.localStorage.getItem("tut2");
+		this.tut3 = window.localStorage.getItem("tut3");
 
-	var fhLat = 43.085382;
-	var fhLong = -77.672241;
-	var fhx = this.getDistance(fhLat,this.orginLong,fhLat,fhLong,'M') ;
-	var fhy = this.getDistance(this.originLat,fhLong,fhLat,fhLong,'M') ;
-
-	
-	//set up array values
-	this.fhWidth = this.getDistance(FHWLat,FHE,FHWLat,FHW);
-	this.fhHeight = this.getDistance(FHN,FHHLong,FHS,FHHLong);
-	console.log(this.fhWidth * 5,this.fhHeight * 5);
-
-	this.FHcol = {
-		x: fhx ,
-		y: fhy ,
-		width: this.fhWidth,
-		height: this.fhHeight,
-
-	};
-	console.log(this.FHcol.x,this.FHcol.y)
-    this.exLong =[-77.679945,-77.676694, -77.671845];
-    this.exLat = [43.083855,43.084232, 43.085096];
-    this.exName = ["GOL","QM", "GFH"];
-	this.exRad = [40,20,30];
-
-   //set up static values
-    this.angle = 0;
-	
-	//set image src's
-   
-   
-  
-	//set canvas width and height
-	this.WIDTH = this.getDistance(43.083130, -77.681498,43.083130,  -77.670863,'M')  ;
-    this.HEIGHT = this.getDistance(43.086354, -77.675766,43.081586, -77.675766,'M')  ;
-	
-	this.canvas.width = this.WIDTH;
-    this.canvas.height = this.HEIGHT;
-    
-	//set up this.ctx
-	this.ctx = this.canvas.getContext('2d');
-	//initiate exhibits array
-    for(var i = 0; i < this.exName.length; i++){
-			var radius = 10;
-			var Lat = this.exLat[i];
-			var Long = this.exLong[i];
-			var x = this.getDistance(Lat,this.orginLong,Lat,Long,'M') ;
-			var y = this.getDistance(this.originLat,Long,Lat,Long,'M') ;
-			var name = this.exName[i];
-			var ro = 2;
-			this.createExhibits(radius,x,y,name,ro);
+		for(var k = 0; k < this.exhibits.length; k++){
+			var ex = this.exhibits[k];
+			this.exImgs.push(new Image());
+			var newX = ex.x/this.fhMult;
+			var	newY = ex.y/this.fhMult;
+				newX = newX + this.fhx - this.xOffset/2;
+				newY = newY + this.fhy + this.yOffset;
+			var	newR = ex.r/this.fhMult;
+			this.wholeMapLocations.push({x:newX, y:newY, r:newR, name:ex.name, tags:ex.tags});
+		}   
+		this.loadImages();
+		this.initObj();
+		this.initMap();	
+		this.canv = {
+			x: 0,
+			y:0,
+			w:this.WIDTH,
+			h:this.HEIGHT,
 		}
-	 //initiate exhibit colliders array
-	 for(var i = 0; i < this.exhibits.length; i++){
-			var radius = this.exRad[i];
-			var Lat = this.exLat[i];
-			var Long = this.exLong[i];
-			var x = this.getDistance(Lat,this.orginLong,Lat,Long,'M') ;
-			var y = this.getDistance(this.originLat,Long,Lat,Long,'M') ;
-			var name = this.exName[i];
-			this.createExhibitsColliders(radius,x,y,name);
+		this.snap(this.FHcol);
+		this.update();
+		this.mat2 = this.matrix;
+
+
+	},
+	initLocalStorage: function(){
+		if(localStorage.getItem("tut1") === null){
+			localStorage.setItem("tut1","true");
+
+		}
+		if(localStorage.getItem("tut2") === null){
+			localStorage.setItem("tut2","true");
+			
+		}
+		if(localStorage.getItem("tut3") === null){
+			localStorage.setItem("tut3","true");
+			
 		}
 		
-		for(var i = 0; i < this.beacID.length; i++){
-			
-			var Lat = this.beacLat[i];
-			var Long = this.beacLong[i];
-			var x = this.getDistance(Lat,this.orginLong,Lat,Long,'M') ;
-			var y = this.getDistance(this.originLat,Long,Lat,Long,'M') ;
-			var id= this.beacID[i];
-			var floor = this.beacFloor[i];
-			this.beacons.push(new app.Beacon( x, y, id, floor));
-		}
-    
-	//set up classes to be called this.class instead of app.class (not really necessary I just prefer it)
-    this.drawLib= app.drawLib;
-	this.user = app.user;
-	this.userCollider = app.userCollider;
-	this.trilaterate = app.trilateration; 
-	
-	
-	this.zoomtick = 30;
 
-	this.floor = 2;
-	this.building = '';
-
-	this.zoomW = this.WIDTH;
-	this.zoomH = this.HEIGHT;
-
-	//this.ctx.scale(.5,.5);
-	
-	//initalize users location (must be called in update when keyboard controls are no longer needed for testing)
-	this.updateUserLocation();
-    //call the update function update
-	this.panSides = 0;
-	this.panTopBot = 0;
-	this.zoomLevel = 0;
-	this.panspeed = 15;
-	this.loadImages();
-	this.snap();
-    this.update();
 	},
-	//create new exhibit
-	createExhibits: function (radius, x, y, name,ro) {
-        this.exhibits.push(new app.Exhibit(radius, x, y, name,ro));
+	initMap: function (){
+		this.matrix = [1,0,0,1,0,0];
+		this.fhMode = false;
+		this.fhWidth = this.getDistance(this.fhOlat,this.FHW,this.fhOlat,this.FHE);
+		this.fhHeight = this.getDistance(this.FHN,this.fhOlong,this.FHS,this.fhOlong);
+		this.zoomtick = 30;
+		var southLat = 43.080425;
+    	var northLat =  this.originLat;
+    	var eastLong = -77.667844;
+    	var westLong = this.originLong;
+    	this.WIDTH = this.getDistance(this.originLat, westLong, this.originLat, eastLong,'M')  ;
+		this.HEIGHT = this.getDistance(northLat, this.originLong,southLat, this.originLong,'M')  ;
+		this.canvas.width = window.innerWidth;
+		this.canvas.height = window.innerHeight;
+		this.fhMult = 9;
+		this.updateUserLocation();
+	},
+	initObj: function(){
+		this.FHcol = {
+			x: this.fhx + this.xOffset ,
+			y: this.fhy + this.yOffset ,
+			w: this.fhWidth,
+			h: this.fhHeight,
+
+		};
+		this.snapButton = {
+			x: Math.floor(window.innerWidth - ( Math.floor(window.innerHeight *.07))),
+			y: 0 ,
+			h: Math.floor(window.innerHeight *.07),
+			w: Math.floor(window.innerHeight *.07),
+			
+		};
+		this.backBut = {
+			x: 0,
+			y: 0 ,
+			h: Math.floor(window.innerHeight *.07),
+			w: Math.floor(window.innerHeight *.07),
+			
+		};
+		this.center = {
+			x:this.WIDTH/2,
+			y: this.HEIGHT/2,
+		};
+		this.FieldHouse = {
+			w:306,
+			h:193,
+			x: this.FHcol.x + this.FHcol.w/2,
+			y: this.FHcol.y + this.FHcol.h/2,
+		};
+		this.user = {
+			x:3061,
+			y:1172,
+			r:10,
+
+	    };
+	},
+	initExZones: function (){
+		
+		this.exhibits = [
+		{
+			name:'testing 123',
+			x:1689,
+			y:454,
+			r: 75,
+			tags:['science','computers'],
+
+		},
+		{
+			name:'This is a Test',
+			x:1285,
+			y:850,
+			r:75,
+			tags:['gaming'],
+		},
+		{
+			name:'Delete before Ionic',
+			x:860,
+			y:454,
+			r: 200,
+			tags:['software'],
+		},
+		];
+			  
+		this.zoneColliders= [
+		{
+			name:'Green Zone',
+			x: 1173,
+			y: 1045,
+			r: 380,
+			col:'#4BE530',
+		},
+		{
+			name:'Tech Quarter',
+			x: 1812,
+			y: 952,
+			r: 385,
+			col:'#3AC7E8',
+		},
+
+		{
+			name:'Computer Zone',
+			x: 1584,
+			y: 1311,
+			r: 250,
+			col:'#07C2AF',
+		},
+		{
+			name:'Innovation Center',
+			x: 1650 ,
+			y: 1657,
+			r: 150,
+			col:'#354AA5',
+		},
+		{
+			name:'Global Village',
+			x: 1458,
+			y: 1811 ,
+			r: 340,
+			col:'#EC6A80'
+		},
+		{
+			name:'Engineering Park',
+			x: 2018,
+			y: 1259 ,
+			r: 290,
+			col:'#F27935',
+
+		},
+		{
+			name:'Science Center',
+			x: 2122,
+			y: 1641 ,
+			r: 385,
+			col:'#F7EF4A',
+			
+		},
+
+		{
+			name:'Buisness District',
+			x: 2370,
+			y: 1821 ,
+			r: 180,
+			col:'#3DB549',
+			
+		},
+		{
+			name:'Information Station',
+			x: 2630,
+			y: 1455 ,
+			r: 180,
+			col:'#ED9A37',
+			
+		},
+		{
+			name:'Think Tank',
+			x:2451,
+			y:1288 ,
+			r: 200,
+			col:'#D11E1E',
+			
+		},
+
+		{
+			name:'Artistic Alley',
+			x: 2469,
+			y: 956 ,
+			r: 315,
+			col:'#A053BC',
+			
+		},
+		{
+			name:'RIT Central',
+			x: 3088,
+			y: 1231 ,
+			r: 450,
+			col:'#F4C031',
+			
+		},
+		{
+			name:'Feild House',
+			x: 3860,
+			y: 1129 ,
+			r: 530,
+			col:'#3C91E5',
+			
+		},
+
+		];
+	},
+
+	
+    draw: function(){
+    	this.clearCanvas();
+
+	    if(this.fhMode == false)	{
+
+	    	var fh = this.FHcol;
+	    	var user = this.user;
+	   		//this.clearCanvas();
+			this.drawImage(this.mapSmall,0,0,this.WIDTH,this.HEIGHT);
+			//draw the user 
+	   		this.drawCircle(user.x,user.y,this.userAnimate,this.colors.teal,.5);
+	   		this.drawCircle(user.x,user.y,user.r,'blue',1);
+	   		if(this.currentInfo.length >=1){
+   					this.drawZoneInfo(this.currentInfo[0]);
+   					
+   				}
+
+	   	}
+   		if(this.fhMode == true){
+   			this.drawFeildHouse();
+   			for(var k = 0; k < this.exhibits.length; k++){
+   				var ex = this.exhibits[k];
+   				this.drawEx(ex,k);
+
+   			}
+   			if(this.currentInfo.length >=1){
+   					this.drawInfo(this.currentInfo[0],k);
+   				}
+   				//draw user
+   			this.drawCircle(this.user.x,this.user.y,this.userAnimate,this.colors.teal,.5);
+	   		this.drawCircle(this.user.x,this.user.y,20,'blue',1);
+   		}
+   		if(this.zoomedOut == false){
+   			var si = this.snapButton;
+	   		this.drawSnap(si.x,si.y,si.w,si.h,this.colors.teal);
+   		}
+   		if(this.alertTimer > 0 ){
+   			this.drawAlert();
+
+   		}
+   		this.handleTutorial();
+   	},
+   	update: function(){
+   		var t = this;
+   		requestAnimationFrame(this.update.bind(this));
+		
+		t.alertTimer -- ;
+		t.zoomTick --;
+		t.tapTimer --;
+		
+		t.isPanAllowed();
+		
+		if(t.fhMode == true){
+			if(t.qCirc >= 60){
+				t.qUp = false;
+				t.qCirc = 59;
+			}
+			if(t.qCirc <= 30){
+				t.qCirc = 31;
+				t.qUp = true;
+			}
+			if(t.qUp == true){
+				t.qCirc += .4;
+			}
+			if(t.qUp == false){
+				t.qCirc -= .4;
+			}
+		}
+		
+			if(t.userAnimate >= t.maxuserCircW){
+				t.uAup = false;
+				t.userAnimate = t.maxuserCircW - 1;
+			}
+			if(t.userAnimate <= 20){
+				t.userAnimate = 21;
+				t.uAup = true;
+			}
+			if(t.uAup == true){
+				t.userAnimate += .4;
+			}
+			if(t.uAup == false){
+				t.userAnimate -= .4;
+			}
+		
+		
+		
+		t.updateUserLocation();
+		if(t.fhMode == true){
+			t.topText = 'Field House';
+			t.maxuserCircW = 50;
+
+
+		}
+		else{
+			t.topText = 'Imagine RIT';
+			t.maxuserCircW = 45;
+		}
+		if(t.zoomedOut == true){
+			t.user.r = 25;
+		}
+		else{
+			t.user.r = 10;
+		}
+
+		t.snapButton = {
+			x: Math.floor(window.innerWidth - ( Math.floor(window.innerHeight *.07))) + t.matrix[4]*(-1),
+			y: 0 + t.matrix[5] * (-1) ,
+			h: Math.floor(window.innerHeight *.07),
+			w: Math.floor(window.innerHeight *.07),
+		
+		};
+		
+		t.backBut = {
+			x: 0 + t.matrix[4]*(-1),
+			y: 0 + t.matrix[5] * (-1) ,
+			h: Math.floor(window.innerHeight *.07),
+			w: Math.floor(window.innerHeight *.07),
+		
+		};
+		t.tut1 = window.localStorage.getItem("tut1");
+		t.tut2 = window.localStorage.getItem("tut2");
+		t.tut3 = window.localStorage.getItem("tut3");
+
+		t.handleCollisons();
+		t.updateUserLocation();
+		t.pan();
+		t.draw();
+
+   	},
+   	handleTutorial: function(){
+   		var t = this;
+
+   		if(t.tut1 == "true"){
+   			t.drawTut("Double tap a zone to select it.");
+   		}
+   		if(t.tut2 == "true" && t.tut1 == "false"){
+   			t.drawTut("Tap on the card to view the zones exhibits.");
+   		}
+   		if(t.fhMode == true && t.tut3 == "true" ){
+   			t.drawTut("Tap an icon to select that exhibit.");
+   			
+   		}
+   	},
+
+   	//FH Handlers
+	handlefhMode: function(){
+	   	if(this.fhMode == true){
+	   		this.WIDTH = this.FieldHouse.w * this.fhMult;
+	   		this.HEIGHT = this.FieldHouse.h * this.fhMult;
+	   		this.initFH();
+	   	}
+	  
+	   	this.canvas.height = window.innerHeight;
+	   	this.canvas.width = window.innerWidth;
+	},
+	initFH: function(){
+		var t = this;
+   		this.ctx.setTransform(1,0,0,1,0,0);
+   		this.matrix = [1,0,0,1,0,0];
+   		t.user.x = (t.user.x - t.fhx) * (t.fhMult);
+		t.user.y = (t.user.y - t.fhy) * (t.fhMult);
+	}, 
+
+	//updateers
+	updateCurrentInfoEx: function(x,y,w,h,name,t){
+   		this.currentInfo.shift();
+   		this.currentInfo.push(
+   		{
+			x: x,
+   			y: y,
+   			w: w,
+   			h: h,
+   			name: name,
+   			tag: t,
+   		}
+   			);
     },
-	//create new exhibit collider
-	createExhibitsColliders: function (radius, x, y, name) {
-        this.exColliders.push(new app.ExhibitCollider(radius, x, y, name));
+    updateCIZone: function(x,y,w,h,n,col,rad){
+   		this.currentInfo.shift();
+   		
+   		this.currentInfo.push(
+   		{
+			x: x,
+   			y: y,
+   			w: w,
+   			h: h,
+   			name: n,
+   			col: col,
+   			r: rad,
+   		}
+   			);
     },
-	
-	
-	
-	//get the distance in feet from two lat/lon points
+
+
+    //utils 
+   	snap: function(sub){
+			//clearCanvas();
+			if(this.isPointinRect(sub.x,sub.y,this.canv)){
+				this.ctx.setTransform(1, 0, 0, 1, 0, this.snapButton.h *-1);
+				this.matrix = [1,0,0,1,0,this.snapButton.h*-1];
+				var subject = sub;
+				var xtrans = subject.x - (window.innerWidth/2);
+				var ytrans = subject.y - (window.innerHeight/2);
+				xtrans = xtrans * -1;
+				ytrans = ytrans * -1;
+				this.translate(this.ctx, xtrans, ytrans);
+				this.zoomLevel = 0;
+			}
+			else{
+				this.alertTimer = 60;
+				console.log(this.alertTimer);
+			}
+
+	},
+	checkCol:function(a,b){
+		var circle1 = {r: a.r, x: a.x, y: a.y};
+		var circle2 = {r: b.r, x: b.x, y: b.y};
+		var dx = (circle1.x  ) - (circle2.x  );
+		var dy = (circle1.y ) - (circle2.y );
+		var distance = Math.sqrt(dx * dx + dy * dy);
+		if (distance < circle1.r + circle2.r) {return true;}
+		else{ return false;}
+	},
+	handleCollisons: function(){
+		var t = this;
+		for (var i = 0; i < t.exhibits.length; i++){
+			var ex = t.exhibits[i];
+			if(t.fhMode == true){
+				if(t.isPointinCircle(t.user.x,t.user.y,ex)){
+					var distance = t.isPointinCircle(user.x,user.y,ex);
+					t.currentCollider.push({name: ex.name, dist:distance});
+					t.currentCollider.sort(function(a,b) { return parseFloat(a.dist) - parseFloat(b.dist) } );
+					t.clock ++;
+					t.buffer = 300;
+					for(var u = 0; u < t.times.length; u++){
+						var seconds = t.times[u] / 60;
+
+						if(t.clock == t.times[u]){
+							console.log(seconds);
+							/// INSERT USER IS AT LOCATION INTO DB
+						}
+					}
+				}
+				else{ t.currentCollider = []; 
+					if(t.buffer <= 0){
+						t.clock = 0;
+						t.buffer = 180;
+					}
+				}
+			}
+			if(t.fhMode == false){
+				var mapex = t.wholeMapLocations[i];
+				if(t.isPointinCircle(t.user.x,t.user.y,mapex)){
+					var distance = t.isPointinCircle(user.x,user.y,mapex);
+					t.currentCollider.push({name: ex.name, dist:distance});
+					t.currentCollider.sort(function(a,b) { return parseFloat(a.dist) - parseFloat(b.dist) } );
+					t.clock ++;
+					t.buffer = 300;
+					for(var u = 0; u < t.times.length; u++){
+						var seconds = t.times[u] / 60;
+
+						if(t.clock == t.times[u]){
+							console.log(seconds);
+							/// INSERT USER IS AT LOCATION INTO DB
+						}
+					}
+				}
+				else{ t.currentCollider = []; 
+					if(t.buffer <= 0){
+						t.clock = 0;
+						t.buffer = 180;
+					}
+				}
+			}
+		}
+	},
+	getDistanceXY: function( point1, point2 ){
+	  var xs = 0;
+	  var ys = 0;
+	 
+	  xs = point2.x - point1.x;
+	  xs = xs * xs;
+	 
+	  ys = point2.y - point1.y;
+	  ys = ys * ys;
+	 
+	  return Math.sqrt( xs + ys );
+	},
 	getDistance: function(lat1, lon1, lat2, lon2, unit){
 		var radlat1 = Math.PI * lat1/180;
 		var radlat2 = Math.PI * lat2/180;
@@ -231,371 +675,340 @@ app.main = {
 		dist = dist * 180/Math.PI;
 		dist = dist * 60 * 1.1515;
 		dist = dist * 5280;
-		
 		dist = Math.floor(dist);
-
 		if (unit=="K") { dist = dist * 1.609344 };
-
 		if (unit=="N") { dist = dist * 0.8684 };
-
 		return dist;
     },
-	//draw on the canvas
-	draw: function()
-	{
-		
-	
-		//Draw Background Image
-		this.drawLib.clear(this.ctx,0 , 0 , this.HEIGHT, this.WIDTH);
-		
-		//this.drawLib.rect(this.ctx,-1000,-1000,5000,5000, "#FFF");
-		
-		
-		
-		if(this.zoomLevel > -2){
-			this.drawLib.drawImage(this.ctx, this.Mapimage , 0, 0, this.WIDTH, this.HEIGHT);
-
-			var fhcol = this.FHcol;
-			this.drawLib.rect(this.ctx,fhcol.x,fhcol.y,fhcol.width,fhcol.height,"red");
-		}
-		if(this.zoomLevel <= -2){
-			//this.drawLib.drawImage(this.ctx, this.MapSolid , 0, 0, this.WIDTH, this.HEIGHT);
-		}
-
-		//Draw User
-		this.userCollider.draw(this.ctx,this.userColRad, this.userX, this.userY);
-	    this.user.draw(this.ctx,  this.userX, this.userY);
-		
-		//Draw Exhibits
-	    for(var i = 0; i < this.exhibits.length; i++)
-		{
-			this.exColliders[i].draw(this.ctx);
-			this.exhibits[i].draw(this.ctx);
+    isPointinRect: function(pointX,pointY,rect){
+    	return  (rect.x <= pointX) && (rect.x + rect.w >= pointX) &&
+                (rect.y <= pointY) && (rect.y + rect.h >= pointY);
+    },
+    isPointinCircle: function(x, y, c) {
+	    var dx = x - c.x;
+		var dy = y - c.y;
+		var distsq = dx * dx + dy * dy;
+		var rsq = c.r * c.r;
+		var dist = Math.floor(distsq);
 			
+		if (distsq < rsq) {
+		  return dist;
+		  
 		}
-		this.heatmap(20);
-    
+		else{
+			return false;
+		}
 		
 	},
-	heatmap: function(amt){
+	getLocation:function () {
 		
-	},
-
-	//rotate the entire canvas
-	rotate: function(){
-	//rotate right : right arrow
-		if(app.keydown[39]){
-			this.angle = 1;
-			this.angle = (this.angle + .05) % 360;	
-			this.drawLib.clear(this.ctx,0, 0, this.canvas.width, this.canvas.height);
-			this.ctx.translate(this.WIDTH/2, this.HEIGHT/2);
-			this.ctx.rotate(this.angle*Math.PI/180);
-			this.ctx.translate(this.WIDTH/2 * -1 , this.HEIGHT/2 * -1);
-		}
-	//rotate left : left arrow
-		if(app.keydown[37]){
-			this.angle = -1;
-			this.angle = (this.angle - .05) % 360;	
-			this.drawLib.clear(this.ctx,0, 0, this.canvas.width, this.canvas.height);
-			this.ctx.translate(this.WIDTH/2, this.HEIGHT/2);
-			this.ctx.rotate(this.angle*Math.PI/180);
-			this.ctx.translate(this.WIDTH/2 * -1 , this.HEIGHT/2 * -1);
-		}
-		//restet rotation : enter
-		if(app.keydown[13]){
-			this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-		}
-	},
-	
-	snap: function(){
-			this.clear();
-			this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-			var subject = this.exhibits[0];
-			var xtrans = subject.x - (window.innerWidth/2);
-			var ytrans = subject.y - (window.innerHeight/2);
-			xtrans = xtrans * -1;
-			ytrans = ytrans * -1;
-			this.ctx.translate( xtrans, ytrans);
-			this.zoomLevel = 0;
-			this.zoomH = this.HEIGHT;
-			this.zoomW = this.WIDTH;
-	},
-	//check collisons between the user's circle collider and a circle a
-	checkCol: function (a){
-		var circle1 = {radius: a.radius, x: a.x, y: a.y};
-		var circle2 = {radius: this.userColRad, x: this.userX, y: this.userY};
-		var dx = (circle1.x  ) - (circle2.x  );
-		var dy = (circle1.y ) - (circle2.y );
-		var distance = Math.sqrt(dx * dx + dy * dy);
-		if (distance < circle1.radius + circle2.radius) {return true;}
-		else{ return false;}
-	},
-	//initiate collisions to be called in update
-	Collisions: function (){
-		for(var i = 0; i < this.exColliders.length; i++)
-		{
-			if(this.checkCol(this.exColliders[i]) ){
-				//Colision has been deteced here! do something
-				console.log(this.exColliders[i].name);
-			}
-		}
-	}, 
-	getLocation: function () {
-		var self = this;
 		if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position){
-		self.userLat =  position.coords.latitude;
-		self.userLong =  position.coords.longitude;
+		this.userLat =  position.coords.latitude;
+		this.userLong =  position.coords.longitude;
 		});
 		} else {
 		console.log("didnt work");
 		}
 	},
-	
-	updateUserLocation: function (){
+	updateUserLocation:function (){
 	//set collison radius for user
-	this.userColRad = 5;
+
+	var t = this;
+	t.getLocation();
+	t.user.x = t.getDistance(t.userLat,t.originLong,t.userLat,t.userLong);
+	t.user.y = t.getDistance(t.originLat,t.userLong,t.userLat,t.userLong);
 	//set these variables to the geolcation lon/lat
 	
 	//convert user lon/lat to X/Y
-	/*var userPosition = app.trilateration.getLocation();
-	this.userX = userPosition.x;
-	this.userY = userPosition.y;*/
+	if(app.trilateration.enoughbeacons == true){
+		var userPosition = app.trilateration.getLocation();
+		this.userX = userPosition.x;
+		this.userY = userPosition.y;
+	}
 		
 	},
-	
-	update: function(){
-		requestAnimationFrame(this.update.bind(this));
-		
-		//this.handleZoom(this.ctx);
-		
-		this.zoomtick -- ;
-		//console.log(this.userLat);
-		this.getLocation();
-		this.updateUserLocation();
-		
-		this.rotate();
-		
-		this.Collisions();
-		
-		this.pan();
-		//this.zoomCanvas();
-		this.changeFloor();
-		//this.clear();
-		//this.moveUser();
-		this.draw();
-		
-			
+	checkUserInFH: function(){
+		var u = this.user;
+		var fh = this.FHcol;
+		if(this.isPointinRect(u.x,u.y,fh.x,fh.y,fh.w,fh.h)){
+			this.fhMode = true;
+		}
 	},
-	loadImages: function(){
-
-		 this.Mapimage = new Image();
-		 this.Mapimage.src = "img/map.png";
-
-		 this.MapSolid = new Image();
-		 this.MapSolid.src = "img/map_solid.png";
-	
-		 /*this.golFirst = new Image();
-		 this.golFirst.src = "img/gol_floor_1.png";
-
-		 this.golSecond = new Image();
-		 this.golSecond.src = "img/gol_floor_2.png";
-
-		 this.golThird = new Image();
-		 this.golThird.src = "img/gol_floor_3.png";
-
-		 this.ciasFirst = new Image();
-		 this.ciasFirst.src = "img/cias_floor_1.png";
-
-		 this.ciasSecond = new Image();
-		 this.ciasSecond.src = "img/cias_floor_2.png";
-
-		 this.ciasThird = new Image();
-		 this.ciasThird.src = "img/cias_floor_3.png";
-
-		 this.ciasFourth = new Image();
-		 this.ciasFourth.src = "img/cias_floor_4.png";*/
-
+	zoomCanvas: function(z){
+		var t = this;
+		var m = t.matrix;
 		
-	},
-	
-	
-	moveUser: function(){
-		var speed = 5;
-		//right
-		if(app.keydown[39]){
-			this.userX += speed;
-		}
-		//left
-		if(app.keydown[37]){
-			this.userX -= speed;
-		}
-		//up
-		if(app.keydown[38]){
-			this.userY -= speed;
-		}
-		//down
-		if(app.keydown[40]){
-			this.userY += speed;
-			
-		}
-    },
-    changeFloor: function (){
+		if(t.zoomTick <= 0 && t.fhMode == true){
 
-    	//up
-		if(app.keydown[38]){
-			if(this.floor == 5){
-
-			 this.floor = 1;
-			}
-			else{
-			this.floor += 1;
-			}
-		}
-		//down
-		if(app.keydown[40]){
-			if(this.floor == 1){
-				this.floor == 5;
-			}
-			else{this.floor -= 1;}
-
-			
-		}
-
-
-    },
-	
-		zoomCanvas: function(z){
-			//this.clear();
-		
-			if(this.zoomtick < 0){
-			
-					if(z =='IN' /*&& this.zoomLevel < 6*/){
-							this.zoomtick = 10;
-							this.clear();
-							this.zoomLevel += 1;
-							if(this.zoomLevel > 0){
-								//this.panspeed -= 1;
-							}
-							var amt = 1.20;
-							this.drawLib.scaleCanvas(this.ctx, amt,amt);
-							
-							
-						}
-
-					if(z == 'OUT' /*&& this.zoomLevel > -4 */){
-							this.zoomtick = 10;
-							this.clear();
-							this.zoomLevel -= 1;
-
-							if(this.panspeed < 15){
-								this.panspeed +=1;
-								}
-							var amt = .80;
-							this.drawLib.scaleCanvas(this.ctx, amt,amt);
-							
-					}
-				//this.handleZoom(this.ctx);
-			
+			if(z =='IN' && t.fhMult < 12){
+				t.clearCanvas();
+				t.matrix = t.mat2;
+				t.zoomedOut = false;
 				}
-		},
-		handleZoom: function(context){
-				
-			this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-			//context.restore();
-			var zL = this.zoomLevel;
-			
-			this.zoomH = this.HEIGHT;
-			this.zoomW = this.WIDTH;
-			
-			var amounts = new Array();
-			var levels = new Array();
-			var transX = new Array();
-			var transY = new Array();
-			
-			var WH = window.innerHeight;
-			var WW = window.innerWidth;
-			amounts = [-4,-3,-2,-1,0,1,2,3,4,5,6];
-			levels = [.30,.40,.60,.80,1,1.15,1.20,1.45,1.60,1.75,2];
-			transX = [WW/4,WW/6,WW/8,WW/10,0,-10,WW/-10];
-			transY = [WH,WH/2,WH/4,WH/8,0,-50,0,0,0,0,0];	
-
-			 for(var i = 0; i < amounts.length; i++){
-			 	if(zL == amounts[i]){
-			 		var amt = levels[i];
-			 		//context.save();
-					this.drawLib.scaleCanvas(context, amt,amt);
-					this.zoomW = this.zoomW * (amt);
-					this.zoomH = this.zoomH * (amt);
-					context.translate(transX[i],transY[i]);
-					
-
-			 	}
+			if(z == 'OUT' ){
+				t.clearCanvas();
+				t.ctx.setTransform(.45,0,0,.45,-window.innerWidth * .15,window.innerHeight * .25);
+				t.matrix = [.45,0,0,.45,-window.innerWidth * .15,window.innerHeight * .25];
+				t.zoomedOut = true;			
 			}
+		}	
+		if(t.zoomTick <= 0 && t.fhMode == false){
 
-			//console.log(zL);
-			//console.log(this.zoomW);
+			if(z =='IN' && t.fhMult < 12 &&t.zoomedOut == true ){
+				
+				t.clearCanvas();
+				t.ctx.setTransform(1,0,0,1,t.mat2[4],t.mat2[5]);
+				t.matrix = t.mat2;
+				t.zoomedOut = false;
+			}
+			if(z == 'OUT' ){
+				t.clearCanvas();
 					
-		},
+				t.ctx.setTransform(.25,0,0,.25,-window.innerWidth * .15,window.innerHeight * .25);
+				m = [.25,0,0,.25,0,0];
+				t.zoomedOut = true;			
+			}
+		}	
+	},
+	isPanAllowed: function(){
+		var t = this;
+		
+		if(t.zoomedOut == false){
+			var m = t.matrix;
+			//console.log(t.matrix[5]);
+			if(t.matrix[4] >= 0){
+				t.panRightAllowed = false;
+				t.matrix[4]= 0;
+				
+			}
+			else{t.panRightAllowed = true;}
 
-		pan:function(dir){
-			
-			//console.log(this.panSides);
-			var panspeed = this.panspeed;
-			
-						//right
-						if(dir == "RIGHT"){
-							this.clear();
-							this.ctx.translate(panspeed,0);
-							
-						
-								
-								this.panSides += 1;
-							
-						}
+			if(t.matrix[4] <= -(t.WIDTH - window.innerWidth)){
+				t.panLeftAllowed = false;
+				t.matrix[4] = -(t.WIDTH - window.innerWidth);
+			}
+			else{t.panLeftAllowed = true;}
 
-				
-		
-						//right
-						//left
-						if(dir == "LEFT"){
-							this.clear();
-							this.ctx.translate(panspeed* (-1),0);
-							
-							
-							this.panSides -= 1;
-						
-						}
-				
-				
-			
-						//up
-						if(dir =="UP"){
-							this.clear();
-							this.ctx.translate(0,panspeed*(-1));
-							this.panTopBot += 1;
-						}
-						//down
-						if(dir == "DOWN"){
-							this.clear();
-							this.ctx.translate(0,panspeed);
-							this.panTopBot -= 1;
-						}
-				
-			
-			
-		},
-		
-		
-		clear: function(){
+			if(t.matrix[5]>= t.snapButton.h ){
+				t.panBotAllowed = true;
+				t.matrix[5]  =  t.snapButton.h ;
 
-			var iw = window.innerWidth;
-			var ih = window.innerHeight;
-			this.drawLib.clear(this.ctx,0,0, this.WIDTH, this.HEIGHT);
-			this.drawLib.clear(this.ctx,0,0,iw,ih);
-		},
+			}
+			else{//panBotAllowed = false;
+			}
+			
+			if(t.matrix[5]  <= -(t.HEIGHT - window.innerHeight)){
+				t.panTopAllowed = true;
+				t.matrix[5]  = -(t.HEIGHT - window.innerHeight);
+				
+			}
+			else{//panTopAllowed = false;
+			}
+				
+			t.ctx.setTransform(1,0,0,1,t.matrix[4] ,t.matrix[5] );
+		}
+	},
+	pan: function(dir){
+		var t = this;
+		var m = t.matrix;
+
+		if(t.zoomedOut == false){
+			if(dir == "RIGHT" && t.panRightAllowed == true){
+				t.translate(t.ctx,t.panspeed,0);
+			}
+			//left
+			if(dir == "LEFT" && t.panLeftAllowed == true){
+				t.translate(t.ctx,t.panspeed* (-1),0);
+			}
+			//up
+			if(dir =="UP" && t.panTopAllowed == true){
+				t.translate(t.ctx,0,t.panspeed*(-1));
+			}
+			//down
+			if(dir == "DOWN" && t.panBotAllowed == true){
+				t.translate(t.ctx,0,t.panspeed);
+			}
+			t.mat2 = t.matrix;
 		
+		}
+	},
+	translate: function(c,x,y){
+		this.matrix[4] += this.matrix[0] * x + this.matrix[2] * y;
+		this.matrix[5] += this.matrix[1] * x + this.matrix[3] * y;
+		c.translate(x,y);
+	},
 	
+
+
+	//events
+	
+	//DRAW FUNCTIONS
+
+	loadImages:function(){
+
+		this.mapImage = new Image();
+		this.mapImage.src = "img/map2.png";
+		this.mapSmall = new Image();
+		this.mapSmall.src = "img/map2.png";
+		
+		this.fhImage = new Image();
+		this.fhImage.src = "img/FH.png";
+		this.snapImage = new Image();
+		this.snapImage.src = "img/Icons/snap.png";
+		this.backImage = new Image();
+		this.backImage.src = "img/Icons/back.png";
+
+		this.queueImage = new Image();
+		this.queueImage.src = "img/Icons/add_queue.png";
+
+		this.ciImage = new Image();
+		this.exImage = new Image();
+	},
+	drawTut: function (message){
+
+		var x = this.matrix[4]*-1;
+		var y = this.snapButton.h + this.matrix[5]*-1;
+		var w = window.innerWidth;
+		var h = this.snapButton.h * 2 *.75;
+
+		this.drawRect(x,y,w,h,this.colors.alert);
+		this.drawText(message,x + w/2, y + h /2 , 55, this.textCol.light,w *.90);
+	},
+	drawSnap: function(x,y,w,h,col){
+   		var m4 = this.matrix[4]*(-1);
+   		var m5 = this.matrix[5]*(-1);
+	   		x = x ;
+	   		y = y ;
+	   		var backBut = this.backBut;
+			this.drawRect(m4,m5,window.innerWidth,h,col);
+			if(this.fhMode ==true){
+				this.drawImage(this.backImage,backBut.x ,backBut.y + backBut.w*.15,backBut.w * .7,backBut.h *.7);
+			}
+   			this.drawImage(this.snapImage,x,y + h*.1,w * .8,h *.8);
+   			var ts = h *.50;
+   			this.drawText(this.topText,m4 + window.innerWidth/2,m5+ h/1.5,ts,'white',window.innerWidth);
+    },
+    drawFeildHouse: function(){
+   		this.clearCanvas();
+		this.drawImage(this.fhImage,0,0,this.WIDTH,this.HEIGHT);
+	},
+	drawEx: function(ex,i){
+   		var w = 100;
+   		var h = 100;
+   		var x = ex.x - w/2;
+   		var y = ex.y - h/2;
+   		if(this.queued.indexOf(ex.name) > -1){
+   			this.drawCircle(ex.x,ex.y,this.qCirc,this.colors.gold,1);
+   		}
+   		this.exImgs[i].src = 'img/Icons/' + ex.tags[0] + '.png';
+   		//this.drawCircle(ex.x,ex.y,ex.r,"red",.2);
+   		this.drawImage(this.exImgs[i],x,y,w,h);
+    },
+    drawInfo: function(ex,cEx,i){
+    	
+   		var iw = Math.floor( window.innerWidth);
+   		var ih = Math.floor( window.innerHeight);
+   		var w = iw * .95;
+   		var h = ih * .30;
+   		var x = iw * .025;
+   		var xSpace = x * 3;
+   		var y = ih - x - h;
+   		
+   		var imgS = w * .2;
+   		x = x + (this.matrix[4] *-1);
+   		y = y + (this.matrix[5] *-1);
+   		
+   		this.ciImage.src = 'img/Icons/' + ex.tag + '.png';
+   		this.drawRect(x,y,w,h,"#FFF");
+   		
+   		this.drawImage(this.ciImage,x + w/2 - imgS/2, y + xSpace/2,imgS,imgS);
+   		var maxtextWidth = w * .8;
+   		var textsize = h *.10;
+   		this.drawText(ex.name, x + w/2 , y + (imgS + xSpace * 3), textsize,this.textCol.mid,maxtextWidth);
+		this.updateCurrentInfoEx(x,y,w,h,ex.name,ex.tag);
+	},
+	drawZoneInfo: function(zone){
+   		var iw = Math.floor( window.innerWidth);
+   		var ih = Math.floor( window.innerHeight);
+   		var w = iw * .95;
+   		var h = ih * .30;
+   		var x = iw * .025;
+   		var xSpace = x * 3;
+   		var y = ih - x - h;
+   		var img = this.mapSmall;
+   		var imgS = w * .2;
+   		x = x + (this.matrix[4] *-1);
+   		y = y + (this.matrix[5] *-1);
+   		
+   		this.drawRect(x,y,w,h,'#FFF');
+   		this.drawRect(x,y,xSpace/2,h,zone.col);   		//drawImage(img,x + w/2 - imgS/2, y + xSpace/2,imgS,imgS);
+   		var maxtextWidth = w * .8;
+   		var textsize = h *.2;
+   		var dist = this.getDistanceXY(this.user,zone);
+   			dist = dist/5280;
+   			dist = dist.toFixed(2);
+   		this.drawText(zone.name, x + w/2 , y + h/4, textsize,this.textCol.dark,maxtextWidth);
+   		if(this.userisInZone == true){
+   			
+   			this.drawText("You are here",x + w/2 , y + h - textsize, textsize/2,this.textCol.mid,maxtextWidth);
+   		}
+   		else{
+			this.drawText("~ " + dist +" miles away",x + w/2 ,y + h - textsize, textsize/2,this.textCol.mid,maxtextWidth);
+		}
+		var zr = zone.r;
+
+		this.updateCIZone(x,y,w,h,zone.name,zone.col,zr);
+    },
+    drawAlert: function(){
+    	var w = window.innerWidth * .90;
+    	var h = window.innerHeight * .2;
+    	var y = window.innerHeight * .5;
+    	var x = window.innerWidth * .05;
+    		x = x+ this.matrix[4] * -1;
+    		y = y + this.matrix[5] * -1;
+    		y = y - h/2;
+    	
+    	this.drawRect(x,y,w,h,this.colors.alert,.8);
+    	
+    	this.drawText("You are not at the Festival", x+ w/2,y+h/2,120,this.textCol.white,w*.80);
+    	console.log(x,y,w,h);
+    },
+    drawText: function(string, x, y, size, col,maxWidth){
+		this.ctx.save();
+		this.ctx.font = 'bold ' + size + 'px Monospace';
+		this.ctx.fillStyle = col;
+		this.ctx.textAlign = 'center';
+		this.ctx.fillText(string, x, y,maxWidth);
+		this.ctx.restore();
+	},
+	drawCircle: function(centerX, centerY, radius,col,alph){
+
+		this.ctx.save();
+		this.ctx.beginPath();
+		this.ctx.globalAlpha=alph;
+      	this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      	this.ctx.fillStyle = col;
+      	this.ctx.fill();
+      	this.ctx.restore();
+	},
+	drawRect: function( x, y, w, h, col,alph){
+		this.ctx.save();
+		this.ctx.globalAlpha=alph;
+		this.ctx.fillStyle = col;
+		this.ctx.fillRect(x,y,w,h);
+		this.ctx.restore();
+	},
+	drawImage: function(image, x, y,w,h){
+		
+		this.ctx.save();
+		this.ctx.drawImage(image, x, y, w, h);
+		this.ctx.restore();
+	},
+ 	clearCanvas: function(){
+		this.ctx.clearRect(0,0, this.WIDTH, this.HEIGHT);
+	},
+		
 };
 
 
@@ -628,30 +1041,126 @@ app.main = {
 	  	 	break;
 	  }
 });
- 
+function getTapPos(event){
+		
+	 	 var t = app.main;
+	 	 //console.log(t.matrix);
+	 	 var doubleTap = false;
+		 var x; 
+  		 var y; 
+		 event.preventDefault();//prevent window zoom
+  		 this.userisInZone = false;
+  		
+ 		 var touches = event.changedTouches;
+         x = touches[0].pageX; //get touch x relative to window
+         y = touches[0].pageY; //get touch y relative to window
+         var m = t.matrix;
+         //console.log(x,y);
+         var newX = x * t.matrix[0] + y * t.matrix[2] + (t.matrix[4] *-1);//convert x based on screen pan
+ 		 var newY = x * t.matrix[1] + y * t.matrix[3] + (t.matrix[5] *-1);//convert y based on screen pan
+        
+         x = Math.floor(newX);//set x to newX
+         y = Math.floor(newY);//set y to newY
+         //console.log(x,y);
+        
+         if(t.isPointinRect(x,y,t.snapButton)){
+         	t.snap(t.user);
+         }
+		if(t.currentInfo.length >= 1){//check if info is on screen
+         	var ci = t.currentInfo[0];
+         	if(t.isPointinRect(x,y,ci)){//if it is check if new tap is inside it
+	         	if(ci.name == 'Feild House'){
+	         			t.fhMode = true;
+	         			t.handlefhMode();
+	         			t.currentInfo =[];
+	         	}
+	         	t.tut2 = "false";
+	         	window.localStorage.setItem("tut2","false");
+	         	if(t.fhMode == true){
 
-  
+	         	}
+			}
+         	else{//if not empty current info
+         		t.currentInfo = [];
+         	}
+         }
+         else{//most likley completely unneccisarry
+         	t.currentInfo = [];
+         }
+         t.taps.shift();//shift out fist element in taps array so there are only ever 2
+         t.taps.push({x:x,y:y});// push new tap x/y to taps array
+         var touchedCircles = [];//touched Circles array to tell if any building colliders were touched
+         var tapsDist = t.getDistanceXY(t.taps[0],t.taps[1]);//get the distance between taps
+         if(tapsDist < 50 && t.tapTimer >= 0){//check for Double Tap
+         	doubleTap = true;//if it is within the distance and withing the time then doubletap = true
+         }
+		if(t.fhMode == true){//check if map is in feildhouse mode
+         	if(t.isPointinRect(x,y,t.backBut)){//
+         		t.fhMode = false;//if do back out of fh mode
+         		t.initMap();
+         		t.snap(t.FHcol); // CHANGE TO XY OF FH CIRCLE COLLIDER
+         	}
+         	var exCircles = [];//array of touched circles for exhibits
+         	for(var k = 0; k < t.exhibits.length; k++){
+         		var ex = t.exhibits[k];
+         		if(t.isPointinCircle(x,y,ex)){ // check if point is within circle
+         			var d = t.isPointinCircle(x,y,ex); // get the distance 
+         			exCircles.push({name:ex.name, dist:d , x:ex.x,y:ex.y, tag:ex.tags[0]});//if there is a collision push to exCircles with name,dist etc.
+         		}
+         		else{}
+         	}
+         	exCircles.sort(function(a,b) { return parseFloat(a.dist) - parseFloat(b.dist) } );//sort exCircels from lowedt dist to higest
+         	if(exCircles.length >= 1){//check if there were any selected circles
+         		t.snap(exCircles[0]);//snap to the closest one
+         		t.currentInfo.push(exCircles[0]);//push to currentInfo array to display Ifo
+         		t.tut3 = "false";
+         		window.localStorage.setItem("tut3","false");         	}
+		}
 
+         else{ // if the map is not in Feild house mode
+	        for(var i = 0; i < t.zoneColliders.length; i++){
+	         	var zc = t.zoneColliders[i];
+	         	if(t.isPointinCircle(x,y,zc) && t.zoomedOut == false){ // if map is not zoomed out check for a slected zone
+	         		var distance = t.isPointinCircle(x,y,zc); //get distances
+	         		touchedCircles.push({ name:zc.name,dist: distance, col:zc.col, x: zc.x, y:zc.y + window.innerHeight*.05, r:zc.r});//push name and distance of zone
+	         		}
+	         	}
+	    }
 
-
-
-
+		touchedCircles.sort(function(a,b) { return parseFloat(a.dist) - parseFloat(b.dist) } );//sort touchedCircls by dist (low-high)
+		
+			if(touchedCircles.length >= 1 && doubleTap == true){//if there was a doubletap on a touched circle
+					t.currentInfo.push(touchedCircles[0]);
+					t.snap(touchedCircles[0]);
+					t.tut1 = "false";
+					window.localStorage.setItem("tut1","false");
+					if(t.checkCol(t.user,touchedCircles[0])){
+						t.userisInZone = true;
+					}
+				}
+			t.tapTimer = 30 ;//reset tap timer
+	}
 window.onload = function() {
 
 //startup();
 
+window.addEventListener("touchstart",getTapPos, false);
+
+		
+		
+		window.addEventListener("keyup", function(e){
+		
+			e.preventDefault();
+			//console.log("keyup");
+			if(e.keyCode == 38){
+				app.main.zoomCanvas('IN');
+			}
+			if(e.keyCode == 40){
+				app.main.zoomCanvas('OUT');
+			}
 
 
-	window.addEventListener("keydown", function(e){
-		//console.log("keydown " + e.keyCode);
-		app.keydown[e.keyCode] = true;
-	});
-	
-	window.addEventListener("keyup", function(e){
-		//console.log("keyup");
-		app.keydown[e.keyCode] = false;
-	});
-	
+		});
 
 	app.main.init();
 }
