@@ -1,0 +1,175 @@
+@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('nav-font/icomoon.eot?-4mk296');
+	src:url('nav-font/icomoon.eot?#iefix-4mk296') format('embedded-opentype'),
+		url('nav-font/icomoon.woff?-4mk296') format('woff'),
+		url('nav-font/icomoon.ttf?-4mk296') format('truetype'),
+		url('nav-font/icomoon.svg?-4mk296#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-explore:before {
+	content: "\e600";
+}
+
+.icon-home:before {
+	content: "\e61a";
+}
+
+.icon-map:before {
+	content: "\e61b";
+}
+
+.icon-queue:before {
+	content: "\e61c";
+}
+
+.icon-you:before {
+	content: "\e61d";
+}
+
+@font-face {
+	font-family: 'icomoon-tags';
+	src:url('tag-font/icomoon.eot?d6ah0b');
+	src:url('tag-font/icomoon.eot?#iefixd6ah0b') format('embedded-opentype'),
+		url('tag-font/icomoon.woff?d6ah0b') format('woff'),
+		url('tag-font/icomoon.ttf?d6ah0b') format('truetype'),
+		url('tag-font/icomoon.svg?d6ah0b#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-tags-"], [class*=" icon-tags-"] {
+	font-family: 'icomoon-tags';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tags-art:before {
+	content: "\e600";
+}
+
+.icon-tags-business:before {
+	content: "\e601";
+}
+
+.icon-tags-communication:before {
+	content: "\e602";
+}
+
+.icon-tags-community:before {
+	content: "\e603";
+}
+
+.icon-tags-dance:before {
+	content: "\e604";
+}
+
+.icon-tags-design:before {
+	content: "\e605";
+}
+
+.icon-tags-energy:before {
+	content: "\e606";
+}
+
+.icon-tags-engineering:before {
+	content: "\e607";
+}
+
+.icon-tags-entrepreneurship:before {
+	content: "\e608";
+}
+
+.icon-tags-environment:before {
+	content: "\e609";
+}
+
+.icon-tags-food:before {
+	content: "\e60a";
+}
+
+.icon-tags-gaming:before {
+	content: "\e60b";
+}
+
+.icon-tags-global:before {
+	content: "\e60c";
+}
+
+.icon-tags-health:before {
+	content: "\e60d";
+}
+
+.icon-tags-math:before {
+	content: "\e60e";
+}
+
+.icon-tags-multidisciplinary:before {
+	content: "\e60f";
+}
+
+.icon-tags-music:before {
+	content: "\e610";
+}
+
+.icon-tags-photography:before {
+	content: "\e611";
+}
+
+.icon-tags-science:before {
+	content: "\e612";
+}
+
+.icon-tags-seniorprojects:before {
+	content: "\e613";
+}
+
+.icon-tags-software:before {
+	content: "\e614";
+}
+
+.icon-tags-sports:before {
+	content: "\e615";
+}
+
+.icon-tags-stem:before {
+	content: "\e616";
+}
+
+.icon-tags-studentorganizations:before {
+	content: "\e617";
+}
+
+.icon-tags-sustainability:before {
+	content: "\e618";
+}
+
+.icon-tags-technology:before {
+	content: "\e619";
+}
