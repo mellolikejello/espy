@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.directives'])
+angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services', 'espy.directives'])
 
 .run(function($ionicPlatform, MapService, BeaconService) {
     $ionicPlatform.ready(function() {
