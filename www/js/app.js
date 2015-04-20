@@ -60,6 +60,26 @@ angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.dire
     }
     })
 
+	.state('tab.home-exhibit', {
+      url: '/home/:exhibitId',
+      views: {
+        'tab-home': {
+          templateUrl: 'templates/exhibit-detail.html',
+          controller: 'ExhibitDetailCtrl'
+        }
+      }
+    })
+
+	.state('tab.home-category', {
+	  url: '/home/category/:category',
+	  views: {
+		'tab-home': {
+		  templateUrl: 'templates/search-detail.html',
+		  controller: 'HomeCategoryCtrl'
+		}
+	  }
+	})
+
   .state('tab.search', {
     url: '/search',
     views: {
@@ -105,7 +125,7 @@ angular.module('espy', ['ionic', 'espy.controllers', 'espy.services', 'espy.dire
   })
 
     .state('tab.exhibit-detail', {
-      url: '/exhibits/:exhibitId',
+      url: '/search/exhibits/:exhibitId',
       views: {
         'tab-search': {
           templateUrl: 'templates/exhibit-detail.html',

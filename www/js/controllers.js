@@ -7,12 +7,15 @@ angular.module('espy.controllers', [])
 	  };
 })
 
-.controller('HomeCtrl', function($scope, Exhibits, Categories) {
+.controller('HomeCtrl', function($scope, $state, Exhibits, Categories) {
     $scope.categories = Categories.all();
     $scope.saveRatingToServer = function(rating) {
       /* TODO - add server call, update rating */
       console.log('Rating selected - ' + rating);
     };
+	$scope.viewExhibit = function(id) {
+		$state.go('tab.home-exhibit', {exhibitId: id});
+	};
 
 //	if exhibit list hasn't been retrieved from db
 	if(! Exhibits.isSynced()) {
@@ -40,12 +43,24 @@ angular.module('espy.controllers', [])
 //	}
 })
 
-.controller('CategoryCtrl', function($scope, $stateParams, Exhibits) {
+.controller('HomeCategoryCtrl', function($scope, $state, $stateParams, Exhibits) {
 	// get current category
+	console.log('category control');
 	$scope.category = $stateParams.category;
 	$scope.exhibits = Exhibits.getCategoryList($stateParams.category);
-	//TODO: Database.query();
-//	$scope.employees = Employees.query();
+	$scope.viewExhibit = function(id) {
+		$state.go('tab.home-exhibit', {exhibitId: id});
+	};
+})
+
+.controller('CategoryCtrl', function($scope, $state, $stateParams, Exhibits) {
+	// get current category
+	console.log('category control');
+	$scope.category = $stateParams.category;
+	$scope.exhibits = Exhibits.getCategoryList($stateParams.category);
+	$scope.viewExhibit = function(id) {
+		$state.go('tab.exhibit-detail', {exhibitId: id});
+	};
 })
 
 .controller('MapCtrl', function($scope, MapService) {
