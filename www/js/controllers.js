@@ -1,5 +1,12 @@
 angular.module('espy.controllers', [])
 
+.controller('SignInCtrl', function($scope, $state) {
+	$scope.signIn = function() {
+		console.log('Sign-In');
+		$state.go('tab.home');
+	  };
+})
+
 .controller('HomeCtrl', function($scope, Exhibits, Categories) {
     $scope.categories = Categories.all();
     $scope.saveRatingToServer = function(rating) {
