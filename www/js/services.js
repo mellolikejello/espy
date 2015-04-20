@@ -323,8 +323,8 @@ angular.module('espy.services', ['ngResource'])
 		getCategoryList: function(category) {
 			var categoryList = [];
 			for(var exbIndex in exhibits) {
-				for(var catIndex in exhibits[exbIndex].categories){
-					if(exhibits[exbIndex].categories[catIndex] == category) {
+				for(var catIndex in exhibits[exbIndex].tags){
+					if(exhibits[exbIndex].tags[catIndex] == category) {
 						 categoryList.push(exhibits[exbIndex]);
 					}
 				}
