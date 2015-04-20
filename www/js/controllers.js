@@ -52,7 +52,11 @@ angular.module('espy.controllers', [])
 	// init maps?
 })
 
-.controller('QueueCtrl', function($scope) {})
+.controller('QueueCtrl', function($scope, $state) {
+	$scope.explore = function() {
+		$state.go('tab.search');
+	};
+})
 
 .controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
