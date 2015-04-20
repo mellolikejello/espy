@@ -161,8 +161,54 @@ h6 {
 	box-shadow: none;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
-	/* border radius*/
 }
+
+/*
+============Card Highlight/Zone Colors ============
+*/
+
+.green-place {
+	border-top-color: #4BE530;
+}
+
+.business-dist {
+	border-top-color: #3DB549;
+}
+
+.field-house {
+	border-top-color: #3C91E5;
+}
+/* college colors */
+/*	green place */
+.test {
+/*	business dist */
+	
+/*	computer zone */
+	border-top-color: #07C2AF;
+/*	tech quarter */
+	border-top-color: #3AC7E8;
+/*	field house */
+	
+/*	innovation center */
+	border-top-color: #354AA5;
+/*	global village */
+	border-top-color: #EC6A80;
+/*	think tank */
+	border-top-color: #D11E1E;
+/*	engineering park */
+	border-top-color: #F27935;
+/*	info section */
+	border-top-color: #ED9A37;
+/*	RIT central */
+	border-top-color: #F4C031;
+/*	science center */
+	border-top-color: #F7EF4A;
+/*	artistic alley */
+	border-top-color: #A053BC;
+}
+/*
+================================================
+*/
 
 .exhibit-list-left {
     padding-right: 10px;

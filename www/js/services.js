@@ -301,7 +301,7 @@ angular.module('espy.services', ['ngResource'])
 
         get: function(exhibitId) {
             for(var i in exhibits) {
-                if (exhibits[i].id === parseInt(exhibitId)) {
+                if (exhibits[i].code === exhibitId) {
                     return exhibits[i];
                 }
             }
