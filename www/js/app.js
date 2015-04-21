@@ -7,6 +7,12 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services', 'espy.directives'])
 
+.run(function($cordovaSplashscreen) {
+    setTimeout(function() {
+        $cordovaSplashscreen.hide()
+    }, 5000);
+})
+
 .run(function($ionicPlatform, MapService, BeaconService) {
     $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
