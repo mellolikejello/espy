@@ -67,10 +67,19 @@ angular.module('espy.controllers', [])
 	// init maps?
 })
 
-.controller('QueueCtrl', function($scope, $state) {
+.controller('QueueCtrl', function($scope, $state,$localstorage) {
 	$scope.explore = function() {
 		$state.go('tab.search');
 	};
+	//TODO set this to a global array?? that updates everytime a queue is added
+	var queued = ['kurt','test','testing 123'];
+	//call this to add the queued array to the local storage
+		// do this everytime a queue is added
+	$localstorage.setObject('queue',queued );
+	// call this to get the current Queue array fomr the local storage
+	var queue = $localstorage.getObject('queue');
+	console.log(queue);
+
 })
 
 .controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits) {
