@@ -24,19 +24,11 @@
 				color:#ff0000;
 			}
 		</style>
-		<canvas width="{{viewWidth}}" height="{{viewHeight}}"  detect-gestures gesture-type="hold" id="map-container">Canvas not loaded...</canvas>
+		
 <!--      TODO: make this a directive-->
-		<button onclick="app.main.snap()" id="snap">R</button>
+		<iframe width="{{viewWidth}}" height="{{viewHeight}}" src="../canvasmap/index.html" scrolling="no"/>
+		
 
-		<script src="js/map/hammer.js"></script>
-		<script src="libs/jquery/jquery.js"></script>
-		<script src="libs/evothings/evothings.js"></script>
-		<script src="js/map/app.js"></script>
-		<script src="js/map/utils.js"></script>
-
-		<script src="js/main.js"></script>
-		<script src="js/map/drawLib.js"></script>
-		<script src="js/map/user.js"></script>
-		<script src="js/map/exhibit.js"></script>
+		
 	</ion-content>
 </ion-view>

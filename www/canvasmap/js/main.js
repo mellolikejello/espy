@@ -101,6 +101,10 @@ app.main = {
 	tut1:undefined,
 	tut2:undefined,
 	tut3:undefined,
+	exColliders:[],
+	mapBtn:undefined,
+	pushXYtimer:undefined,
+	mapMult: .45,
 	
 
 //nw 43.086354,-77.681498
@@ -112,6 +116,7 @@ app.main = {
 		var t = this;
 		this.canvas = document.querySelector('canvas');
 		this.ctx = this.canvas.getContext('2d');
+		
 		this.initExZones();
 		this.userAnimate = 60;
 		this.zoomLevel = 0;
@@ -131,17 +136,20 @@ app.main = {
 		this.panRightAllowed = true;
 		this.panLeftAllowed = true;
 		this.panBotAllowed = true;
-		this.queued = ['Delete before Ionic'];
+		this.queued = ['Delete before Ionic']
 		this.matrix = [1,0,0,1,0,0];
 		this.alertTimer = 0;
 		this.fhx = this.getDistance(t.fhOlat,t.originLong,t.fhOlat,t.fhOlong,'M');
 		this.fhy = this.getDistance(t.originLat,t.fhOlong,t.fhOlat,t.fhOlong,'M') ;
 		this.triLat = app.trilateration;
 		this.initLocalStorage();
-
+		this.initBtns();
+		
 		this.tut1 = window.localStorage.getItem("tut1");
 		this.tut2 = window.localStorage.getItem("tut2");
 		this.tut3 = window.localStorage.getItem("tut3");
+		t.pushXYtimer = 10800;
+		console.log(t.fhx,t.fhy);
 
 		for(var k = 0; k < this.exhibits.length; k++){
 			var ex = this.exhibits[k];
@@ -156,6 +164,15 @@ app.main = {
 		this.loadImages();
 		this.initObj();
 		this.initMap();	
+		for(var i = 0; i < this.exhibits.length; i++){
+			var ex = this.exhibits[i];
+			var nx = ex.x - (this.fhx);
+			var ny = ex.y - (this.fhy);
+				nx = nx * this.fhMult;
+				ny = ny * this.fhMult;
+			this.exColliders.push({name:ex.name,x:nx,y:ny,r:ex.r,tags:ex.tags, zone:ex.zone});
+		}
+	
 		this.canv = {
 			x: 0,
 			y:0,
@@ -166,6 +183,28 @@ app.main = {
 		this.update();
 		this.mat2 = this.matrix;
 
+
+	},
+	initBtns: function(){
+		var iw = Math.floor( window.innerWidth);
+   		var ih = Math.floor( window.innerHeight);
+   		var w = iw * .95;
+   		var h = ih * .30;
+   		var x = iw * .025;
+   		var xSpace = x * 3;
+   		var y = ih/2 +h/2 - h/4 - x*2;
+   		var img = this.mapSmall;
+   		var imgS = w * .2;
+   		var bw = iw * .1;
+   		var bh = iw * .1;
+   		x = x + (this.matrix[4] *-1) + w - bw - bw/4;
+   		y = y + (this.matrix[5] *-1) + bh/2;
+   		this.mapBtn = {
+   			x:x,
+   			y:y,
+   			w:bw,
+   			h:bh,
+   		};
 
 	},
 	initLocalStorage: function(){
@@ -187,26 +226,26 @@ app.main = {
 	initMap: function (){
 		this.matrix = [1,0,0,1,0,0];
 		this.fhMode = false;
-		this.fhWidth = this.getDistance(this.fhOlat,this.FHW,this.fhOlat,this.FHE);
+		this.fhWidth = this.getDistance(this.fhOlat,this.FHW,this.fhOlat,this.FHE) ;
 		this.fhHeight = this.getDistance(this.FHN,this.fhOlong,this.FHS,this.fhOlong);
 		this.zoomtick = 30;
 		var southLat = 43.080425;
     	var northLat =  this.originLat;
     	var eastLong = -77.667844;
     	var westLong = this.originLong;
-    	this.WIDTH = this.getDistance(this.originLat, westLong, this.originLat, eastLong,'M')  ;
-		this.HEIGHT = this.getDistance(northLat, this.originLong,southLat, this.originLong,'M')  ;
+    	this.WIDTH = this.getDistance(this.originLat, westLong, this.originLat, eastLong,'M') *(this.mapMult);
+		this.HEIGHT = this.getDistance(northLat, this.originLong,southLat, this.originLong,'M')*(this.mapMult) ;
 		this.canvas.width = window.innerWidth;
 		this.canvas.height = window.innerHeight;
-		this.fhMult = 9;
+		this.fhMult = 5;
 		this.updateUserLocation();
 	},
 	initObj: function(){
 		this.FHcol = {
-			x: this.fhx + this.xOffset ,
+			x: this.fhx  + this.xOffset ,
 			y: this.fhy + this.yOffset ,
-			w: this.fhWidth,
-			h: this.fhHeight,
+			w: this.fhWidth ,
+			h: this.fhHeight ,
 
 		};
 		this.snapButton = {
@@ -234,139 +273,139 @@ app.main = {
 			y: this.FHcol.y + this.FHcol.h/2,
 		};
 		this.user = {
-			x:3061,
-			y:1172,
-			r:10,
-
-	    };
+			x: -100,
+			y:-100,
+			r: 10,
+		};
+		
 	},
 	initExZones: function (){
 		
 		this.exhibits = [
 		{
 			name:'testing 123',
-			x:1689,
-			y:454,
+			x:3779,
+			y:1007,
 			r: 75,
 			tags:['science','computers'],
+			zone:'Field House',
 
 		},
 		{
 			name:'This is a Test',
-			x:1285,
-			y:850,
+			x:3753,
+			y:981,
 			r:75,
 			tags:['gaming'],
+			zone:'Field House',
 		},
-		{
-			name:'Delete before Ionic',
-			x:860,
-			y:454,
-			r: 200,
-			tags:['software'],
-		},
+
+
+		
 		];
+		
+	
 			  
 		this.zoneColliders= [
 		{
 			name:'Green Zone',
-			x: 1173,
-			y: 1045,
-			r: 380,
+			x: 1173 *(this.mapMult),
+			y: 1045 *(this.mapMult),
+			r: 380 *(this.mapMult) ,
 			col:'#4BE530',
 		},
 		{
 			name:'Tech Quarter',
-			x: 1812,
-			y: 952,
-			r: 385,
+			x: 1812 *(this.mapMult),
+			y: 952 *(this.mapMult),
+			r: 385 *(this.mapMult),
 			col:'#3AC7E8',
 		},
 
 		{
 			name:'Computer Zone',
-			x: 1584,
-			y: 1311,
-			r: 250,
+			x: 1584 *(this.mapMult),
+			y: 1311 *(this.mapMult),
+			r: 250 *(this.mapMult),
 			col:'#07C2AF',
 		},
 		{
 			name:'Innovation Center',
-			x: 1650 ,
-			y: 1657,
-			r: 150,
+			x: 1650 *(this.mapMult) ,
+			y: 1657*(this.mapMult) ,
+			r: 150 *(this.mapMult),
 			col:'#354AA5',
 		},
 		{
 			name:'Global Village',
-			x: 1458,
-			y: 1811 ,
-			r: 340,
+			x: 1458*(this.mapMult),
+			y: 1811 *(this.mapMult) ,
+			r: 340 *(this.mapMult),
 			col:'#EC6A80'
 		},
 		{
 			name:'Engineering Park',
-			x: 2018,
-			y: 1259 ,
-			r: 290,
+			x: 2018 *(this.mapMult),
+			y: 1259  *(this.mapMult),
+			r: 290 *(this.mapMult),
 			col:'#F27935',
 
 		},
 		{
 			name:'Science Center',
-			x: 2122,
-			y: 1641 ,
-			r: 385,
+			x: 2122 *(this.mapMult),
+			y: 1641 *(this.mapMult),
+			r: 385 *(this.mapMult),
 			col:'#F7EF4A',
 			
 		},
 
 		{
 			name:'Buisness District',
-			x: 2370,
-			y: 1821 ,
-			r: 180,
+			x: 2370*(this.mapMult),
+			y: 1821 *(this.mapMult),
+			r: 180 *(this.mapMult),
 			col:'#3DB549',
 			
 		},
 		{
 			name:'Information Station',
-			x: 2630,
-			y: 1455 ,
-			r: 180,
+			x: 2630*(this.mapMult),
+			y: 1455 *(this.mapMult),
+			r: 180 *(this.mapMult),
 			col:'#ED9A37',
 			
 		},
 		{
 			name:'Think Tank',
-			x:2451,
-			y:1288 ,
-			r: 200,
+			x:2451*(this.mapMult),
+			y:1288 *(this.mapMult),
+			r: 200 *(this.mapMult),
 			col:'#D11E1E',
 			
 		},
 
 		{
 			name:'Artistic Alley',
-			x: 2469,
-			y: 956 ,
-			r: 315,
+			x: 2469*(this.mapMult),
+			y: 956 *(this.mapMult),
+			r: 315 *(this.mapMult),
 			col:'#A053BC',
 			
 		},
 		{
 			name:'RIT Central',
-			x: 3088,
-			y: 1231 ,
-			r: 450,
+			x: 3088*(this.mapMult),
+			y: 1231 *(this.mapMult),
+			r: 450 *(this.mapMult),
 			col:'#F4C031',
 			
 		},
 		{
-			name:'Feild House',
-			x: 3860,
-			y: 1129 ,
-			r: 530,
+			name:'Field House',
+			x: 3860*(this.mapMult),
+			y: 1129 *(this.mapMult),
+			r: 530 *(this.mapMult),
 			col:'#3C91E5',
 			
 		},
@@ -385,18 +424,24 @@ app.main = {
 	   		//this.clearCanvas();
 			this.drawImage(this.mapSmall,0,0,this.WIDTH,this.HEIGHT);
 			//draw the user 
+			//console.log(this.currentInfo[0]);
+			
 	   		this.drawCircle(user.x,user.y,this.userAnimate,this.colors.teal,.5);
 	   		this.drawCircle(user.x,user.y,user.r,'blue',1);
 	   		if(this.currentInfo.length >=1){
    					this.drawZoneInfo(this.currentInfo[0]);
    					
    				}
+   				/*for(var p = 0; p < this.zoneColliders.length; p++){
+   					var zc = this.zoneColliders[p];
+   					this.drawCircle(zc.x,zc.y,zc.r,zc.col,.5);
+   				}*/
 
 	   	}
    		if(this.fhMode == true){
    			this.drawFeildHouse();
    			for(var k = 0; k < this.exhibits.length; k++){
-   				var ex = this.exhibits[k];
+   				var ex = this.exColliders[k];
    				this.drawEx(ex,k);
 
    			}
@@ -412,7 +457,7 @@ app.main = {
 	   		this.drawSnap(si.x,si.y,si.w,si.h,this.colors.teal);
    		}
    		if(this.alertTimer > 0 ){
-   			this.drawAlert();
+   			this.drawTut("You are not at the festival");
 
    		}
    		this.handleTutorial();
@@ -424,9 +469,11 @@ app.main = {
 		t.alertTimer -- ;
 		t.zoomTick --;
 		t.tapTimer --;
-		
+		if(t.pushXYtimer > 0){
+			t.pushXYtimer --;
+		}
 		t.isPanAllowed();
-		
+		t.initBtns();
 		if(t.fhMode == true){
 			if(t.qCirc >= 60){
 				t.qUp = false;
@@ -536,6 +583,11 @@ app.main = {
    		this.matrix = [1,0,0,1,0,0];
    		t.user.x = (t.user.x - t.fhx) * (t.fhMult);
 		t.user.y = (t.user.y - t.fhy) * (t.fhMult);
+		this.fhx = this.getDistance(t.fhOlat,t.originLong,t.fhOlat,t.fhOlong,'M') ;
+		this.fhy = this.getDistance(t.originLat,t.fhOlong,t.fhOlat,t.fhOlong,'M') ;
+		this.fhWidth = this.getDistance(this.fhOlat,this.FHW,this.fhOlat,this.FHE) ;
+		this.fhHeight = this.getDistance(this.FHN,this.fhOlong,this.FHS,this.fhOlong);
+		
 	}, 
 
 	//updateers
@@ -567,7 +619,15 @@ app.main = {
    		}
    			);
     },
+    pushNewUserXY: function(){
+    	var xy = [user.x,user.y];
+    	if(this.pushXYtimer <= 0){
 
+    		//PUSH NEW XY
+    		this.pushXYtimer = 10800;
+    	}
+
+    },
 
     //utils 
    	snap: function(sub){
@@ -577,15 +637,16 @@ app.main = {
 				this.matrix = [1,0,0,1,0,this.snapButton.h*-1];
 				var subject = sub;
 				var xtrans = subject.x - (window.innerWidth/2);
-				var ytrans = subject.y - (window.innerHeight/2);
+				var ytrans = subject.y - (window.innerHeight/2.5);
 				xtrans = xtrans * -1;
 				ytrans = ytrans * -1;
 				this.translate(this.ctx, xtrans, ytrans);
 				this.zoomLevel = 0;
+
 			}
 			else{
 				this.alertTimer = 60;
-				console.log(this.alertTimer);
+				
 			}
 
 	},
@@ -613,7 +674,7 @@ app.main = {
 						var seconds = t.times[u] / 60;
 
 						if(t.clock == t.times[u]){
-							console.log(seconds);
+							
 							/// INSERT USER IS AT LOCATION INTO DB
 						}
 					}
@@ -716,8 +777,13 @@ app.main = {
 
 	var t = this;
 	t.getLocation();
+	if(t.userLat != null && t.userLong != null){
 	t.user.x = t.getDistance(t.userLat,t.originLong,t.userLat,t.userLong);
 	t.user.y = t.getDistance(t.originLat,t.userLong,t.userLat,t.userLong);
+
+	t.user.x = t.user.x * t.mapMult;
+	t.user.y = t.user.y * t.mapMult;
+}
 	//set these variables to the geolcation lon/lat
 	
 	//convert user lon/lat to X/Y
@@ -748,8 +814,8 @@ app.main = {
 				}
 			if(z == 'OUT' ){
 				t.clearCanvas();
-				t.ctx.setTransform(.45,0,0,.45,-window.innerWidth * .15,window.innerHeight * .25);
-				t.matrix = [.45,0,0,.45,-window.innerWidth * .15,window.innerHeight * .25];
+				t.ctx.setTransform(.35,0,0,.35,-window.innerWidth * .15,window.innerHeight * .25);
+				t.matrix = [.35,0,0,.35,-window.innerWidth * .15,window.innerHeight * .25];
 				t.zoomedOut = true;			
 			}
 		}	
@@ -790,17 +856,17 @@ app.main = {
 			}
 			else{t.panLeftAllowed = true;}
 
-			if(t.matrix[5]>= t.snapButton.h ){
+			if(t.matrix[5]>= -t.snapButton.h ){
 				t.panBotAllowed = true;
-				t.matrix[5]  =  t.snapButton.h ;
+				t.matrix[5]  =  -t.snapButton.h ;
 
 			}
 			else{//panBotAllowed = false;
 			}
 			
-			if(t.matrix[5]  <= -(t.HEIGHT - window.innerHeight)){
+			if(t.matrix[5]  <= -(t.HEIGHT - window.innerHeight + t.snapButton.h *1.75)){
 				t.panTopAllowed = true;
-				t.matrix[5]  = -(t.HEIGHT - window.innerHeight);
+				t.matrix[5]  = -(t.HEIGHT - window.innerHeight + t.snapButton.h * 1.75);
 				
 			}
 			else{//panTopAllowed = false;
@@ -862,6 +928,9 @@ app.main = {
 		this.queueImage = new Image();
 		this.queueImage.src = "img/Icons/add_queue.png";
 
+		this.mapIcon = new Image();
+		this.mapIcon.src = "img/Icons/map.png";
+
 		this.ciImage = new Image();
 		this.exImage = new Image();
 	},
@@ -873,7 +942,7 @@ app.main = {
 		var h = this.snapButton.h * 2 *.75;
 
 		this.drawRect(x,y,w,h,this.colors.alert);
-		this.drawText(message,x + w/2, y + h /2 , 55, this.textCol.light,w *.90);
+		this.drawText(message,x + w/2, y + h/2 + w*.03 , w *.07, this.textCol.light,w *.90);
 	},
 	drawSnap: function(x,y,w,h,col){
    		var m4 = this.matrix[4]*(-1);
@@ -894,17 +963,33 @@ app.main = {
 		this.drawImage(this.fhImage,0,0,this.WIDTH,this.HEIGHT);
 	},
 	drawEx: function(ex,i){
-   		var w = 100;
-   		var h = 100;
+   		var w = window.innerWidth * .15;
+   		var h = window.innerWidth * .15;
    		var x = ex.x - w/2;
    		var y = ex.y - h/2;
-   		if(this.queued.indexOf(ex.name) > -1){
-   			this.drawCircle(ex.x,ex.y,this.qCirc,this.colors.gold,1);
+   		if(ex.zone == 'Field House'){
+	   		if(this.queued.indexOf(ex.name) > -1){
+	   			this.drawCircle(ex.x,ex.y,this.qCirc,this.colors.gold,1);
+	   		}
+	   		this.exImgs[i].src = 'img/Icons/' + ex.tags[0] + '.png';
+	   		//this.drawCircle(ex.x,ex.y,ex.r,"red",.2);
+	   		this.drawImage(this.exImgs[i],x,y,w,h);
    		}
-   		this.exImgs[i].src = 'img/Icons/' + ex.tags[0] + '.png';
-   		//this.drawCircle(ex.x,ex.y,ex.r,"red",.2);
-   		this.drawImage(this.exImgs[i],x,y,w,h);
     },
+    drawShadowrect : function( x, y, w, h, col)
+	{
+		this.ctx.save();
+		w = w -10;
+		x = x+5;
+		this.ctx.globalAlpha=.3;
+		this.ctx.shadowOffsetX = 0;
+		this.ctx.shadowOffsetY = 5;
+		this.ctx.shadowBlur = 20;
+		this.ctx.shadowColor = this.textCol.dark;
+		this.ctx.fillStyle = col;
+		this.ctx.fillRect(x,y,w,h);
+		this.ctx.restore();
+	},
     drawInfo: function(ex,cEx,i){
     	
    		var iw = Math.floor( window.innerWidth);
@@ -913,14 +998,16 @@ app.main = {
    		var h = ih * .30;
    		var x = iw * .025;
    		var xSpace = x * 3;
-   		var y = ih - x - h;
+   		var y = ih/2 +h/2 - h/4 - x*2;
    		
    		var imgS = w * .2;
    		x = x + (this.matrix[4] *-1);
    		y = y + (this.matrix[5] *-1);
    		
    		this.ciImage.src = 'img/Icons/' + ex.tag + '.png';
+   		this.drawShadowrect(x,y,w,h,this.textCol.dark);
    		this.drawRect(x,y,w,h,"#FFF");
+   		this.drawRect(x,y,w,xSpace/2,'#3C91E5');
    		
    		this.drawImage(this.ciImage,x + w/2 - imgS/2, y + xSpace/2,imgS,imgS);
    		var maxtextWidth = w * .8;
@@ -935,48 +1022,41 @@ app.main = {
    		var h = ih * .30;
    		var x = iw * .025;
    		var xSpace = x * 3;
-   		var y = ih - x - h;
+   		var y = ih/2 +h/2 - h/4 - x*2;
    		var img = this.mapSmall;
    		var imgS = w * .2;
    		x = x + (this.matrix[4] *-1);
    		y = y + (this.matrix[5] *-1);
    		
+   		this.drawShadowrect(x,y,w,h,this.textCol.dark);
    		this.drawRect(x,y,w,h,'#FFF');
-   		this.drawRect(x,y,xSpace/2,h,zone.col);   		//drawImage(img,x + w/2 - imgS/2, y + xSpace/2,imgS,imgS);
+   		this.drawRect(x,y,w,xSpace/2,zone.col);   		//drawImage(img,x + w/2 - imgS/2, y + xSpace/2,imgS,imgS);
    		var maxtextWidth = w * .8;
    		var textsize = h *.2;
    		var dist = this.getDistanceXY(this.user,zone);
    			dist = dist/5280;
    			dist = dist.toFixed(2);
-   		this.drawText(zone.name, x + w/2 , y + h/4, textsize,this.textCol.dark,maxtextWidth);
+   		this.drawText(zone.name, x + w/2 , y + xSpace * 3, textsize,this.textCol.dark,maxtextWidth);
    		if(this.userisInZone == true){
    			
    			this.drawText("You are here",x + w/2 , y + h - textsize, textsize/2,this.textCol.mid,maxtextWidth);
    		}
    		else{
+   			if(this.isPointinRect(this.user.x,this.user.y,this.canv)){
 			this.drawText("~ " + dist +" miles away",x + w/2 ,y + h - textsize, textsize/2,this.textCol.mid,maxtextWidth);
+			}
+		}
+		if(zone.name == 'Field House'){
+			var mb = this.mapBtn;
+			this.drawImage(this.mapIcon,mb.x,mb.y,mb.w,mb.h);
 		}
 		var zr = zone.r;
-
+		
 		this.updateCIZone(x,y,w,h,zone.name,zone.col,zr);
-    },
-    drawAlert: function(){
-    	var w = window.innerWidth * .90;
-    	var h = window.innerHeight * .2;
-    	var y = window.innerHeight * .5;
-    	var x = window.innerWidth * .05;
-    		x = x+ this.matrix[4] * -1;
-    		y = y + this.matrix[5] * -1;
-    		y = y - h/2;
-    	
-    	this.drawRect(x,y,w,h,this.colors.alert,.8);
-    	
-    	this.drawText("You are not at the Festival", x+ w/2,y+h/2,120,this.textCol.white,w*.80);
-    	console.log(x,y,w,h);
     },
     drawText: function(string, x, y, size, col,maxWidth){
 		this.ctx.save();
-		this.ctx.font = 'bold ' + size + 'px Monospace';
+		this.ctx.font =  size + 'px Lato';
 		this.ctx.fillStyle = col;
 		this.ctx.textAlign = 'center';
 		this.ctx.fillText(string, x, y,maxWidth);
@@ -1044,7 +1124,7 @@ app.main = {
 function getTapPos(event){
 		
 	 	 var t = app.main;
-	 	 //console.log(t.matrix);
+	 	 
 	 	 var doubleTap = false;
 		 var x; 
   		 var y; 
@@ -1055,30 +1135,41 @@ function getTapPos(event){
          x = touches[0].pageX; //get touch x relative to window
          y = touches[0].pageY; //get touch y relative to window
          var m = t.matrix;
-         //console.log(x,y);
+         
          var newX = x * t.matrix[0] + y * t.matrix[2] + (t.matrix[4] *-1);//convert x based on screen pan
  		 var newY = x * t.matrix[1] + y * t.matrix[3] + (t.matrix[5] *-1);//convert y based on screen pan
         
          x = Math.floor(newX);//set x to newX
          y = Math.floor(newY);//set y to newY
-         //console.log(x,y);
+        
         
          if(t.isPointinRect(x,y,t.snapButton)){
          	t.snap(t.user);
          }
 		if(t.currentInfo.length >= 1){//check if info is on screen
          	var ci = t.currentInfo[0];
+         	
          	if(t.isPointinRect(x,y,ci)){//if it is check if new tap is inside it
-	         	if(ci.name == 'Feild House'){
+	         	if(ci.name == 'Field House'){
+	         			
+	         		if(t.isPointinRect(x,y,t.mapBtn)){
 	         			t.fhMode = true;
 	         			t.handlefhMode();
 	         			t.currentInfo =[];
+         			}
+
 	         	}
 	         	t.tut2 = "false";
 	         	window.localStorage.setItem("tut2","false");
+	         	var ci = t.currentInfo[0];
 	         	if(t.fhMode == true){
-
+	         		//Go to page for indivual exhibit
 	         	}
+	         	if(t.fhMode == false){
+	         		
+	         		//Go to page for Zone exhibits
+	         	}
+	         	
 			}
          	else{//if not empty current info
          		t.currentInfo = [];
@@ -1098,12 +1189,13 @@ function getTapPos(event){
          	if(t.isPointinRect(x,y,t.backBut)){//
          		t.fhMode = false;//if do back out of fh mode
          		t.initMap();
-         		t.snap(t.FHcol); // CHANGE TO XY OF FH CIRCLE COLLIDER
+         		
+         		t.snap(t.zoneColliders[12]); // CHANGE TO XY OF FH CIRCLE COLLIDER
          	}
          	var exCircles = [];//array of touched circles for exhibits
          	for(var k = 0; k < t.exhibits.length; k++){
-         		var ex = t.exhibits[k];
-         		if(t.isPointinCircle(x,y,ex)){ // check if point is within circle
+         		var ex = t.exColliders[k];
+         		if(t.isPointinCircle(x,y,ex) && ex.zone == 'Field House'){ // check if point is within circle
          			var d = t.isPointinCircle(x,y,ex); // get the distance 
          			exCircles.push({name:ex.name, dist:d , x:ex.x,y:ex.y, tag:ex.tags[0]});//if there is a collision push to exCircles with name,dist etc.
          		}
@@ -1121,7 +1213,8 @@ function getTapPos(event){
 	        for(var i = 0; i < t.zoneColliders.length; i++){
 	         	var zc = t.zoneColliders[i];
 	         	if(t.isPointinCircle(x,y,zc) && t.zoomedOut == false){ // if map is not zoomed out check for a slected zone
-	         		var distance = t.isPointinCircle(x,y,zc); //get distances
+	         		var distance = t.isPointinCircle(x,y,zc);
+	         		 //get distances
 	         		touchedCircles.push({ name:zc.name,dist: distance, col:zc.col, x: zc.x, y:zc.y + window.innerHeight*.05, r:zc.r});//push name and distance of zone
 	         		}
 	         	}
@@ -1130,6 +1223,7 @@ function getTapPos(event){
 		touchedCircles.sort(function(a,b) { return parseFloat(a.dist) - parseFloat(b.dist) } );//sort touchedCircls by dist (low-high)
 		
 			if(touchedCircles.length >= 1 && doubleTap == true){//if there was a doubletap on a touched circle
+
 					t.currentInfo.push(touchedCircles[0]);
 					t.snap(touchedCircles[0]);
 					t.tut1 = "false";
@@ -1148,19 +1242,6 @@ window.addEventListener("touchstart",getTapPos, false);
 
 		
 		
-		window.addEventListener("keyup", function(e){
-		
-			e.preventDefault();
-			//console.log("keyup");
-			if(e.keyCode == 38){
-				app.main.zoomCanvas('IN');
-			}
-			if(e.keyCode == 40){
-				app.main.zoomCanvas('OUT');
-			}
-
-
-		});
 
 	app.main.init();
 }
