@@ -17,6 +17,10 @@ angular.module('espy.controllers', [])
 		$state.go('tab.home-exhibit', {exhibitId: id});
 	};
 
+	$scope.search = function(element, searchTerm) {
+		$state.go('tab.home-search', {term: searchTerm});
+	}
+
 //	if exhibit list hasn't been retrieved from db
 	if(! Exhibits.isSynced()) {
 		var dataPromise = Exhibits.all();
@@ -29,25 +33,26 @@ angular.module('espy.controllers', [])
 	}
 })
 
-// TODO: remove unneeded params
-.controller('SearchCtrl', function($scope, $stateParams, $location, $state, Categories, Exhibits) {
+.controller('SearchCtrl', function($scope, $stateParams, $state, Categories, Exhibits) {
 	var category = $stateParams.category;
 	$scope.categories = Categories.all();
-//	$location.search('category', null);
-//	// TODO: remove query string!!
-//	if(category != null) {
-////		$state.go('tab.category', {name: category});
-//		delete $location.$$search.category;
-//		$location.$$compose();
-//		$state.go('tab.category', {name: category});
-//	}
+	$scope.search = function(element, searchTerm) {
+		$state.go('tab.search-results', {term: searchTerm});
+	}
 })
 
 .controller('HomeCategoryCtrl', function($scope, $state, $stateParams, Exhibits) {
 	// get current category
-	console.log('category control');
-	$scope.category = $stateParams.category;
+	$scope.title = $stateParams.category;
 	$scope.exhibits = Exhibits.getCategoryList($stateParams.category);
+	$scope.viewExhibit = function(id) {
+		$state.go('tab.home-exhibit', {exhibitId: id});
+	};
+})
+
+.controller('HomeSearchCtrl', function($scope, $state, $stateParams, Exhibits) {
+	$scope.title = $stateParams.term;
+	$scope.exhibits = Exhibits.search($stateParams.term);
 	$scope.viewExhibit = function(id) {
 		$state.go('tab.home-exhibit', {exhibitId: id});
 	};
@@ -56,8 +61,16 @@ angular.module('espy.controllers', [])
 .controller('CategoryCtrl', function($scope, $state, $stateParams, Exhibits) {
 	// get current category
 	console.log('category control');
-	$scope.category = $stateParams.category;
+	$scope.title = $stateParams.category;
 	$scope.exhibits = Exhibits.getCategoryList($stateParams.category);
+	$scope.viewExhibit = function(id) {
+		$state.go('tab.exhibit-detail', {exhibitId: id});
+	};
+})
+
+.controller('SearchResultCtrl', function($scope, $state, $stateParams, Exhibits) {
+	$scope.title = $stateParams.term;
+	$scope.exhibits = Exhibits.search($stateParams.term);
 	$scope.viewExhibit = function(id) {
 		$state.go('tab.exhibit-detail', {exhibitId: id});
 	};

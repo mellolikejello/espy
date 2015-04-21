@@ -279,6 +279,15 @@ angular.module('espy.services', ['ngResource'])
 //		rating: 3,
 //		img: 'img/logo.png'
 //	}];
+//	helper function - check if input contains searchString
+//			input: string to check
+	function contains(input, searchString) {
+		if(input.toLowerCase().indexOf(searchString) >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	return {
 		all: function() {
@@ -293,6 +302,26 @@ angular.module('espy.services', ['ngResource'])
 		  } else {
 			return exhibits;
 		  }
+		},
+
+//		returns a list of exhibits that contain given search term
+//		properties searched: name, description, exhibitors
+		search: function(term) {
+			term = term.toLowerCase();
+			var results = [];
+			for(var i in exhibits) {
+//				check name and description
+				if(contains(exhibits[i].name, term) || contains(exhibits[i].description, term)) {
+					results.push(exhibits[i]);
+				}
+//				check all exhibitors
+				for(var j in exhibits[i].exhibitors) {
+					if(contains(exhibits[i].exhibitors[j], term)) {
+						results.push(exhibits[i]);
+					}
+				}
+			}
+			return results;
 		},
 
 	  	isSynced: function() {
