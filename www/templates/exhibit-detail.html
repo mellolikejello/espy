@@ -1,6 +1,11 @@
 <ion-view view-title="">
+	<style>
+		.bar.bar-positive {
+			background-color: 'red' !important;
+		}
+	</style>
     <ion-content class="text-center exhibit-detail-view">
-    <ion-slide-box show-pager="true" on-slide-changed="slideHasChanged($index)">
+    <ion-slide-box ng-style="{'background-color': zoneColor}" show-pager="true" on-slide-changed="slideHasChanged($index)">
 <!--			<ion-slide-pager ng-click='slideHasChanged($index)'></ion-slide-pager>-->
       <ion-slide>
 				<div class="box">

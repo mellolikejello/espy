@@ -1,5 +1,16 @@
 angular.module('espy.directives', [])
 
+.directive('colorNavBar', function() {
+	return {
+		restrict: 'A',
+		templateURL: '/templates/search-bar.html',
+		link: function(scope, element, attrs) {
+			console.log(scope.zoneColor);
+			console.log(scope.categories);
+		}
+	}
+})
+
 .directive('searchBar', function() {
     return {
         restrict: 'A',

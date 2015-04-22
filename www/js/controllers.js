@@ -95,8 +95,11 @@ angular.module('espy.controllers', [])
 
 })
 
-.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits) {
+.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
+	$scope.zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
+//	debugger;
+//	$document.querySelector(".bar-positive");
 })
 
 .controller('AccountCtrl', function($scope) {
