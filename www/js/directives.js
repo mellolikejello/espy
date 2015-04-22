@@ -1,5 +1,33 @@
 angular.module('espy.directives', [])
 
+.directive('colorNavBar', function() {
+	return {
+		restrict: 'A',
+		templateURL: '/templates/search-bar.html',
+		link: function(scope, element, attrs) {
+			console.log(scope.zoneColor);
+			console.log(scope.categories);
+		}
+	}
+})
+
+.directive('searchBar', function() {
+    return {
+        restrict: 'A',
+        templateUrl: '/templates/search-bar.html',
+				link: function(scope, element, attrs) {
+					element.bind("keydown keypress", function(event) {
+						if(event.which === 13) {
+							scope.$apply(function() {
+								scope.$eval(scope.search, scope.query);
+							})
+							event.preventDefault();
+						}
+				});
+    	}
+		}
+})
+
 .directive('categoryTile', function() {
 	return {
 		restrict: 'A',

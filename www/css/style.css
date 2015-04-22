@@ -63,7 +63,7 @@
 	font-family: 'Lato', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6, h7, .bar.title {
+h1, h2, h3, h4, h5, h6, h7, .bar.title, .b1, .b2, .b3 {
 	font-family: 'Lato', sans-serif;
 	font-weight: 700;
 }
@@ -98,6 +98,21 @@ h6 {
 	font-size: 26px;
 }
 
+.b1 {
+	color: #FFFFFF;
+	font-size: 32px;
+}
+
+.b2 {
+	color: #9EA7B3;
+	font-size: 26px;
+}
+
+.b3 {
+	color: #9EA7B3;
+	font-size: 18px;
+}
+
 .bar.bar-positive {
 	background-color: #3DB4C8;
 	border-color: #3DB4C8;
@@ -127,6 +142,10 @@ h6 {
 
 .all-caps {
 	text-transform: uppercase;
+}
+
+.img-icon {
+	width: 30px;
 }
 
 .item-input {
@@ -170,16 +189,56 @@ h6 {
 ============Card Highlight/Zone Colors ============
 */
 
-.green-place {
+.zone-green-place {
 	border-top-color: #4BE530;
 }
 
-.business-dist {
+.zone-business-dist {
 	border-top-color: #3DB549;
 }
 
-.field-house {
+.zone-field-house {
 	border-top-color: #3C91E5;
+}
+
+.zone-computer-zone {
+	border-top-color: #07C2AF;
+}
+
+.zone-tech-quarter {
+	border-top-color: #3AC7E8;
+}
+
+.zone-innovation-center {
+	border-top-color: #354AA5;
+}
+
+.zone-global-village {
+	border-top-color: #EC6A80;
+}
+
+.zone-think-tank {
+	border-top-color: #D11E1E;
+}
+
+.zone-eng-park {
+	border-top-color: #F27935;
+}
+
+.zone-info-section {
+	border-top-color: #ED9A37;
+}
+
+.zone-rit-center {
+	border-top-color: #F4C031;
+}
+
+.zone-science-center {
+	border-top-color: #F7EF4A;
+}
+
+.zone-art-alley {
+	border-top-color: #A053BC;
 }
 /* college colors */
 /*	green place */
@@ -246,7 +305,6 @@ h6 {
     top: 2vh;
     left: 27vw;
 */
-	width: 30px;
 }
 
 .queue-empty {
@@ -255,6 +313,23 @@ h6 {
 
 .exhibit-detail-view {
 	background-color: white;
+}
+
+.exhibit-detail-view row{
+	padding-top: 18px;
+}
+
+.exhibit-action-icon {
+	display: block;
+}
+
+.exhibit-list-icon {
+	display: inline-block;
+	width: 36px;
+}
+
+.list-content {
+	text-align: left;
 }
 
 .exhibit-bottom-detail {
@@ -267,7 +342,13 @@ h6 {
 
 .slider-slide {
 	height: 100%;
+	padding-top: 40px;
 	padding-bottom: 40px;
+}
+
+.slider-slide {
+	padding-left: 5vw;
+	padding-right: 5vw;
 }
 
 .slider-pager-page {

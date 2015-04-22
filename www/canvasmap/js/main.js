@@ -21,7 +21,7 @@ app.main = {
 	originLong:-77.685955,
 	originLat: 43.087979,
 
-	panspeed:15,
+	panspeed:10,
 
 	triLat:undefined,
 
@@ -94,7 +94,7 @@ app.main = {
 	panRightAllowed:undefined,
 
 	queued:undefined,
-	exhibits: undefined,
+	
 	zoneColliders:undefined,
 	canv: undefined,
 	alertTimer:undefined,
@@ -192,7 +192,7 @@ app.main = {
    		var h = ih * .30;
    		var x = iw * .025;
    		var xSpace = x * 3;
-   		var y = ih/2 +h/2 - h/4 - x*2;
+   		var y = ih/2 +h/2 - h/4 - x*6;
    		var img = this.mapSmall;
    		var imgS = w * .2;
    		var bw = iw * .1;
@@ -465,7 +465,8 @@ app.main = {
    	update: function(){
    		var t = this;
    		requestAnimationFrame(this.update.bind(this));
-		
+		t.queued = JSON.parse(window.localStorage['queue']);
+		//console.log(t.queued);
 		t.alertTimer -- ;
 		t.zoomTick --;
 		t.tapTimer --;
@@ -475,19 +476,19 @@ app.main = {
 		t.isPanAllowed();
 		t.initBtns();
 		if(t.fhMode == true){
-			if(t.qCirc >= 60){
+			if(t.qCirc >= 35){
 				t.qUp = false;
-				t.qCirc = 59;
+				t.qCirc = 34;
 			}
-			if(t.qCirc <= 30){
-				t.qCirc = 31;
+			if(t.qCirc <= 15){
+				t.qCirc = 16;
 				t.qUp = true;
 			}
 			if(t.qUp == true){
-				t.qCirc += .4;
+				t.qCirc += .2;
 			}
 			if(t.qUp == false){
-				t.qCirc -= .4;
+				t.qCirc -= .2;
 			}
 		}
 		
@@ -856,9 +857,9 @@ app.main = {
 			}
 			else{t.panLeftAllowed = true;}
 
-			if(t.matrix[5]>= -t.snapButton.h ){
+			if(t.matrix[5]>= 0 + t.snapButton.h ){
 				t.panBotAllowed = true;
-				t.matrix[5]  =  -t.snapButton.h ;
+				t.matrix[5]  =  0 + t.snapButton.h ;
 
 			}
 			else{//panBotAllowed = false;
@@ -963,8 +964,8 @@ app.main = {
 		this.drawImage(this.fhImage,0,0,this.WIDTH,this.HEIGHT);
 	},
 	drawEx: function(ex,i){
-   		var w = window.innerWidth * .15;
-   		var h = window.innerWidth * .15;
+   		var w = 60;
+   		var h = 60;
    		var x = ex.x - w/2;
    		var y = ex.y - h/2;
    		if(ex.zone == 'Field House'){
@@ -998,7 +999,7 @@ app.main = {
    		var h = ih * .30;
    		var x = iw * .025;
    		var xSpace = x * 3;
-   		var y = ih/2 +h/2 - h/4 - x*2;
+   		var y = ih/2 +h/2 - h/4 - x*6;
    		
    		var imgS = w * .2;
    		x = x + (this.matrix[4] *-1);
@@ -1009,10 +1010,10 @@ app.main = {
    		this.drawRect(x,y,w,h,"#FFF");
    		this.drawRect(x,y,w,xSpace/2,'#3C91E5');
    		
-   		this.drawImage(this.ciImage,x + w/2 - imgS/2, y + xSpace/2,imgS,imgS);
+   		this.drawImage(this.ciImage,x + w/2 - imgS/2, y + xSpace,imgS,imgS);
    		var maxtextWidth = w * .8;
    		var textsize = h *.10;
-   		this.drawText(ex.name, x + w/2 , y + (imgS + xSpace * 3), textsize,this.textCol.mid,maxtextWidth);
+   		this.drawText(ex.name, x + w/2 , y + h - xSpace, textsize,this.textCol.mid,maxtextWidth);
 		this.updateCurrentInfoEx(x,y,w,h,ex.name,ex.tag);
 	},
 	drawZoneInfo: function(zone){
@@ -1022,7 +1023,7 @@ app.main = {
    		var h = ih * .30;
    		var x = iw * .025;
    		var xSpace = x * 3;
-   		var y = ih/2 +h/2 - h/4 - x*2;
+   		var y = ih/2 +h/2 - h/4 - x*6;
    		var img = this.mapSmall;
    		var imgS = w * .2;
    		x = x + (this.matrix[4] *-1);

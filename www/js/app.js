@@ -86,17 +86,23 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
 	  }
 	})
 
+	.state('tab.home-search', {
+	  url: '/home/search/:term',
+	  views: {
+		'tab-home': {
+		  templateUrl: 'templates/search-detail.html',
+		  controller: 'HomeSearchCtrl'
+		}
+	  }
+	})
+
   .state('tab.search', {
     url: '/search',
     views: {
       'tab-search': {
         templateUrl: 'templates/tab-search.html',
         controller: 'SearchCtrl'
-      },
-			'tab-searched': {
-				templateUrl: 'templates/search-detail.html',
-        controller: 'CategoryCtrl'
-			}
+      }
     }
   })
 
@@ -106,6 +112,16 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
       'tab-search': {
         templateUrl: 'templates/search-detail.html',
         controller: 'CategoryCtrl'
+      }
+    }
+  })
+
+	.state('tab.search-results', {
+    url: '/search/results/:term',
+    views: {
+      'tab-search': {
+        templateUrl: 'templates/search-detail.html',
+        controller: 'SearchResultCtrl'
       }
     }
   })
