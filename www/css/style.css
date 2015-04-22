@@ -185,13 +185,13 @@ h6 {
 /*	green place */
 .test {
 /*	business dist */
-	
+
 /*	computer zone */
 	border-top-color: #07C2AF;
 /*	tech quarter */
 	border-top-color: #3AC7E8;
 /*	field house */
-	
+
 /*	innovation center */
 	border-top-color: #354AA5;
 /*	global village */
@@ -289,4 +289,46 @@ h6 {
 
 .button-list-border {
 	width: 80%;
+}
+
+.select-box {
+	margin: 5px;
+	display: inline-block;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #5E6D81;
+	color: #9EA7B3;
+}
+
+.select-box.select-box-selected {
+	color: #FFD464;
+}
+
+.log-slide {
+	background-color: #F2F2F2;
+}
+
+.theme-color {
+	color: #3DB4C8;
+}
+
+.ion-record {
+	color: #3DB4C8;
+}
+
+.access-icon {
+	font-size: 50px;
+	color: #5E6D81;
+	display: inline;
+}
+
+.access-guide {
+	display: inline;
+	color: #9EA7B3;
+	font-size: 18px;
+}
+
+.input-user {
+	background-color: #F2F2F2;
+	border:solid 1px #BFBDBD;
 }

@@ -1,10 +1,14 @@
 angular.module('espy.controllers', [])
 
-.controller('SignInCtrl', function($scope, $state) {
+.controller('SignInCtrl', function($scope, $state, Categories) {
+	$scope.categories = Categories.all();
 	$scope.signIn = function() {
 		console.log('Sign-In');
 		$state.go('tab.home');
-	  };
+	};
+	$scope.selectBox = function() {
+		angular.element.addClass('select-box-selected');
+	};
 })
 
 .controller('HomeCtrl', function($scope, $state, Exhibits, Categories) {
