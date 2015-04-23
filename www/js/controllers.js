@@ -26,7 +26,7 @@ angular.module('espy.controllers', [])
 		  id: "",
 		}
 		setStorage.user(user);
-		
+		console.log(user);
 	};
 	$scope.check = false;
 	$scope.selectBox = function() {
@@ -62,11 +62,13 @@ angular.module('espy.controllers', [])
 		//var pref = [];
 		
 		k = k-1
+		console.log(k);
 		
 		group.shift();
 		group.push(g);
 		nums.shift();
 		nums.push(k);
+		console.log(group);
 		
 			
 	
@@ -231,11 +233,12 @@ angular.module('espy.controllers', [])
 	}
 })
 
-.controller('AccountCtrl', function($scope, $state) {
+.controller('AccountCtrl', function($scope, $state,getStorage) {
 	// make this a db call
-	var name = "bob";
-	var role = "College Student";
-	var interests = ['Science', 'Art', 'Dance'];
+	var user = getStorage.user();
+	var name = user.name;
+	var role = user.role;
+	var interests = user.interests;
 	$scope.nickname = name;
 	$scope.userRole = role;
 	$scope.interests = interests;

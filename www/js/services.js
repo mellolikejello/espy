@@ -376,7 +376,7 @@ angular.module('espy.services', ['ngResource'])
                 console.log('user is null');
             }
             else{
-                var user = JSON.parse(user);
+                //var user = JSON.parse(user);
                 return user;
             }   
         },
