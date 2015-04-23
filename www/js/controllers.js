@@ -20,10 +20,13 @@ angular.module('espy.controllers', [])
 		  name: username,
 		  role: group[0],
 		  interests: pref,
-		  location: [{x:0,y:0,}],
+		  location: [{x:0,y:0}],
 		  visited: [],
 		  queue: [],
 		  id: "",
+		  r: 10,
+		  x: 0,
+		  y: 0
 		}
 		setStorage.user(user);
 		console.log(user);
@@ -234,6 +237,9 @@ angular.module('espy.controllers', [])
 			  visited: user.visited,
 			  queue: [],
 			  id: "",
+			  r: user.r,
+			  x:user.x,
+			  y:user.y
 			}
 		setStorage.user(updatedUser);
 		//$scope.selectBox();
@@ -284,6 +290,9 @@ angular.module('espy.controllers', [])
 			  visited: user.visited,
 			  queue: [],
 			  id: "",
+			  r: user.r,
+			  x:user.x,
+			  y:user.y
 			}
 		setStorage.user(updatedUser);
 		//$scope.selectBox();
