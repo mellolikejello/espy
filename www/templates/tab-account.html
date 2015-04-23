@@ -3,21 +3,21 @@
 		<h6 class="text-center">Profile</h6>
 		<ion-list>
 			<ion-item>
-				<p>Nickname</p>
+				<p class="account-label">Nickname</p>
 				<p>{{nickname}}</p>
 			</ion-item>
 			<ion-item>
-				<p>Role</p>
+				<p class="account-label">Role</p>
 				<p>{{userRole}}</p>
 			</ion-item>
 			<ion-item>
-				<p>Interests</p>
+				<p class="account-label">Interests</p>
 				<p>
 					<span ng-repeat="interest in interests">{{interest}} {{$last ? '' : ($index==interests.length-1) ? '' : ', '}} </span>
 				</p>
 			</ion-item>
 			<ion-item class="item-divider text-center">
-				<h2>Notifications</h2>
+				Notifications
 			</ion-item>
 			<ion-toggle ng-model="settings.enablePush">
 				Send Push Notifications
