@@ -6,8 +6,9 @@ angular.module('espy.controllers', [])
 		console.log('Sign-In');
 		$state.go('tab.home');
 	};
+	$scope.check = false;
 	$scope.selectBox = function() {
-		angular.element.addClass('select-box-selected');
+    $scope.check = $scope.check === false ? true: false;
 	};
 })
 
@@ -45,8 +46,7 @@ angular.module('espy.controllers', [])
 	$scope.$on('$ionicView.enter', function () { 
 		   var reco = UtilService.addRec();
 		   $scope.exhibits = reco;
-		   var set = getStorage.exhibits();
-		   console.log(set[0]);
+		   
 
 	});
 

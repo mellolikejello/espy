@@ -422,22 +422,39 @@ angular.module('espy.services', ['ngResource'])
           
         },
         
-         queue: function(cur){
-            console.log(cur);
+            //console.log(cur);
+           queue: function(cur){
+          
             var curEx  = JSON.parse(cur);
             var queue = $localstorage.getObject('queue');
-
-            console.log(cur);
-            if(queue.indexOf(curEx) > -1 || curEx == "" ){
-
-            }
-            else{
-                queue.push(curEx);
-                $localstorage.setObject('queue',queue);
                
-            }
+            
+                console.log(curEx);
+                console.log(queue);
+                if(this.objIsinArray(curEx,queue)){
+                    console.log('exist');
+                }
+                else{
+                    queue.push(curEx);
+                    console.log('dont exist');
+                    $localstorage.setObject('queue',queue);
+                }
+               
+                
+             
         },
-        //call this is in a for loop for each exhibit that is pulled from the server
+        objIsinArray: function (obj,list){
+                var i;
+                for (i = 0; i < list.length; i++) {
+                    if (list[i].code === obj.code) {
+                        return true;
+                    }
+                }
+
+                return false;
+            },
+       
+        
         exhibits: function(ex){
            if(ex != null){
                 $localstorage.setObject('exhibits',ex);

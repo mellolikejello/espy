@@ -121,6 +121,100 @@ angular.module('espy.directives', [])
 	}
 })
 
+.directive('categoryBox', function() {
+	return {
+		restrict: 'A',
+		templateUrl: '/templates/category-box.html',
+		link: function(scope, element, attrs) {
+			var category = scope.category;
+			var iconClass = 'icon-tags-';
+			switch(category) {
+				case 'Art':
+					iconClass = iconClass.concat('art');
+					break;
+				case 'Business':
+					iconClass = iconClass.concat('business');
+					break;
+				case 'Communication':
+					iconClass = iconClass.concat('communication');
+					break;
+				case 'Community':
+					iconClass = iconClass.concat('community');
+					break;
+				case 'Dance':
+					iconClass = iconClass.concat('dance');
+					break;
+				case 'Design':
+					iconClass = iconClass.concat('design');
+					break;
+				case 'Energy':
+					iconClass = iconClass.concat('energy');
+					break;
+				case 'Engineering':
+					iconClass = iconClass.concat('engineering');
+					break;
+				case 'Entrepreneurship':
+					iconClass = iconClass.concat('entrepreneurship');
+					break;
+				case 'Environment':
+					iconClass = iconClass.concat('environment');
+					break;
+				case 'Food':
+					iconClass = iconClass.concat('food');
+					break;
+				case 'Gaming':
+					iconClass = iconClass.concat('gaming');
+					break;
+				case 'Global':
+					iconClass = iconClass.concat('global');
+					break;
+				case 'Health':
+					iconClass = iconClass.concat('health');
+					break;
+				case 'Math':
+					iconClass = iconClass.concat('math');
+					break;
+				case 'Multidisciplinary':
+					iconClass = iconClass.concat('multidisciplinary');
+					break;
+				case 'Music':
+					iconClass = iconClass.concat('music');
+					break;
+				case 'Photography':
+					iconClass = iconClass.concat('photography');
+					break;
+				case 'Science':
+					iconClass = iconClass.concat('science');
+					break;
+				case 'Senior Projects':
+					iconClass = iconClass.concat('seniorprojects');
+					break;
+				case 'STEM':
+					iconClass = iconClass.concat('stem');
+					break;
+				case 'Student Organizations':
+					iconClass = iconClass.concat('studentorganizations');
+					break;
+				case 'Sustainability':
+					iconClass = iconClass.concat('sustainability');
+					break;
+				case 'Technology':
+					iconClass = iconClass.concat('technology');
+					break;
+				case 'Software':
+					iconClass = iconClass.concat('software');
+					break;
+				case 'Sports':
+					iconClass = iconClass.concat('sports');
+					break;
+			}
+			var iconElement = element[0].querySelector('.icon-box');
+			iconElement.className += ' ' + iconClass;
+			scope.iconBox = iconClass;
+		}
+	}
+})
+
 .directive('detectGestures', function($ionicGesture) {
   return {
     restrict: 'A',
@@ -223,7 +317,7 @@ angular.module('espy.directives', [])
 .directive('addQueue', function(setStorage) {
     return {
         restrict: 'A',
-       
+
         templateUrl: '/templates/queue-button.html',
 			link: function(scope, element, attrs) {
 					element.bind("click", function() {
@@ -237,11 +331,11 @@ angular.module('espy.directives', [])
 .directive('removeQueue', function(getStorage,$localstorage,$timeout,$state) {
     return {
         restrict: 'A',
-       
+
         templateUrl: '/templates/queueremove-button.html',
 			link: function(scope, element, attrs) {
 					element.bind("click", function() {
-						
+
 						var currentQueue = getStorage.queue();
 						var toRemove = attrs.ex;
 						console.log(toRemove);
@@ -250,22 +344,22 @@ angular.module('espy.directives', [])
 							console.log(currentQueue[i].code);
 							    if(currentQueue[i].code == toRemove) {
 							        currentQueue.splice(i, 1);
-							        
+
 							        break;
 							    }
 							}
-							
+
 						$localstorage.setObject('queue',currentQueue);
 						//$state.go('tab.queue');
 						console.log(currentQueue);
 						 $timeout( function() {
 						    //$window.location.reload(true)
-						   
+
 							$state.go('tab.queue');
 
 						   	}, 200);
 
-						
+
 			});
     	}
 		}
@@ -290,7 +384,7 @@ angular.module('espy.directives', [])
         templateUrl: '',
         link: function(scope, element, attrs) {
 
-        	
+
 			var zone = attrs.ex;
 			var color = "#9EA7B3";
 			switch(zone) {
@@ -334,12 +428,10 @@ angular.module('espy.directives', [])
 					color = "#A053BC";
 					break;
 			}
-			console.log(color);
+			//console.log(color);
 			scope.zoneColor = color;
-			
+
 			return scope;
 		}
     }
 })
-
-
