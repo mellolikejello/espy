@@ -80,6 +80,9 @@
 				</div>
 			</div>
 			<hr class="button-list-border">
+			<div class="select-box box-inline padding-horizontal all-caps"  ng-repeat="category in exhibit.tags" ng-click="addPref(category)" ng-class="{'active': wact(category)}" >
+				<div category-box></div>
+				</div>
 		</div>
   </ion-content>
 </ion-view>

@@ -198,7 +198,7 @@ angular.module('espy.controllers', [])
 })
 
 
-.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window, $document,getStorage) {
+.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window, $document,getStorage,setStorage ){
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
   var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
 	$scope.zoneColor = zoneColor;
@@ -213,10 +213,42 @@ angular.module('espy.controllers', [])
 			info.style["display"] = "block";
 		}
 	}
+	var user = getStorage.user();
+	var pref = user.interests;
+	
+	
+	$scope.addPref= function(cat){
+		//var pref = [];
+		if(pref.indexOf(cat) >-1){
+			pref.splice(pref.indexOf(cat),1);
+			
+		}
+		else{
+		pref.push(cat);
+		}
+		var updatedUser={
+			  name: user.name,
+			  role: user.role,
+			  interests: pref,
+			  location: user.location,
+			  visited: user.visited,
+			  queue: [],
+			  id: "",
+			}
+		setStorage.user(updatedUser);
+		//$scope.selectBox();
+		
+	}
+	$scope.wact = function(w){
+		if(pref.indexOf(w) >-1 ){
+			return true;
+		}
+		else{return false};
+	}
 	
 })
 
-.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window,$document) {
+.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window,$document,getStorage,setStorage) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
 	var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
 	$scope.zoneColor = zoneColor;
@@ -230,6 +262,38 @@ angular.module('espy.controllers', [])
 		} else {
 			info.style["display"] = "block";
 		}
+	}
+	var user = getStorage.user();
+	var pref = user.interests;
+	
+	
+	$scope.addPref= function(cat){
+		//var pref = [];
+		if(pref.indexOf(cat) >-1){
+			pref.splice(pref.indexOf(cat),1);
+			
+		}
+		else{
+		pref.push(cat);
+		}
+		var updatedUser={
+			  name: user.name,
+			  role: user.role,
+			  interests: pref,
+			  location: user.location,
+			  visited: user.visited,
+			  queue: [],
+			  id: "",
+			}
+		setStorage.user(updatedUser);
+		//$scope.selectBox();
+		
+	}
+	$scope.wact = function(w){
+		if(pref.indexOf(w) >-1 ){
+			return true;
+		}
+		else{return false};
 	}
 })
 
