@@ -116,6 +116,8 @@ app.main = {
 		var t = this;
 		this.canvas = document.querySelector('canvas');
 		this.ctx = this.canvas.getContext('2d');
+
+		app.trilateration.initialize(); // init beacon code
 		
 		this.initExZones();
 		this.userAnimate = 60;
@@ -183,7 +185,7 @@ app.main = {
 		this.update();
 		this.mat2 = this.matrix;
 
-
+		console.log("main.js init");
 	},
 	initBtns: function(){
 		var iw = Math.floor( window.innerWidth);

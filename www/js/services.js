@@ -173,7 +173,6 @@ angular.module('espy.services', ['ngResource'])
         // Called from app.js every 3 minutes
         // Updates a users preferences based on the exhibits they have been to
         updatePreferences: function () {   // NEED CALL TO GET ALL USERS VISITED EXHIBITS
-            console.log('init maps');
             var exhibits = Exhibits.all();
             var visitedExhibits = []; // TODO: Get users visited exhibits
             var userPreferences = [];
