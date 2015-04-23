@@ -5,21 +5,24 @@
 	<ion-content>
 		<ion-slide-box class="log-slide" on-slide-changed="slideHasChanged($index)" show-pager="true">
 		  <ion-slide class="padding">
-		    <div class="select-box box-inline padding-horizontal all-caps" ng-repeat="category in categories" ng-class="{'active':check}">
+		    		<div class="select-box box-inline padding-horizontal all-caps"  ng-repeat="category in categories" ng-click="addPref(category)" ng-class="{'active': wact(category)}" >
 					<div category-box></div>
-				</div>
+					</div>
 		  </ion-slide>
 		  <ion-slide class="padding">
-				<div class="select-box padding all-caps">K-12 Student<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">College Student<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Exhibitor<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Parent<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Parent With Young Child<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Exployer<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Professor<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+				<div class="select-box padding all-caps"  ng-class="{'active':act('1')}"  ng-click="addGroup('K-12 Student',1)">K-12 Student<i class="icon ion-plus padding-left theme-color float-right" ></i></div>
+				<div class="select-box padding-horizontal  all-caps"  ng-class="{'active':act('2')}"ng-click="addGroup('College Student',2)" >College Student<i class="icon ion-plus padding-left theme-color float-right "></i></div>
+				<div class="select-box padding-horizontal all-caps"  ng-class="{'active':act('3')}"ng-click="addGroup('Exhibitor',3)">Exhibitor<i class="icon ion-plus padding-left theme-color float-right" ></i></div>
+				<div class="select-box padding-horizontal all-caps"  ng-class="{'active':act('4')}"ng-click="addGroup('Parent',4)" >Parent<i class="icon ion-plus padding-left theme-color float-right" ></i></div>
+				<div class="select-box padding-horizontal all-caps"  ng-class="{'active':act('5')}"ng-click="addGroup('Parent With Child',5)">Parent With Child<i class="icon ion-plus padding-left theme-color float-right" ></i></div>
+				<div class="select-box padding-horizontal all-caps"  ng-class="{'active':act('6')}"ng-click="addGroup('Exployer',6)">Exployer<i class="icon ion-plus padding-left theme-color float-right" ></i></div>
+				<div class="select-box padding-horizontal all-caps"  ng-class="{'active':act('7')}"ng-click="addGroup('Professor',7)">Professor<i class="icon ion-plus padding-left theme-color float-right" ></i></div>
 				<h6 class="b3 ques">What should we call you?</h6>
 				<div class="input-line padding-horizontal">
-					<input type="text" name="username" placeholder="Nickname" style="background-color:#F2F2F2; font-size:24px; font-weight:bold; color:#9EA7B3; font-family: 'Lato', sans-serif;">
+				
+					<input type="text" name="username" ng-model="params.myParameter" placeholder="Nickname" style="background-color:#F2F2F2; font-size:24px; font-weight:bold; color:#9EA7B3; font-family: 'Lato', sans-serif;">
+				
+				
 				</div>
 		  </ion-slide>
 		  <ion-slide>
