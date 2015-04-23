@@ -11,7 +11,7 @@ angular.module('espy.controllers', [])
 	};
 })
 
-.controller('HomeCtrl', function($scope, $state, Exhibits, Categories) {
+.controller('HomeCtrl', function($scope, $state, Exhibits, Categories,setStorage,getStorage) {
     $scope.categories = Categories.all();
     $scope.saveRatingToServer = function(rating) {
       /* TODO - add server call, update rating */
@@ -30,10 +30,12 @@ angular.module('espy.controllers', [])
 		var dataPromise = Exhibits.all();
 		// this is only run after $http completes
 		dataPromise.then(function(result) {
-		   $scope.exhibits = result;
+		   
+		   setStorage.exhibits(result);
 		});
+		$scope.exhibits = getStorage.exhibits();
 	} else {
-		$scope.exhibits = Exhibits.all();
+		$scope.exhibits = getStorage.exhibits();
 	}
 })
 

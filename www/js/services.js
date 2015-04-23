@@ -367,14 +367,9 @@ angular.module('espy.services', ['ngResource'])
         },
         //call this is in a for loop for each exhibit that is pulled from the server
         exhibits: function(ex){
-            var curEx = ex;
-            var exhibits = JSON.parse($localstorage.getObject('exhibits'));
-            if(queue.indexOf(curEx) > -1 || curEx == "" ){
-                    console.log("Already in Exhibits.")
-            }
-            else{
-                exhibits.push(curEx);
-                $localstorage.setObject('exhibits',exhibits);
+           if(ex != null){
+                $localstorage.setObject('exhibits',ex);
+                console.log($localstorage.getObject('exhibits'))
             }
         }
             
