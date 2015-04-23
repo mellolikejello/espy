@@ -1,40 +1,63 @@
 <ion-view>
-	<ion-nav-title>
-  	<span>hello</span><br><span>world</span>
-	</ion-nav-title>
 	<ion-content>
-		<ion-slide-box class="log-slide" on-slide-changed="slideHasChanged($index)" show-pager="true">
-		  <ion-slide class="padding">
-		    <div class="select-box box-inline padding-horizontal all-caps" ng-repeat="category in categories" ng-class="{'active':check}">
-					<div category-box></div>
+		<ion-slide-box class="start-slide" on-slide-changed="slideHasChanged($index)" show-pager="true">
+		  <ion-slide class="start-slide">
+				<div class="title-box">
+					<h1 class="title center-text"><span>Let's Start With</span><br><span>Your Interests.</span></h1>
+					<h4 class="center-text">Tap a few things that you like.</h4>
+				</div>
+				<div class="slider-slide">
+					<div class="start-slide-body">
+						<div class="select-box box-inline padding-horizontal all-caps" ng-repeat="category in categories" ng-class="{'active':check}">
+							<div category-box></div>
+						</div>
+					</div>
 				</div>
 		  </ion-slide>
-		  <ion-slide class="padding">
-				<div class="select-box padding all-caps">K-12 Student<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">College Student<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Exhibitor<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Parent<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Parent With Young Child<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Exployer<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<div class="select-box padding-horizontal all-caps">Professor<i class="icon ion-plus padding-left theme-color float-right"></i></div>
-				<h6 class="b3 ques">What should we call you?</h6>
-				<div class="input-line padding-horizontal">
-					<input type="text" name="username" placeholder="Nickname" style="background-color:#F2F2F2; font-size:24px; font-weight:bold; color:#9EA7B3; font-family: 'Lato', sans-serif;">
+		  <ion-slide class="start-slide">
+				<div class="title-box">
+					<h1 class="title center-text"><span>Now Let's Talk</span><br><span>About You.</span></h1>
+					<h4 class="center-text">Which of these best describes you?</h4>
+				</div>
+				<div class="slider-slide">
+					<div class="start-slide-body">
+						<div class="select-box padding all-caps">K-12 Student<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+						<div class="select-box padding-horizontal all-caps">College Student<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+						<div class="select-box padding-horizontal all-caps">Exhibitor<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+						<div class="select-box padding-horizontal all-caps">Parent<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+						<div class="select-box padding-horizontal all-caps">Parent With Young Child<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+						<div class="select-box padding-horizontal all-caps">Exployer<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+						<div class="select-box padding-horizontal all-caps">Professor<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+						<div class="user-field">
+							<h6 class="center-text">What should we call you?</h6>
+							<div class="input-line padding-horizontal">
+								<input type="text" name="username" placeholder="Nickname" style="background-color:#F2F2F2; font-size:24px; font-weight:bold; color:#9EA7B3; font-family: 'Lato', sans-serif;">
+							</div>
+						</div>
+					</div>
 				</div>
 		  </ion-slide>
-		  <ion-slide>
-		    <div class="padding">
-					<img src="../icons/interaction/settings.png" class="padding access-icon">
-					<h6 class="padding access-guide">Open the iOS Settings App</h6>
+		  <ion-slide class="start-slide">
+				<div class="title-box">
+					<h1 class="title center-text"><span>We Need Permission To</span><br><span>Access Bluetooth.</span></h1>
+					<h4 class="center-text"><span>This let's your phone communicate</span><br><span>with the bluetooth sensors that are</span><br><span>the backbone of our app.</span></h4>
 				</div>
-				<div class="padding">
-					<img src="../icons/interaction/bluetooth.png" class="padding access-icon">
-					<h6 class="padding access-guide">Tap Bluetooth</h6>
+				<div class="slider-slide">
+					<div class="start-slide-body">
+						<div class="padding start-access-box">
+							<img src="../icons/interaction/settings.png" class="padding start-access-icon">
+							<h6 class="padding start-access-text">Open the iOS Settings App</h6>
+						</div>
+						<div class="padding start-access-box">
+							<img src="../icons/interaction/bluetooth.png" class="padding start-access-icon">
+							<h6 class="padding start-access-text">Tap Bluetooth</h6>
+						</div>
+						<div class="padding start-access-box">
+							<img src="../icons/interaction/toggle.png" class="padding start-access-icon">
+							<h6 class="padding start-access-text">Toggle Bluetooth On</h6></div>
+						<button class="button start-button padding col-offset-25" ng-click="signIn()">Start Exploring</button>
+					</div>
 				</div>
-				<div class="padding">
-					<img src="../icons/interaction/toggle.png" class="padding access-icon">
-					<h6 class="padding access-guide">Toggle Bluetooth On</h6></div>
-				<button class="button start-button padding col-offset-25" ng-click="signIn()">Start Exploring</button>
 		  </ion-slide>
 		</ion-slide-box>
 	</ion-content>
