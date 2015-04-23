@@ -476,3 +476,14 @@ h6 {
 .item .account-label {
   color: #9EA7B3;
 }
+
+.security-view p {
+	color: #9EA7B3;
+	font-size: 12pt;
+}
+
+.security-view .security-statement {
+	padding-top: 25px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
