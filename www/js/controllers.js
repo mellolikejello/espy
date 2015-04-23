@@ -11,11 +11,11 @@ angular.module('espy.controllers', [])
 	};
 })
 
-.controller('HomeCtrl', function($scope, $state, Exhibits, Categories,setStorage,getStorage,UtilService) {
+.controller('HomeCtrl', function($scope, $state, $document, Exhibits, Categories,setStorage,getStorage,UtilService) {
     $scope.categories = Categories.all();
     $scope.saveRatingToServer = function(rating) {
       /* TODO - add server call, update rating */
-      console.log('Rating selected - ' + rating);
+//      console.log('Rating selected - ' + rating);
     };
 	$scope.viewExhibit = function(id) {
 		$state.go('tab.home-exhibit', {exhibitId: id});
@@ -40,7 +40,10 @@ angular.module('espy.controllers', [])
 		   var reco = UtilService.addRec();
 		   $scope.exhibits = reco;
 	});
-	
+
+	var header = $document[0].querySelector("ion-header-bar");
+	header.style['background-color'] = '#3DB4C8';
+	header.style['border-color'] = '#3DB4C8';
 })
 
 .controller('SearchCtrl', function($scope, $stateParams, $state, Categories, Exhibits) {
@@ -68,14 +71,16 @@ angular.module('espy.controllers', [])
 	};
 })
 
-.controller('CategoryCtrl', function($scope, $state, $stateParams, Exhibits) {
+.controller('CategoryCtrl', function($scope, $state, $stateParams, Exhibits, $document) {
 	// get current category
-	console.log('category control');
 	$scope.title = $stateParams.category;
 	$scope.exhibits = Exhibits.getCategoryList($stateParams.category);
 	$scope.viewExhibit = function(id) {
 		$state.go('tab.exhibit-detail', {exhibitId: id});
 	};
+	var header = $document[0].querySelector("ion-header-bar");
+	header.style['background-color'] = '#3DB4C8';
+	header.style['border-color'] = '#3DB4C8';
 })
 
 .controller('SearchResultCtrl', function($scope, $state, $stateParams, Exhibits) {
@@ -108,11 +113,21 @@ angular.module('espy.controllers', [])
 })
 
 
-.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window) {
+.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window, $document) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
-	$scope.zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
-//	debugger;
-//	$document.querySelector(".bar-positive");
+  var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
+	$scope.zoneColor = zoneColor;
+	var header = $document[0].querySelector("ion-header-bar");
+	header.style['background-color'] = zoneColor;
+	header.style['border-color'] = zoneColor;
+	$scope.share = function() {
+		var info = $document[0].querySelector(".info-box");
+		if(info.style["display"] == "block") {
+			info.style["display"] = "none";
+		} else {
+			info.style["display"] = "block";
+		}
+	}
 })
 
 .controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window) {

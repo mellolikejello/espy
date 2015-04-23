@@ -1,9 +1,4 @@
 <ion-view view-title="">
-	<style>
-		.bar.bar-positive {
-			background-color: 'red' !important;
-		}
-	</style>
     <ion-content class="text-center exhibit-detail-view">
     <ion-slide-box ng-style="{'background-color': zoneColor}" show-pager="true" on-slide-changed="slideHasChanged($index)">
 <!--			<ion-slide-pager ng-click='slideHasChanged($index)'></ion-slide-pager>-->
@@ -29,18 +24,23 @@
 			<ul class="button-list">
 				<li class="button-list-item">
 					<div add-queue ex="{{exhibit}}"></div>
-					<span>Queue</span>
+					<h5 class="all-caps">Queue</h5>
 				</li>
 				<li class="button-list-item">
 					<img class="img-icon exhibit-action-icon" src="/icons/interaction/rate.png">
-					<span>Rate</span>
+					<h5 class="all-caps">Rate</h5>
 				</li>
-				<li class="button-list-item">
+				<li class="button-list-item" ng-click="share()">
 					<img class="img-icon exhibit-action-icon" src="/icons/interaction/share.png">
-					<span>Share</span>
+					<h5 class="all-caps">Share</h5>
 				</li>
 			</ul>
 			<hr class="button-list-border">
+			<div class="info-box">
+			<p class="bold">Hey, thanks for wanting to share this event!</p>
+			<p class="info-box-desc">Espy is a work in progress, and we aren’t able to support social media in this version of the app. However, we wanted to give you an idea of what the future would look like!</p>
+			<hr class="button-list-border">
+			</div>
 			<div class="row">
 				<div class="col-20">
 					<img class="img-icon exhibit-list-icon" src="/icons/interaction/distance.png">

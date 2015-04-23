@@ -1,9 +1,9 @@
-<ion-view view-title="Home" class="home-view">
+<ion-view view-title="Home" cache-view="false" class="home-view" left-buttons="leftButtons">
 	<ion-content class="padding">
 		<div search-bar></div>
-		<h6 class="center-text all-caps">Suggestions for you</h6>
+		<h6 class="center-text all-caps suggestions">Suggestions for you</h6>
         <div exb-list></div>
-        <p class="center-text">Suggested Searches</p>
+        <h6 class="center-text all-caps searches">Suggested Searches</h6>
         <ion-list class="category-list">
             <ion-item href="#/tab/home/category/{{category}}" ng-repeat="category in categories" class="card">
                 <div category-tile>
