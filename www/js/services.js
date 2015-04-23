@@ -313,7 +313,7 @@ angular.module('espy.services', ['ngResource'])
             console.log(queued);
             var newQ = [];
             if(queued === null){
-                console.log('user is null');
+                console.log('queued is null');
             }
             else{
                 for(var i = 0; i < queued.length; i++){
@@ -351,16 +351,18 @@ angular.module('espy.services', ['ngResource'])
         },
         
          queue: function(cur){
-            var curEx  = cur;
-            var queue = JSON.parse($localstorage.getObject('queue'));
+            console.log(cur);
+            var curEx  = JSON.parse(cur);
+            var queue = $localstorage.getObject('queue');
 
-            //console.log(queue);
+            console.log(cur);
             if(queue.indexOf(curEx) > -1 || curEx == "" ){
-                    console.log("Already in Queue.")
+
             }
             else{
                 queue.push(curEx);
                 $localstorage.setObject('queue',queue);
+               
             }
         },
         //call this is in a for loop for each exhibit that is pulled from the server

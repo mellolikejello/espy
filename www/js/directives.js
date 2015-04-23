@@ -219,3 +219,67 @@ angular.module('espy.directives', [])
         templateUrl: '/templates/exhibit-list.html'
     }
 })
+
+.directive('addQueue', function(setStorage) {
+    return {
+        restrict: 'A',
+       
+        templateUrl: '/templates/queue-button.html',
+			link: function(scope, element, attrs) {
+					element.bind("click", function() {
+						
+						setStorage.queue(attrs.ex);
+			});
+    	}
+		}
+})
+
+.directive('removeQueue', function(getStorage,$localstorage,$timeout,$state) {
+    return {
+        restrict: 'A',
+       
+        templateUrl: '/templates/queueremove-button.html',
+			link: function(scope, element, attrs) {
+					element.bind("click", function() {
+						
+						var currentQueue = getStorage.queue();
+						var toRemove = attrs.ex;
+						console.log(toRemove);
+						console.log(currentQueue);
+						for(var i = 0; i < currentQueue.length; i++) {
+							console.log(currentQueue[i].code);
+							    if(currentQueue[i].code == toRemove) {
+							        currentQueue.splice(i, 1);
+							        
+							        break;
+							    }
+							}
+							
+						$localstorage.setObject('queue',currentQueue);
+						//$state.go('tab.queue');
+						console.log(currentQueue);
+						 $timeout( function() {
+						    //$window.location.reload(true)
+						   
+							$state.go('tab.queue');
+
+						   	}, 200);
+
+						
+			});
+    	}
+		}
+})
+
+.directive('queueList', function(){
+    return {
+        restrict: 'A',
+        templateUrl: '/templates/queue-list.html'
+    }
+})
+.directive('queueTile', function(){
+    return {
+        restrict: 'A',
+        templateUrl: '/templates/queue-tile.html'
+    }
+})

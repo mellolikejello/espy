@@ -1,0 +1,79 @@
+<ion-view view-title="">
+	<style>
+		.bar.bar-positive {
+			background-color: 'red' !important;
+		}
+	</style>
+    <ion-content class="text-center exhibit-detail-view">
+    <ion-slide-box ng-style="{'background-color': zoneColor}" show-pager="true" on-slide-changed="slideHasChanged($index)">
+<!--			<ion-slide-pager ng-click='slideHasChanged($index)'></ion-slide-pager>-->
+      <ion-slide>
+				<div class="box">
+            <div class="item-image">
+                <img class="full-image exhibit-img" src="{{exhibit.img}}">
+            </div>
+            <div exb-rating rating-value="exhibit.rating" max="5" on-rating-selected="saveRatingToServer(rating)"></div>
+            <h4>{{exhibit.name}}</h4>
+						<span ng-repeat="exhibitor in exhibit.exhibitors">
+							{{exhibitor}} <span ng-show="!$last">&bull;</span>
+						</span>
+				</div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box">
+					<p>{{exhibit.description}}</p>
+				</div>
+      </ion-slide>
+    </ion-slide-box>
+		<div class="exhibit-bottom-detail">
+			<ul class="button-list">
+				<li class="button-list-item">
+					<div remove-queue ex="{{exhibit.code}}"></div>
+					<span>Remove Queue</span>
+				</li>
+				<li class="button-list-item">
+					<img class="img-icon exhibit-action-icon" src="/icons/interaction/rate.png">
+					<span>Rate</span>
+				</li>
+				<li class="button-list-item">
+					<img class="img-icon exhibit-action-icon" src="/icons/interaction/share.png">
+					<span>Share</span>
+				</li>
+			</ul>
+			<hr class="button-list-border">
+			<div class="row">
+				<div class="col-20">
+					<img class="img-icon exhibit-list-icon" src="/icons/interaction/distance.png">
+				</div>
+				<div class="col list-content">
+					<span class="b3">Distance</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-20">
+					<img class="img-icon exhibit-list-icon" src="/icons/interaction/location.png">
+				</div>
+				<div class="col list-content">
+					<span class="b3">{{exhibit.location}}</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-20">
+					<img class="img-icon exhibit-list-icon" src="/icons/interaction/time.png">
+				</div>
+				<div class="col list-content">
+					<span class="b3">{{exhibit.time}}</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-20">
+					<img class="img-icon exhibit-list-icon" src="/icons/interaction/age.png">
+				</div>
+				<div class="col list-content">
+					<span class="b3">{{exhibit.ageGroup}}</span>
+				</div>
+			</div>
+			<hr class="button-list-border">
+		</div>
+  </ion-content>
+</ion-view>

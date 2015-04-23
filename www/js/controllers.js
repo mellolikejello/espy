@@ -84,25 +84,32 @@ angular.module('espy.controllers', [])
 	// init maps?
 })
 
-.controller('QueueCtrl', function($scope, $state,$localstorage,getStorage) {
-	$scope.explore = function() {
-		$state.go('tab.search');
-	};
+.controller('QueueCtrl', function($scope, $state,$localstorage,getStorage,$window,$timeout) {
+	
 	//TODO set this to a global array?? that updates everytime a queue is added
-	var queued = [{
-		"test":1,
-		"test1":2,
-	}];
+	$scope.viewExhibit = function(id) {
+		$state.go('tab.queue-exhibit', {exhibitId: id});
+	};
 	//call this to add the queued array to the local storage
 		// do this everytime a queue is added
-	$localstorage.setObject('queue',queued );
-	// call this to get the current Queue array fomr the local storage
-	var queue = getStorage.queue();
-	console.log(queue);
+
+   $scope.$on('$ionicView.enter', function () { 
+    var queue = getStorage.queue();
+	$scope.exhibits = queue;
+	});
+	
 
 })
 
+
 .controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window) {
+  $scope.exhibit = Exhibits.get($stateParams.exhibitId);
+	$scope.zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
+//	debugger;
+//	$document.querySelector(".bar-positive");
+})
+
+.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
 	$scope.zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
 //	debugger;
