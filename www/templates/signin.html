@@ -1,28 +1,41 @@
-<ion-view view-title="Sign In">
+<ion-view>
+	<ion-nav-title>
+  	<span>hello</span><br><span>world</span>
+	</ion-nav-title>
 	<ion-content>
 		<ion-slide-box class="log-slide" on-slide-changed="slideHasChanged($index)" show-pager="true">
 		  <ion-slide class="padding">
-		    <div class="select-box padding-horizontal all-caps" ng-repeat="category in categories" on-tap="selectBox()">{{category}}<i class="icon ion-plus padding-left theme-color"></i></div>
+		    <div class="select-box box-inline padding-horizontal all-caps" ng-repeat="category in categories" ng-class="{'active':check}">
+					<div category-box></div>
+				</div>
 		  </ion-slide>
 		  <ion-slide class="padding">
-				<div class="select-box padding-horizontal all-caps">K-12 Student<i class="icon ion-plus padding-left theme-color"></i></div>
-				<div class="select-box padding-horizontal all-caps">College Student<i class="icon ion-plus padding-left theme-color"></i></div>
-				<div class="select-box padding-horizontal all-caps">Exhibitor<i class="icon ion-plus padding-left theme-color"></i></div>
-				<div class="select-box padding-horizontal all-caps">Parent<i class="icon ion-plus padding-left theme-color"></i></div>
-				<div class="select-box padding-horizontal all-caps">Parent With Young Child<i class="icon ion-plus padding-left theme-color"></i></div>
-				<div class="select-box padding-horizontal all-caps">Exployer<i class="icon ion-plus padding-left theme-color"></i></div>
-				<div class="select-box padding-horizontal all-caps">Professor<i class="icon ion-plus padding-left theme-color"></i></div>
-				<div>
-					<h6>What should we call you?</h6>
-					<input class="input-user" type="text" placeholder="Username">
+				<div class="select-box padding all-caps">K-12 Student<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+				<div class="select-box padding-horizontal all-caps">College Student<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+				<div class="select-box padding-horizontal all-caps">Exhibitor<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+				<div class="select-box padding-horizontal all-caps">Parent<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+				<div class="select-box padding-horizontal all-caps">Parent With Young Child<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+				<div class="select-box padding-horizontal all-caps">Exployer<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+				<div class="select-box padding-horizontal all-caps">Professor<i class="icon ion-plus padding-left theme-color float-right"></i></div>
+				<h6 class="b3 ques">What should we call you?</h6>
+				<div class="input-line padding-horizontal">
+					<input type="text" name="username" placeholder="Nickname" style="background-color:#F2F2F2; font-size:24px; font-weight:bold; color:#9EA7B3; font-family: 'Lato', sans-serif;">
 				</div>
 		  </ion-slide>
 		  <ion-slide>
-		    <div class="padding"><i class="icon ion-gear-b padding access-icon"></i><h6 class="padding access-guide">Open the iOS Settings App</h6></div>
-				<div class="padding"><i class="icon ion-bluetooth padding access-icon"></i><h6 class="padding access-guide">Tap Bluetooth</h6></div>
-				<div class="padding"><h6 class="padding access-guide">Toggle Bluetooth On</h6></div>
+		    <div class="padding">
+					<img src="../icons/interaction/settings.png" class="padding access-icon">
+					<h6 class="padding access-guide">Open the iOS Settings App</h6>
+				</div>
+				<div class="padding">
+					<img src="../icons/interaction/bluetooth.png" class="padding access-icon">
+					<h6 class="padding access-guide">Tap Bluetooth</h6>
+				</div>
+				<div class="padding">
+					<img src="../icons/interaction/toggle.png" class="padding access-icon">
+					<h6 class="padding access-guide">Toggle Bluetooth On</h6></div>
+				<button class="button start-button padding col-offset-25" ng-click="signIn()">Start Exploring</button>
 		  </ion-slide>
 		</ion-slide-box>
-		<button class="button button-block button-positive" ng-click="signIn()">Sign In</button>
 	</ion-content>
 </ion-view>
