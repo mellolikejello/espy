@@ -106,8 +106,11 @@ angular.module('espy.controllers', [])
 //	$document.querySelector(".bar-positive");
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
+.controller('AccountCtrl', function($scope, $state) {
+	// needs to get current user id
+  $scope.viewStatement = function() {
+		$state.go('tab.privacy');
+	}
+})
+
+.controller('PrivacyCtrl', function($scope) { });

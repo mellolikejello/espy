@@ -165,6 +165,16 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
         controller: 'AccountCtrl'
       }
     }
+  })
+
+	.state('tab.privacy', {
+    url: '/account/privacy',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/tab-privacy.html',
+        controller: 'PrivacyCtrl'
+      }
+    }
   });
 
     // if none of the above states are matched, use this as the fallback
