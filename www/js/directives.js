@@ -428,7 +428,7 @@ angular.module('espy.directives', [])
 					color = "#A053BC";
 					break;
 			}
-			console.log(color);
+			//console.log(color);
 			scope.zoneColor = color;
 
 			return scope;

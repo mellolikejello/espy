@@ -46,8 +46,7 @@ angular.module('espy.controllers', [])
 	$scope.$on('$ionicView.enter', function () { 
 		   var reco = UtilService.addRec();
 		   $scope.exhibits = reco;
-		   var set = getStorage.exhibits();
-		   console.log(set[0]);
+		   
 
 	});
 
