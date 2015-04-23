@@ -11,7 +11,7 @@ angular.module('espy.controllers', [])
 	};
 })
 
-.controller('HomeCtrl', function($scope, $state, Exhibits, Categories,setStorage,getStorage) {
+.controller('HomeCtrl', function($scope, $state, Exhibits, Categories,setStorage,getStorage,UtilService) {
     $scope.categories = Categories.all();
     $scope.saveRatingToServer = function(rating) {
       /* TODO - add server call, update rating */
@@ -24,7 +24,7 @@ angular.module('espy.controllers', [])
 	$scope.search = function(element, searchTerm) {
 		$state.go('tab.home-search', {term: searchTerm});
 	}
-
+	console.log(UtilService.addRec());
 //	if exhibit list hasn't been retrieved from db
 	if(! Exhibits.isSynced()) {
 		var dataPromise = Exhibits.all();
@@ -33,10 +33,14 @@ angular.module('espy.controllers', [])
 		   
 		   setStorage.exhibits(result);
 		});
+
+	} 
 		$scope.exhibits = getStorage.exhibits();
-	} else {
-		$scope.exhibits = getStorage.exhibits();
-	}
+		$scope.$on('$ionicView.enter', function () { 
+		   var reco = UtilService.addRec();
+		   $scope.exhibits = reco;
+	});
+	
 })
 
 .controller('SearchCtrl', function($scope, $stateParams, $state, Categories, Exhibits) {

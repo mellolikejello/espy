@@ -12,11 +12,12 @@ app.main = {
 	canvas:undefined,
 	ctx:undefined,
 	
+
 	user:undefined,
 	userLat:undefined,
 	userLong:undefined,
 	
-	exhibits:undefined,
+	exhibits:[],
 
 	originLong:-77.685955,
 	originLat: 43.087979,
@@ -140,8 +141,6 @@ app.main = {
 		this.panBotAllowed = true;
 		this.queueClock = 0;
 		this.updateQueue();
-		//this.queued = JSON.parse(window.localStorage.getItem('queue'));
-		//console.log(this.queued);
 		this.matrix = [1,0,0,1,0,0];
 		this.alertTimer = 0;
 		this.fhx = this.getDistance(t.fhOlat,t.originLong,t.fhOlat,t.fhOlong,'M');
@@ -300,29 +299,16 @@ app.main = {
 	},
 	initExZones: function (){
 		
-		this.exhibits = [
-		{
-			name:'testing 123',
-			x:3779,
-			y:1007,
-			r: 75,
-			tags:['science','computers'],
-			zone:'Field House',
-
-		},
-		{
-			name:'This is a Test',
-			x:3753,
-			y:981,
-			r:75,
-			tags:['gaming'],
-			zone:'Field House',
-		},
-
-
-		
-		];
-		
+		 var exArray = JSON.parse(window.localStorage.getItem('exhibits'));
+		 console.log(exArray);
+		 for(var i = 0; i < exArray.length; i++) {
+				 
+				if(exArray[i].zone == 'Field House') {
+						this.exhibits.push(exArray[i]);
+					}
+				
+			}
+			console.log(this.exhibits);
 	
 			  
 		this.zoneColliders= [
@@ -685,7 +671,7 @@ app.main = {
 	handleCollisons: function(){
 		var t = this;
 		for (var i = 0; i < t.exhibits.length; i++){
-			var ex = t.exhibits[i];
+			var ex = t.exColliders[i];
 			if(t.fhMode == true){
 				if(t.isPointinCircle(t.user.x,t.user.y,ex)){
 					var distance = t.isPointinCircle(user.x,user.y,ex);

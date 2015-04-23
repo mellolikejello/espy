@@ -165,7 +165,7 @@ angular.module('espy.services', ['ngResource'])
         }
     }
 })
-.factory('UtilService', function () {
+.factory('UtilService', function (getStorage,setStorage,Categories,GetDistance) {
     // TODO: decide which variables are needed for MapService
     // and which should be specific to each function
 
@@ -173,7 +173,7 @@ angular.module('espy.services', ['ngResource'])
         // Called from app.js every 3 minutes
         // Updates a users preferences based on the exhibits they have been to
         updatePreferences: function () {   // NEED CALL TO GET ALL USERS VISITED EXHIBITS
-            var exhibits = Exhibits.all();
+            var exhibits = getStorage.exhibits();
             var visitedExhibits = []; // TODO: Get users visited exhibits
             var userPreferences = [];
             var tags = Categories.all();
@@ -209,6 +209,7 @@ angular.module('espy.services', ['ngResource'])
                         }
                     }
                 }
+                 
             }
             //console.log(n);
             return;
@@ -216,46 +217,108 @@ angular.module('espy.services', ['ngResource'])
 
         // Called from HomeController - Gets 10 recommendations
         addRec: function () {
-            var exhibits = Exhibits.all();
-            var userPreferences = ""; // TODO: Get user preferences
-            var user = {}; //TODO: Get current user
-            var queued = []; //TODO: Get queued ?
+            var exhibits = getStorage.exhibits();
+            var userPreferences = []; // TODO: Get user preferences
+            var user = {x:100,y:100}; //TODO: Get current user
+            var queued = getStorage.queue(); //TODO: Get queued ?
             var rec = []; // our response array
-
+            var recHolder = [];
             for(var i = 0; i < exhibits.length; i++){
                 var n = 0;
 	
                 for(var g = 0; g < exhibits[i].tags.length; g++){
-                    for(var j = 0; j < userPrefrences.length; j++){
+                    for(var j = 0; j < userPreferences.length; j++){
 			
                         //add another loop to get tages array
-                        if(exhibits[i].tags[g] == userPrefrences[j]){
+                        if(exhibits[i].tags[g] == userPreferences[j]){
                             n +=50;
                         }
                     }
                 }  
-                var dist = getDistance(exhibits[i], user);
-                n -= dist;
+                var dist = GetDistance.get(exhibits[i], user);
+                n -= Math.floor(dist);
 
                 for(var k = 0; k < queued.length; k++){
                     if(exhibits[i] == queued[k]){
-                        n = 0;
+                        n = -1000;
                     }
                 }
-                if(checkCol(user,exhibits[i])){
-                    n= 0;
-                    //console.log(exhibits[i].name + 'Collision');
-                }
-		
                 //console.log(exhibits[i].name+":",n);
-                if(n > 10 && rec.length < 10){
+                var ex = exhibits[i];
+              
                     //console.log("yay");
-                    rec.push(exhibits[i]);			
+                    recHolder.push({name:ex.name,
+                                    x:ex.x,
+                                    y:ex.y,
+                                    zone:ex.zone,
+                                    location:ex.location,
+                                    description:ex.description,
+                                    tags:ex.tags,
+                                    radius:ex.radius,
+                                    events:ex.events,
+                                    ratings:ex.ratings,
+                                    exhibitors:ex.exhibitors,
+                                    code:ex.code,
+                                    img:ex.img,
+                                    num:n });			
+                
+                //return rec;
+                // console.log(recHolder);
+
+            }
+            recHolder.sort(function(a,b) { return parseFloat(b.num) - parseFloat(a.num) } );
+            for(var t = 0; t < recHolder.length; t++){
+                var ex = recHolder[t];
+                if(rec.length < 10){
+                    rec.push({      name:ex.name,
+                                    x:ex.x,
+                                    y:ex.y,
+                                    zone:ex.zone,
+                                    location:ex.location,
+                                    description:ex.description,
+                                    tags:ex.tags,
+                                    radius:ex.radius,
+                                    events:ex.events,
+                                    ratings:ex.ratings,
+                                    exhibitors:ex.exhibitors,
+                                    code:ex.code,
+                                    img:ex.img,
+                                    });       
                 }
             }
+            console.log(recHolder);
+            console.log(rec);
+            return rec;
+            
         }
 }
 })
+
+.factory('GetDistance', function () {
+    // TODO: decide which variables are needed for MapService
+    // and which should be specific to each function
+
+    return {
+        get: function (point1,point2) {
+            //console.log('getDist');
+           
+              var xs = 0;
+              var ys = 0;
+             
+              xs = point2.x - point1.x;
+              xs = xs * xs;
+             
+              ys = point2.y - point1.y;
+              ys = ys * ys;
+             
+              return Math.sqrt( xs + ys );
+            },
+
+            
+       
+    }
+})
+
 .factory('MapService', function () {
     // TODO: decide which variables are needed for MapService
     // and which should be specific to each function
