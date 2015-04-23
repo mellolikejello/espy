@@ -110,7 +110,13 @@ angular.module('espy.controllers', [])
 })
 
 .controller('AccountCtrl', function($scope, $state) {
-	// needs to get current user id
+	// make this a db call
+	var name = "bob";
+	var role = "College Student";
+	var interests = ['Science', 'Art', 'Dance'];
+	$scope.nickname = name;
+	$scope.userRole = role;
+	$scope.interests = interests;
   $scope.viewStatement = function() {
 		$state.go('tab.privacy');
 	}

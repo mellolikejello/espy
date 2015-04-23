@@ -4,15 +4,17 @@
 		<ion-list>
 			<ion-item>
 				<p>Nickname</p>
-				<p>nickname</p>
+				<p>{{nickname}}</p>
 			</ion-item>
 			<ion-item>
 				<p>Role</p>
-				<p>College Student</p>
+				<p>{{userRole}}</p>
 			</ion-item>
 			<ion-item>
 				<p>Interests</p>
-				<p>ng repeat interests</p>
+				<p>
+					<span ng-repeat="interest in interests">{{interest}} {{$last ? '' : ($index==interests.length-1) ? '' : ', '}} </span>
+				</p>
 			</ion-item>
 			<ion-item class="item-divider text-center">
 				Notifications
