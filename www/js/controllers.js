@@ -104,7 +104,7 @@ angular.module('espy.controllers', [])
 	// init maps?
 })
 
-.controller('QueueCtrl', function($scope, $state,$localstorage,getStorage,$window,$timeout,$document) {
+.controller('QueueCtrl', function($scope, $state,$stateParams,$localstorage,getStorage,$window,$timeout,$document,Exhibits) {
 	
 	//TODO set this to a global array?? that updates everytime a queue is added
 	$scope.viewExhibit = function(id) {
@@ -112,13 +112,19 @@ angular.module('espy.controllers', [])
 	};
 	//call this to add the queued array to the local storage
 		// do this everytime a queue is added
+	
 
    $scope.$on('$ionicView.enter', function () { 
-    var queue = getStorage.queue();
-	$scope.exhibits = queue;
-	var header = $document[0].querySelector("ion-header-bar");
-	header.style['background-color'] = '#3DB4C8';
-	header.style['border-color'] = '#3DB4C8';
+	    var queue = getStorage.queue();
+		$scope.exhibits = queue;
+		
+
+
+		var header = $document[0].querySelector("ion-header-bar");
+		header.style['background-color'] = '#3DB4C8';
+		header.style['border-color'] = '#3DB4C8';
+
+
 
 	});
 	

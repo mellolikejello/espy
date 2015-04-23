@@ -227,7 +227,7 @@ angular.module('espy.directives', [])
         templateUrl: '/templates/queue-button.html',
 			link: function(scope, element, attrs) {
 					element.bind("click", function() {
-						console.log(attrs.ex.distance);
+						//console.log(attrs.ex.distance);
 						setStorage.queue(attrs.ex);
 			});
     	}
@@ -283,3 +283,63 @@ angular.module('espy.directives', [])
         templateUrl: '/templates/queue-tile.html'
     }
 })
+
+.directive('colorZone', function(){
+    return {
+        restrict: 'A',
+        templateUrl: '',
+        link: function(scope, element, attrs) {
+
+        	
+			var zone = attrs.ex;
+			var color = "#9EA7B3";
+			switch(zone) {
+				case 'Green Place':
+					color = "#4BE530";
+					break;
+				case 'Business District':
+					color = "#3DB549";
+					break;
+				case 'Field House':
+					color = "#3C91E5";
+					break;
+				case 'Computer Zone':
+					color = "#07C2AF";
+					break;
+				case 'Tech Quarter':
+					color = "#3AC7E8";
+					break;
+				case 'Innovation Center':
+					color = "#354AA5";
+					break;
+				case 'Global Village':
+					color = "#EC6A80";
+					break;
+				case 'Think Tank':
+					color = "#D11E1E";
+					break;
+				case 'Engineering Park':
+					color = "#F27935";
+					break;
+				case 'Info Section':
+					color = "#ED9A37";
+					break;
+				case 'RIT Center':
+					color = "#F4C031";
+					break;
+				case 'Science Center':
+					color = "#F7EF4A";
+					break;
+				case 'Artistic Alley':
+					color = "#A053BC";
+					break;
+			}
+			console.log(color);
+			scope.zoneColor = color;
+			
+			return scope;
+		}
+    }
+})
+
+
