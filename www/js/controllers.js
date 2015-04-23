@@ -236,7 +236,7 @@ angular.module('espy.controllers', [])
 			  location: user.location,
 			  visited: user.visited,
 			  queue: [],
-			  id: "",
+			  id: user.id,
 			  r: user.r,
 			  x:user.x,
 			  y:user.y
@@ -289,7 +289,7 @@ angular.module('espy.controllers', [])
 			  location: user.location,
 			  visited: user.visited,
 			  queue: [],
-			  id: "",
+			  id: user.id,
 			  r: user.r,
 			  x:user.x,
 			  y:user.y
