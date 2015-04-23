@@ -98,7 +98,7 @@ app.trilateration = {
 			{
 			    if(key == "REPLACE"/* PUT EXHIBIT BEACON KEY HERE */)
 			    {
-			        if (beacon.distance < 20 && localStorage.atExhibit == "false") {
+			        if (beacon.distance < 1.5 && localStorage.atExhibit == "false") {
 			            // User just arived at booth
 			            localStorage.atExhibit = "true";
 			            var user = JSON.parse(localStorage.getItem('user'));
@@ -109,7 +109,7 @@ app.trilateration = {
 			            });
 
 			        }
-			        if (beacon.distance > 20 && localStorage.atExhibit == "true") {
+			        if (beacon.distance > 1.5 && localStorage.atExhibit == "true") {
 			            // user just left booth
 			            localStorage.atExhibit = "false";
 			            var user = JSON.parse(localStorage.getItem('user'));
