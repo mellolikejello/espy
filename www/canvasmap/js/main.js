@@ -93,7 +93,7 @@ app.main = {
 	panLeftAllowed:undefined,
 	panRightAllowed:undefined,
 
-	queued:undefined,
+	queued:[],
 	
 	zoneColliders:undefined,
 	canv: undefined,
@@ -105,7 +105,7 @@ app.main = {
 	mapBtn:undefined,
 	pushXYtimer:undefined,
 	mapMult: .45,
-	
+	queueClock: undefined,
 
 //nw 43.086354,-77.681498
 
@@ -138,7 +138,10 @@ app.main = {
 		this.panRightAllowed = true;
 		this.panLeftAllowed = true;
 		this.panBotAllowed = true;
-		this.queued = ['Delete before Ionic']
+		this.queueClock = 0;
+		this.updateQueue();
+		//this.queued = JSON.parse(window.localStorage.getItem('queue'));
+		//console.log(this.queued);
 		this.matrix = [1,0,0,1,0,0];
 		this.alertTimer = 0;
 		this.fhx = this.getDistance(t.fhOlat,t.originLong,t.fhOlat,t.fhOlong,'M');
@@ -208,6 +211,20 @@ app.main = {
    			h:bh,
    		};
 
+	},
+	updateQueue: function(){
+		if(this.queueClock <= 0){
+			var queueArray = JSON.parse(window.localStorage.getItem('queue'));
+			this.queued = [];
+			for(var i = 0; i < queueArray.length; i++){
+				var qa = queueArray[i];
+					this.queued.push(qa.code);
+				
+				//console.log(qa.code);
+			}
+			//console.log(this.queued);
+			this.queueClock = 900;
+		}
 	},
 	initLocalStorage: function(){
 		if(localStorage.getItem("tut1") === null){
@@ -472,6 +489,9 @@ app.main = {
 		t.alertTimer -- ;
 		t.zoomTick --;
 		t.tapTimer --;
+		if(t.queueClock > 0){
+			t.queueClock --;
+		}
 		if(t.pushXYtimer > 0){
 			t.pushXYtimer --;
 		}
@@ -547,7 +567,7 @@ app.main = {
 		t.tut1 = window.localStorage.getItem("tut1");
 		t.tut2 = window.localStorage.getItem("tut2");
 		t.tut3 = window.localStorage.getItem("tut3");
-
+		t.updateQueue();
 		t.handleCollisons();
 		t.updateUserLocation();
 		t.pan();
@@ -971,7 +991,7 @@ app.main = {
    		var x = ex.x - w/2;
    		var y = ex.y - h/2;
    		if(ex.zone == 'Field House'){
-	   		if(this.queued.indexOf(ex.name) > -1){
+	   		if(this.queued.indexOf(ex.code) > -1){
 	   			this.drawCircle(ex.x,ex.y,this.qCirc,this.colors.gold,1);
 	   		}
 	   		this.exImgs[i].src = 'img/Icons/' + ex.tags[0] + '.png';
