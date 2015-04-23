@@ -294,6 +294,93 @@ angular.module('espy.services', ['ngResource'])
     }
 }])
 
+.factory('getStorage', function($localstorage) {
+    
+
+    return {
+        user: function() {
+            
+            var user = $localstorage.getObject('user');
+            if(user === null){
+                console.log('user is null');
+            }
+            else{
+                var user = JSON.parse(user);
+                return user;
+            }   
+        },
+        queue: function(){
+            var queued = $localstorage.getObject('queue');
+            console.log(queued);
+            var newQ = [];
+            if(queued === null){
+                console.log('user is null');
+            }
+            else{
+                for(var i = 0; i < queued.length; i++){
+                        var q = queued[i];
+                        //console.log(JSON.parse(queued[i]));
+                        newQ.push(q);
+                    }
+                
+                return newQ;
+             }
+        },
+        exhibits: function(){
+            var exhibits = $localstorage.getObject('exhibits');
+            var newEx = [];
+            
+                for(var k = 0; k < exhibits.length; k++){
+                        var ex = exhibits[k];
+                        
+                        newEx.push(ex);
+                    }
+            return newEx;
+        }
+            
+
+    }
+})
+
+.factory('setStorage', function($localstorage) {
+    
+
+    return {
+        user: function(u) {
+            $localstorage.setObject('user',u);
+          
+        },
+        
+         queue: function(cur){
+            var curEx  = cur;
+            var queue = JSON.parse($localstorage.getObject('queue'));
+
+            //console.log(queue);
+            if(queue.indexOf(curEx) > -1 || curEx == "" ){
+                    console.log("Already in Queue.")
+            }
+            else{
+                queue.push(curEx);
+                $localstorage.setObject('queue',queue);
+            }
+        },
+        //call this is in a for loop for each exhibit that is pulled from the server
+        exhibits: function(ex){
+            var curEx = ex;
+            var exhibits = JSON.parse($localstorage.getObject('exhibits'));
+            if(queue.indexOf(curEx) > -1 || curEx == "" ){
+                    console.log("Already in Exhibits.")
+            }
+            else{
+                exhibits.push(curEx);
+                $localstorage.setObject('exhibits',exhibits);
+            }
+        }
+            
+
+    }
+})
+
 .factory('Categories', function () {
     var categories = ['Art', 'Business', 'Communication', 'Community',
 		'Dance', 'Design', 'Energy', 'Engineering', 'Environment', 'Gaming',
