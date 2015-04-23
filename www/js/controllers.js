@@ -24,7 +24,7 @@ angular.module('espy.controllers', [])
 	$scope.search = function(element, searchTerm) {
 		$state.go('tab.home-search', {term: searchTerm});
 	}
-	console.log(UtilService.addRec());
+	
 //	if exhibit list hasn't been retrieved from db
 	if(! Exhibits.isSynced()) {
 		var dataPromise = Exhibits.all();
@@ -32,13 +32,22 @@ angular.module('espy.controllers', [])
 		dataPromise.then(function(result) {
 		   
 		   setStorage.exhibits(result);
+		   console.log(result);
+		   setStorage.exhibits(UtilService.addRec());
+		   console.log(UtilService.addRec());
 		});
 
+
 	} 
-		$scope.exhibits = getStorage.exhibits();
-		$scope.$on('$ionicView.enter', function () { 
+	//console.log(UtilService.setDistances());
+		//setStorage.exhibits(UtilService.setDistances());
+		//$scope.exhibits = getStorage.exhibits();
+	$scope.$on('$ionicView.enter', function () { 
 		   var reco = UtilService.addRec();
 		   $scope.exhibits = reco;
+		   var set = getStorage.exhibits();
+		   console.log(set[0]);
+
 	});
 
 	var header = $document[0].querySelector("ion-header-bar");
@@ -95,7 +104,7 @@ angular.module('espy.controllers', [])
 	// init maps?
 })
 
-.controller('QueueCtrl', function($scope, $state,$localstorage,getStorage,$window,$timeout) {
+.controller('QueueCtrl', function($scope, $state,$localstorage,getStorage,$window,$timeout,$document) {
 	
 	//TODO set this to a global array?? that updates everytime a queue is added
 	$scope.viewExhibit = function(id) {
@@ -107,13 +116,17 @@ angular.module('espy.controllers', [])
    $scope.$on('$ionicView.enter', function () { 
     var queue = getStorage.queue();
 	$scope.exhibits = queue;
+	var header = $document[0].querySelector("ion-header-bar");
+	header.style['background-color'] = '#3DB4C8';
+	header.style['border-color'] = '#3DB4C8';
+
 	});
 	
-
+	
 })
 
 
-.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window, $document) {
+.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window, $document,getStorage) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
   var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
 	$scope.zoneColor = zoneColor;
@@ -128,13 +141,24 @@ angular.module('espy.controllers', [])
 			info.style["display"] = "block";
 		}
 	}
+	
 })
 
-.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window) {
+.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window,$document) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
-	$scope.zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
-//	debugger;
-//	$document.querySelector(".bar-positive");
+	var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
+	$scope.zoneColor = zoneColor;
+	var header = $document[0].querySelector("ion-header-bar");
+	header.style['background-color'] = zoneColor;
+	header.style['border-color'] = zoneColor;
+	$scope.share = function() {
+		var info = $document[0].querySelector(".info-box");
+		if(info.style["display"] == "block") {
+			info.style["display"] = "none";
+		} else {
+			info.style["display"] = "block";
+		}
+	}
 })
 
 .controller('AccountCtrl', function($scope, $state) {

@@ -237,6 +237,8 @@ angular.module('espy.services', ['ngResource'])
                 }  
                 var dist = GetDistance.get(exhibits[i], user);
                 n -= Math.floor(dist);
+                var updatedDist = dist/5280;
+                    updatedDist = updatedDist.toFixed(2);
 
                 for(var k = 0; k < queued.length; k++){
                     if(exhibits[i] == queued[k]){
@@ -259,6 +261,7 @@ angular.module('espy.services', ['ngResource'])
                                     ratings:ex.ratings,
                                     exhibitors:ex.exhibitors,
                                     code:ex.code,
+                                    distance:updatedDist,
                                     img:ex.img,
                                     num:n });			
                 
@@ -266,6 +269,7 @@ angular.module('espy.services', ['ngResource'])
                 // console.log(recHolder);
 
             }
+            setStorage.exhibits(recHolder);
             recHolder.sort(function(a,b) { return parseFloat(b.num) - parseFloat(a.num) } );
             for(var t = 0; t < recHolder.length; t++){
                 var ex = recHolder[t];
@@ -283,14 +287,19 @@ angular.module('espy.services', ['ngResource'])
                                     exhibitors:ex.exhibitors,
                                     code:ex.code,
                                     img:ex.img,
+                                    distance:ex.distance
                                     });       
                 }
             }
-            console.log(recHolder);
-            console.log(rec);
+           // console.log(recHolder);
+           // console.log(rec);
+           
             return rec;
             
-        }
+        },
+
+     
+
 }
 })
 
@@ -373,7 +382,7 @@ angular.module('espy.services', ['ngResource'])
         },
         queue: function(){
             var queued = $localstorage.getObject('queue');
-            console.log(queued);
+           // console.log(queued);
             var newQ = [];
             if(queued === null){
                 console.log('queued is null');
@@ -432,7 +441,7 @@ angular.module('espy.services', ['ngResource'])
         exhibits: function(ex){
            if(ex != null){
                 $localstorage.setObject('exhibits',ex);
-                console.log($localstorage.getObject('exhibits'))
+               // console.log($localstorage.getObject('exhibits'))
             }
         }
             
@@ -454,8 +463,8 @@ angular.module('espy.services', ['ngResource'])
     }
 })
 
-.factory('Exhibits', function ($http) {
-    var exhibits = [];
+.factory('Exhibits', function ($http,getStorage) {
+    var exhibits = getStorage.exhibits();;
     var synced = false;
     //  $http.get('https://imagine-rit-espy.herokuapp.com/api/exhibits').
     //	success(function(data, status, headers, config) {
@@ -537,6 +546,7 @@ angular.module('espy.services', ['ngResource'])
                         return exhibits;
                     });
             } else {
+                exhibits = getStorage.exhibits();
                 return exhibits;
             }
         },
@@ -566,9 +576,13 @@ angular.module('espy.services', ['ngResource'])
         },
 
         get: function (exhibitId) {
+            exhibits = getStorage.exhibits();
             for (var i in exhibits) {
+
                 if (exhibits[i].code === exhibitId) {
+                     //console.log(exhibits[i].distance);
                     return exhibits[i];
+
                 }
             }
             return null;

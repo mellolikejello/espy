@@ -35,18 +35,24 @@
 					<img class="img-icon exhibit-action-icon" src="/icons/interaction/rate.png">
 					<span>Rate</span>
 				</li>
-				<li class="button-list-item">
+				<li class="button-list-item" ng-click="share()">
 					<img class="img-icon exhibit-action-icon" src="/icons/interaction/share.png">
-					<span>Share</span>
+					<h5 class="all-caps">Share</h5>
 				</li>
+
 			</ul>
 			<hr class="button-list-border">
+			<div class="info-box">
+			<p class="bold">Hey, thanks for wanting to share this event!</p>
+			<p class="info-box-desc">Espy is a work in progress, and we aren’t able to support social media in this version of the app. However, we wanted to give you an idea of what the future would look like!</p>
+			<hr class="button-list-border">
+			</div>
 			<div class="row">
 				<div class="col-20">
 					<img class="img-icon exhibit-list-icon" src="/icons/interaction/distance.png">
 				</div>
-				<div class="col list-content">
-					<span class="b3">Distance</span>
+				<div class="col list-content" >
+					<span class="b3"> ~ {{exhibit.distance}} Miles</span>
 				</div>
 			</div>
 			<div class="row">
