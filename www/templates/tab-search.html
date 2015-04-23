@@ -2,12 +2,14 @@
   <ion-content class="padding">
 		<div ui-view>
 			<div search-bar></div>
+<!--
 			<div class="card row">
 					<div class="col col-50 text-center">Top Rated</div>
 					<div class="col col-50 text-center">Popular</div>
 			</div>
-			<p class="center-text">Explore</p>
-			<ion-list>
+-->
+			<h6 class="center-text all-caps">Explore</h6>
+			<ion-list class="category-list">
 					<ion-item href="#/tab/search/{{category}}" ng-repeat="category in categories" class="card">
 							<div category-tile>
 							</div>

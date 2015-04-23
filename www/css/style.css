@@ -65,57 +65,78 @@
 
 h1, h2, h3, h4, h5, h6, h7, .bar.title, .b1, .b2, .b3 {
 	font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, h7, .bar.title, .b1, .b2, .b3, .bold {
 	font-weight: 700;
 }
 
-h1, .bar.title {
+h1, .bar.bar-positive .title {
 	color: #FFFFFF;
-	font-size: 32px;
+	font-size: 20pt;
+	text-transform: uppercase;
+	font-weight: 700;
 }
 
 h2 {
 	color: #9EA7B3;
-	font-size: 32px;
+	font-size: 18pt;
 }
 
 h3 {
 	color: #FFFFFF;
-	font-size: 26px;
+	font-size: 16pt;
 }
 
 h4 {
 	color: #DBE1E8;
-	font-size: 26px;
+	font-size: 14pt;
 }
 
 h5 {
 	color: #9EA7B3;
-	font-size: 26px;
+	font-size: 16pt;
 }
 
 h6 {
 	color: #5E6D81;
-	font-size: 26px;
+	font-size: 14pt;
 }
 
 .b1 {
 	color: #FFFFFF;
-	font-size: 32px;
+	font-size: 32pt;
 }
 
 .b2 {
 	color: #9EA7B3;
-	font-size: 26px;
+	font-size: 26pt;
 }
 
 .b3 {
 	color: #9EA7B3;
-	font-size: 18px;
+	font-size: 18pt;
+}
+
+.ion-search {
+	color: #5E6D81;
+	font-size: 16pt;
+}
+
+.search-input {
+	font-size: 26pt;
 }
 
 .bar.bar-positive {
 	background-color: #3DB4C8;
 	border-color: #3DB4C8;
+	transition: background-color 0.5s ease;
+	transition: border-color 0.3s ease;
+}
+
+.toggle input:checked + .track {
+	border-color: #FFD464;
+	background-color: #FFD464;
 }
 
 .tabs-positive > .tabs {
@@ -165,6 +186,14 @@ h6 {
     cursor: pointer;
 }
 
+.home-view .suggestions {
+	padding-top: 20px;
+}
+
+.home-view .searches {
+	margin-top: 0;
+}
+
 .exhibit-list-row {
     padding-left: 0;
     padding-right: 0;
@@ -183,6 +212,7 @@ h6 {
 	box-shadow: none;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+	margin-top: 0;
 }
 
 /*
@@ -274,12 +304,23 @@ h6 {
 
 .category-list h2 {
 	line-height: 2;
+	font-size: 18px;
+	font-weight: 700;
 }
 
 .category-icon {
 	float: left;
 	font-size: 32px;
-	padding-right: 5px;
+	padding-right: 15px;
+}
+
+.category-list .card {
+	margin-top: 0;
+	margin-bottom: 15px;
+}
+
+.category-icon {
+	color: #5E6D81;
 }
 
 .exhibit-list-left {
@@ -319,8 +360,26 @@ h6 {
 	padding-top: 18px;
 }
 
+.exhibit-detail-view .info-box {
+	display: none;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.exhibit-detail-view .info-box hr {
+	width: 100%;
+}
+
+.exhibit-detail-view .info-box-desc {
+	color: #9EA7B3;
+	font-weight: 20px;
+}
+
 .exhibit-action-icon {
 	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .exhibit-list-icon {
@@ -449,4 +508,8 @@ h6 {
 	border-radius: 3px;
   border: 2px solid #3DB4C8;
 	width: 50%;
+}
+
+.item .account-label {
+  color: #9EA7B3;
 }

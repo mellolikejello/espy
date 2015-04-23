@@ -1,10 +1,34 @@
-<ion-view view-title="You">
-  <ion-content>
-      <p class="text-center">Activity</p>
-      <ion-list>
-        <div class="card">
-            <p>Activities</p>
-        </div>
-      </ion-list>
-  </ion-content>
+<ion-view view-title="Settings">
+	<ion-content>
+		<h6 class="text-center">Profile</h6>
+		<ion-list>
+			<ion-item>
+				<p class="account-label">Nickname</p>
+				<p>{{nickname}}</p>
+			</ion-item>
+			<ion-item>
+				<p class="account-label">Role</p>
+				<p>{{userRole}}</p>
+			</ion-item>
+			<ion-item>
+				<p class="account-label">Interests</p>
+				<p>
+					<span ng-repeat="interest in interests">{{interest}} {{$last ? '' : ($index==interests.length-1) ? '' : ', '}} </span>
+				</p>
+			</ion-item>
+			<ion-item class="item-divider text-center">
+				Notifications
+			</ion-item>
+			<ion-toggle ng-model="settings.enablePush">
+				Send Push Notifications
+			</ion-toggle>
+			<ion-item class="item-divider text-center">
+				Support
+			</ion-item>
+			<ion-item class="item-icon-right" ng-click="viewStatement()">
+				<span>Privacy & Security</span>
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</ion-item>
+		</ion-list>
+	</ion-content>
 </ion-view>

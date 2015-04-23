@@ -1,0 +1,9 @@
+<ion-list >
+    <div class="row exhibit-list-row">
+        <div class="col col-120 exhibit-list ">
+        <ion-item color-zone ex="{{exhibit.zone}}"  ng-click="viewExhibit(exhibit.code)" ng-repeat="exhibit in exhibits"  class="card" ng-style="{'border-top-color': zoneColor}">
+            <div queue-tile></div>
+        </ion-item>
+        </div>
+    </div>
+</ion-list>

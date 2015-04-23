@@ -1,12 +1,12 @@
 <ion-list>
     <div class="row exhibit-list-row">
         <div class="col col-50 exhibit-list exhibit-list-left">
-        <ion-item ng-click="viewExhibit(exhibit.code)" ng-repeat="exhibit in exhibits" ng-if="$even" class="card">
+        <ion-item color-zone ex="{{exhibit.zone}}" ng-click="viewExhibit(exhibit.code)" ng-repeat="exhibit in exhibits" ng-if="$even" class="card" ng-style="{'border-top-color': zoneColor}">
             <div exb-tile></div>
         </ion-item>
         </div>
         <div class="col col-50 exhibit-list exhibit-list-right">
-            <ion-item ng-click="viewExhibit(exhibit.code)" ng-repeat="exhibit in exhibits" ng-if="$odd" class="card">
+            <ion-item color-zone ex="{{exhibit.zone}}" ng-click="viewExhibit(exhibit.code)" ng-repeat="exhibit in exhibits" ng-if="$odd" class="card" ng-style="{'border-top-color': zoneColor}">
             <div exb-tile></div>
           </ion-item>
         </div>

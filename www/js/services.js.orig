@@ -165,7 +165,7 @@ angular.module('espy.services', ['ngResource'])
         }
     }
 })
-.factory('UtilService', function (getStorage,setStorage,Categories,GetDistance) {
+.factory('UtilService', function () {
     // TODO: decide which variables are needed for MapService
     // and which should be specific to each function
 
@@ -173,7 +173,8 @@ angular.module('espy.services', ['ngResource'])
         // Called from app.js every 3 minutes
         // Updates a users preferences based on the exhibits they have been to
         updatePreferences: function () {   // NEED CALL TO GET ALL USERS VISITED EXHIBITS
-            var exhibits = getStorage.exhibits();
+            console.log('init maps');
+            var exhibits = Exhibits.all();
             var visitedExhibits = []; // TODO: Get users visited exhibits
             var userPreferences = [];
             var tags = Categories.all();
@@ -209,7 +210,6 @@ angular.module('espy.services', ['ngResource'])
                         }
                     }
                 }
-                 
             }
             //console.log(n);
             return;
@@ -217,117 +217,46 @@ angular.module('espy.services', ['ngResource'])
 
         // Called from HomeController - Gets 10 recommendations
         addRec: function () {
-            var exhibits = getStorage.exhibits();
-            var userPreferences = []; // TODO: Get user preferences
-            var user = {x:100,y:100}; //TODO: Get current user
-            var queued = getStorage.queue(); //TODO: Get queued ?
+            var exhibits = Exhibits.all();
+            var userPreferences = ""; // TODO: Get user preferences
+            var user = {}; //TODO: Get current user
+            var queued = []; //TODO: Get queued ?
             var rec = []; // our response array
-            var recHolder = [];
+
             for(var i = 0; i < exhibits.length; i++){
                 var n = 0;
 	
                 for(var g = 0; g < exhibits[i].tags.length; g++){
-                    for(var j = 0; j < userPreferences.length; j++){
+                    for(var j = 0; j < userPrefrences.length; j++){
 			
                         //add another loop to get tages array
-                        if(exhibits[i].tags[g] == userPreferences[j]){
+                        if(exhibits[i].tags[g] == userPrefrences[j]){
                             n +=50;
                         }
                     }
                 }  
-                var dist = GetDistance.get(exhibits[i], user);
-                n -= Math.floor(dist);
-                var updatedDist = dist/5280;
-                    updatedDist = updatedDist.toFixed(2);
+                var dist = getDistance(exhibits[i], user);
+                n -= dist;
 
                 for(var k = 0; k < queued.length; k++){
                     if(exhibits[i] == queued[k]){
-                        n = -1000;
+                        n = 0;
                     }
                 }
+                if(checkCol(user,exhibits[i])){
+                    n= 0;
+                    //console.log(exhibits[i].name + 'Collision');
+                }
+		
                 //console.log(exhibits[i].name+":",n);
-                var ex = exhibits[i];
-              
+                if(n > 10 && rec.length < 10){
                     //console.log("yay");
-                    recHolder.push({name:ex.name,
-                                    x:ex.x,
-                                    y:ex.y,
-                                    zone:ex.zone,
-                                    location:ex.location,
-                                    description:ex.description,
-                                    tags:ex.tags,
-                                    radius:ex.radius,
-                                    events:ex.events,
-                                    ratings:ex.ratings,
-                                    exhibitors:ex.exhibitors,
-                                    code:ex.code,
-                                    distance:updatedDist,
-                                    img:ex.img,
-                                    num:n });			
-                
-                //return rec;
-                // console.log(recHolder);
-
-            }
-            setStorage.exhibits(recHolder);
-            recHolder.sort(function(a,b) { return parseFloat(b.num) - parseFloat(a.num) } );
-            for(var t = 0; t < recHolder.length; t++){
-                var ex = recHolder[t];
-                if(rec.length < 10){
-                    rec.push({      name:ex.name,
-                                    x:ex.x,
-                                    y:ex.y,
-                                    zone:ex.zone,
-                                    location:ex.location,
-                                    description:ex.description,
-                                    tags:ex.tags,
-                                    radius:ex.radius,
-                                    events:ex.events,
-                                    ratings:ex.ratings,
-                                    exhibitors:ex.exhibitors,
-                                    code:ex.code,
-                                    img:ex.img,
-                                    distance:ex.distance
-                                    });       
+                    rec.push(exhibits[i]);			
                 }
             }
-           // console.log(recHolder);
-           // console.log(rec);
-           
-            return rec;
-            
-        },
-
-     
-
+        }
 }
 })
-
-.factory('GetDistance', function () {
-    // TODO: decide which variables are needed for MapService
-    // and which should be specific to each function
-
-    return {
-        get: function (point1,point2) {
-            //console.log('getDist');
-           
-              var xs = 0;
-              var ys = 0;
-             
-              xs = point2.x - point1.x;
-              xs = xs * xs;
-             
-              ys = point2.y - point1.y;
-              ys = ys * ys;
-             
-              return Math.sqrt( xs + ys );
-            },
-
-            
-       
-    }
-})
-
 .factory('MapService', function () {
     // TODO: decide which variables are needed for MapService
     // and which should be specific to each function
@@ -365,90 +294,6 @@ angular.module('espy.services', ['ngResource'])
     }
 }])
 
-.factory('getStorage', function($localstorage) {
-    
-
-    return {
-        user: function() {
-            
-            var user = $localstorage.getObject('user');
-            if(user === null){
-                console.log('user is null');
-            }
-            else{
-                var user = JSON.parse(user);
-                return user;
-            }   
-        },
-        queue: function(){
-            var queued = $localstorage.getObject('queue');
-           // console.log(queued);
-            var newQ = [];
-            if(queued === null){
-                console.log('queued is null');
-            }
-            else{
-                for(var i = 0; i < queued.length; i++){
-                        var q = queued[i];
-                        //console.log(JSON.parse(queued[i]));
-                        newQ.push(q);
-                    }
-                
-                return newQ;
-             }
-        },
-        exhibits: function(){
-            var exhibits = $localstorage.getObject('exhibits');
-            var newEx = [];
-            
-                for(var k = 0; k < exhibits.length; k++){
-                        var ex = exhibits[k];
-                        
-                        newEx.push(ex);
-                    }
-            return newEx;
-        }
-            
-
-    }
-})
-
-.factory('setStorage', function($localstorage) {
-    
-
-    return {
-        user: function(u) {
-            $localstorage.setObject('user',u);
-          
-        },
-        
-         queue: function(cur){
-            console.log(cur);
-            var curEx  = JSON.parse(cur);
-            var queue = $localstorage.getObject('queue');
-
-            console.log(cur);
-            if(queue.indexOf(curEx) > -1 || curEx == "" ){
-
-            }
-            else{
-                queue.push(curEx);
-                $localstorage.setObject('queue',queue);
-               
-            }
-        },
-        //call this is in a for loop for each exhibit that is pulled from the server
-        exhibits: function(ex){
-           if(ex != null){
-                $localstorage.setObject('exhibits',ex);
-               // console.log($localstorage.getObject('exhibits'))
-            }
-        }
-            
-
-    }
-})
-
 .factory('Categories', function () {
     var categories = ['Art', 'Business', 'Communication', 'Community',
 		'Dance', 'Design', 'Energy', 'Engineering', 'Environment', 'Gaming',
@@ -463,8 +308,8 @@ angular.module('espy.services', ['ngResource'])
     }
 })
 
-.factory('Exhibits', function ($http,getStorage) {
-    var exhibits = getStorage.exhibits();;
+.factory('Exhibits', function ($http) {
+    var exhibits = [];
     var synced = false;
     //  $http.get('https://imagine-rit-espy.herokuapp.com/api/exhibits').
     //	success(function(data, status, headers, config) {
@@ -546,7 +391,6 @@ angular.module('espy.services', ['ngResource'])
                         return exhibits;
                     });
             } else {
-                exhibits = getStorage.exhibits();
                 return exhibits;
             }
         },
@@ -576,13 +420,9 @@ angular.module('espy.services', ['ngResource'])
         },
 
         get: function (exhibitId) {
-            exhibits = getStorage.exhibits();
             for (var i in exhibits) {
-
                 if (exhibits[i].code === exhibitId) {
-                     //console.log(exhibits[i].distance);
                     return exhibits[i];
-
                 }
             }
             return null;
@@ -600,6 +440,7 @@ angular.module('espy.services', ['ngResource'])
             return null;
         },
 
+<<<<<<< HEAD
 		getZoneColor: function(exhibitId) {
 			var exhibit = this.get(exhibitId);
 			var zone = exhibit.zone;
@@ -662,4 +503,19 @@ angular.module('espy.services', ['ngResource'])
 			return categoryList;
 		}
 	};
+=======
+        getCategoryList: function (category) {
+            var categoryList = [];
+            for (var exbIndex in exhibits) {
+                for (var catIndex in exhibits[exbIndex].tags) {
+                    if (exhibits[exbIndex].tags[catIndex] == category) {
+                        categoryList.push(exhibits[exbIndex]);
+                    }
+                }
+            }
+            console.log('exhibits in category: ' + categoryList.length);
+            return categoryList;
+        }
+    };
+>>>>>>> BOOMSHAKALAKA
 });

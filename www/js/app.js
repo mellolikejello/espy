@@ -13,7 +13,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
     }, 5000);
 })
 
-.run(function($ionicPlatform, MapService, BeaconService) {
+.run(function($ionicPlatform, MapService, BeaconService, UtilService) {
     $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -29,13 +29,14 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
 		if (window.hyper && window.hyper.log) {
 			console.log = hyper.log;
 		}
-
+        
+		setInterval(UtilService.updatePreferences, 3000);
 		BeaconService.init();
 		MapService.init();
 		})
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
     // Set up the various states which the app can be in.
@@ -146,6 +147,16 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
     }
   })
 
+  .state('tab.queue-exhibit', {
+      url: '/queue/:exhibitId',
+      views: {
+        'tab-queue': {
+          templateUrl: 'templates/queue-detail.html',
+          controller: 'QueueDetailCtrl'
+        }
+      }
+    })
+
     .state('tab.exhibit-detail', {
       url: '/search/exhibits/:exhibitId',
       views: {
@@ -164,9 +175,21 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
         controller: 'AccountCtrl'
       }
     }
+  })
+
+	.state('tab.privacy', {
+    url: '/account/privacy',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/tab-privacy.html',
+        controller: 'PrivacyCtrl'
+      }
+    }
   });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/signin');
+
+	$ionicConfigProvider.backButton.previousTitleText(false).text('');
 
 });

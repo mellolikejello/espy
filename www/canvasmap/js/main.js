@@ -12,11 +12,12 @@ app.main = {
 	canvas:undefined,
 	ctx:undefined,
 	
+
 	user:undefined,
 	userLat:undefined,
 	userLong:undefined,
 	
-	exhibits:undefined,
+	exhibits:[],
 
 	originLong:-77.685955,
 	originLat: 43.087979,
@@ -93,7 +94,7 @@ app.main = {
 	panLeftAllowed:undefined,
 	panRightAllowed:undefined,
 
-	queued:undefined,
+	queued:[],
 	
 	zoneColliders:undefined,
 	canv: undefined,
@@ -105,7 +106,7 @@ app.main = {
 	mapBtn:undefined,
 	pushXYtimer:undefined,
 	mapMult: .45,
-	
+	queueClock: undefined,
 
 //nw 43.086354,-77.681498
 
@@ -116,6 +117,8 @@ app.main = {
 		var t = this;
 		this.canvas = document.querySelector('canvas');
 		this.ctx = this.canvas.getContext('2d');
+
+		app.trilateration.initialize(); // init beacon code
 		
 		this.initExZones();
 		this.userAnimate = 60;
@@ -136,7 +139,8 @@ app.main = {
 		this.panRightAllowed = true;
 		this.panLeftAllowed = true;
 		this.panBotAllowed = true;
-		this.queued = ['Delete before Ionic']
+		this.queueClock = 0;
+		this.updateQueue();
 		this.matrix = [1,0,0,1,0,0];
 		this.alertTimer = 0;
 		this.fhx = this.getDistance(t.fhOlat,t.originLong,t.fhOlat,t.fhOlong,'M');
@@ -183,7 +187,7 @@ app.main = {
 		this.update();
 		this.mat2 = this.matrix;
 
-
+		console.log("main.js init");
 	},
 	initBtns: function(){
 		var iw = Math.floor( window.innerWidth);
@@ -206,6 +210,20 @@ app.main = {
    			h:bh,
    		};
 
+	},
+	updateQueue: function(){
+		if(this.queueClock <= 0){
+			var queueArray = JSON.parse(window.localStorage.getItem('queue'));
+			this.queued = [];
+			for(var i = 0; i < queueArray.length; i++){
+				var qa = queueArray[i];
+					this.queued.push(qa.code);
+				
+				//console.log(qa.code);
+			}
+			//console.log(this.queued);
+			this.queueClock = 900;
+		}
 	},
 	initLocalStorage: function(){
 		if(localStorage.getItem("tut1") === null){
@@ -281,29 +299,16 @@ app.main = {
 	},
 	initExZones: function (){
 		
-		this.exhibits = [
-		{
-			name:'testing 123',
-			x:3779,
-			y:1007,
-			r: 75,
-			tags:['science','computers'],
-			zone:'Field House',
-
-		},
-		{
-			name:'This is a Test',
-			x:3753,
-			y:981,
-			r:75,
-			tags:['gaming'],
-			zone:'Field House',
-		},
-
-
-		
-		];
-		
+		 var exArray = JSON.parse(window.localStorage.getItem('exhibits'));
+		 console.log(exArray);
+		 for(var i = 0; i < exArray.length; i++) {
+				 
+				if(exArray[i].zone == 'Field House') {
+						this.exhibits.push(exArray[i]);
+					}
+				
+			}
+			console.log(this.exhibits);
 	
 			  
 		this.zoneColliders= [
@@ -470,6 +475,9 @@ app.main = {
 		t.alertTimer -- ;
 		t.zoomTick --;
 		t.tapTimer --;
+		if(t.queueClock > 0){
+			t.queueClock --;
+		}
 		if(t.pushXYtimer > 0){
 			t.pushXYtimer --;
 		}
@@ -545,7 +553,7 @@ app.main = {
 		t.tut1 = window.localStorage.getItem("tut1");
 		t.tut2 = window.localStorage.getItem("tut2");
 		t.tut3 = window.localStorage.getItem("tut3");
-
+		t.updateQueue();
 		t.handleCollisons();
 		t.updateUserLocation();
 		t.pan();
@@ -663,7 +671,7 @@ app.main = {
 	handleCollisons: function(){
 		var t = this;
 		for (var i = 0; i < t.exhibits.length; i++){
-			var ex = t.exhibits[i];
+			var ex = t.exColliders[i];
 			if(t.fhMode == true){
 				if(t.isPointinCircle(t.user.x,t.user.y,ex)){
 					var distance = t.isPointinCircle(user.x,user.y,ex);
@@ -969,7 +977,7 @@ app.main = {
    		var x = ex.x - w/2;
    		var y = ex.y - h/2;
    		if(ex.zone == 'Field House'){
-	   		if(this.queued.indexOf(ex.name) > -1){
+	   		if(this.queued.indexOf(ex.code) > -1){
 	   			this.drawCircle(ex.x,ex.y,this.qCirc,this.colors.gold,1);
 	   		}
 	   		this.exImgs[i].src = 'img/Icons/' + ex.tags[0] + '.png';

@@ -1,4 +1,9 @@
 <ion-view view-title="">
+	<style>
+		.bar.bar-positive {
+			background-color: 'red' !important;
+		}
+	</style>
     <ion-content class="text-center exhibit-detail-view">
     <ion-slide-box ng-style="{'background-color': zoneColor}" show-pager="true" on-slide-changed="slideHasChanged($index)">
 <!--			<ion-slide-pager ng-click='slideHasChanged($index)'></ion-slide-pager>-->
@@ -23,17 +28,18 @@
 		<div class="exhibit-bottom-detail">
 			<ul class="button-list">
 				<li class="button-list-item">
-					<div add-queue ex="{{exhibit}}"></div>
-					<h5 class="all-caps">Queue</h5>
-				</li>
+					<div remove-queue ex="{{exhibit.code}}"></div>
+					<span>Remove</span>
+				</li>	  
 				<li class="button-list-item">
 					<img class="img-icon exhibit-action-icon" src="/icons/interaction/rate.png">
-					<h5 class="all-caps">Rate</h5>
+					<span>Rate</span>
 				</li>
 				<li class="button-list-item" ng-click="share()">
 					<img class="img-icon exhibit-action-icon" src="/icons/interaction/share.png">
 					<h5 class="all-caps">Share</h5>
 				</li>
+
 			</ul>
 			<hr class="button-list-border">
 			<div class="info-box">
