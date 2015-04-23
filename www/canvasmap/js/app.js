@@ -8,7 +8,8 @@ app.trilateration = {
 	updateTimer: null,
 	// Custom timer to get users location
 	locationTimer: null,
-	enoughbeacons:undefined,
+	enoughbeacons: undefined,
+	ourBeacons: [],
 
 	startScan: function()
 	{
@@ -17,11 +18,16 @@ app.trilateration = {
 			//console.log('onBeaconsRanged: ' + JSON.stringify(beaconInfo))
 			for (var i in beaconInfo.beacons)
 			{
-				// Insert beacon into table of found beacons.
-				var beacon = beaconInfo.beacons[i];
-				beacon.timeStamp = Date.now();
-				var key = beacon.major + ":" + beacon.minor;
-				app.BEACONS[key] = beacon;
+			    var beacon = beaconInfo.beacons[i]; 
+			    for (var j in ourBeacons) {
+                    //Loops through beacons found in scan and beacons pulled from our database, only adds to useable beacon array if beaconId is found in both
+			        var ourBeacon = ourBeacons[j];
+			        if (ourBeacon.id == beacon.major + ":" + beacon.minor) {
+			            // Insert beacon into table of found beacons.
+			            beacon.timeStamp = Date.now();
+			            app.BEACONS[ourBeacon.id] = ourBeacon;
+			        }
+			    }
 			}
 		}
 
@@ -44,7 +50,26 @@ app.trilateration = {
 	
 	initialize: function()
 	{
-		document.addEventListener('deviceready', this.onDeviceReady, false);
+	    console.log("app.js init");
+	    $.ajax({
+	        type: "GET",
+	        url: "https://imagine-rit-espy.herokuapp.com/api/estimotes",
+	        success: function (data) {
+	            ourBeacons = data;
+	            console.log(JSON.stringify(data));
+	            document.addEventListener('deviceready', this.onDeviceReady, false);
+	        }
+	    });
+        //$.ajax({
+        //    type: "DELETE",
+        //    url: "https://imagine-rit-espy.herokuapp.com/api/userAtExhibit/58aeab324214ae58aeab3242"
+        //});
+	    //$.ajax({
+	    //    type: "POST",
+	    //    url: "https://imagine-rit-espy.herokuapp.com/api/userAtExhibit",
+	    //    data: { "id": "58aeab324214ae58aeab3242" }
+	    //});
+	    
 	},
 	
 	onDeviceReady: function()
@@ -53,6 +78,8 @@ app.trilateration = {
 		window.estimote = EstimoteBeacons;
 		// Start tracking beacons!
 		app.trilateration.startScan();
+		localStorage.atExhibit = "false";
+		console.log("here2");
 	},
 	
 	getLocation: function()
@@ -69,37 +96,29 @@ app.trilateration = {
 			// Only show beacons that are updated during the last 20 seconds.
 			if (beacon.timeStamp + 20000 > timeNow)
 			{
-				// Hardcode x and y values for testing
-				if(key == "12350:52257")
-				{
-					//Window Beacon
-					beacon.x = app.main.getDistance(43.084678, app.main.orginLong, 43.084678, -77.679919, 'M');
-					beacon.y = app.main.getDistance(app.main.originLat, -77.679919, 43.084678, -77.679919, 'M');
-					
-					console.log("Window beacon");
-					console.log(beacon.x);
-					console.log(beacon.y);
-				}
-				if(key == "56181:59165")
-				{
-					//Wall Beacon
-					beacon.x = app.main.getDistance(43.084589, app.main.orginLong, 43.084589, -77.679931, 'M');
-					beacon.y = app.main.getDistance(app.main.originLat, -77.679931, 43.084589, -77.679931, 'M');
-					
-					console.log("Wall beacon");
-					console.log(beacon.x);
-					console.log(beacon.y);
-				}
-				if(key == "41988:60931")
-				{
-					//Railing beacon
-					beacon.x = app.main.getDistance(43.084642, app.main.orginLong, 43.084642, -77.680023, 'M');
-					beacon.y = app.main.getDistance(app.main.originLat, -77.680023, 43.084642, -77.680023, 'M');
-					
-					console.log("Railing beacon");
-					console.log(beacon.x);
-					console.log(beacon.y);
-				}
+			    if(key == "REPLACE"/* PUT EXHIBIT BEACON KEY HERE */)
+			    {
+			        if (beacon.distance < 20 && localStorage.atExhibit == "false") {
+			            // User just arived at booth
+			            localStorage.atExhibit = "true";
+			            var user = JSON.parse(localStorage.getItem('user'));
+			            $.ajax({
+			                type: "POST",
+			                url: "https://imagine-rit-espy.herokuapp.com/api/userAtExhibit",
+			                data: { "id": user.userId }
+			            });
+
+			        }
+			        if (beacon.distance > 20 && localStorage.atExhibit == "true") {
+			            // user just left booth
+			            localStorage.atExhibit = "false";
+			            var user = JSON.parse(localStorage.getItem('user'));
+			            $.ajax({
+			                type: "DELETE",
+			                url: "https://imagine-rit-espy.herokuapp.com/api/userAtExhibit/"+user.userId
+			            });
+			        }
+			    }
 				
 				// Set distance, color, and id
 				beacon.id = key;
