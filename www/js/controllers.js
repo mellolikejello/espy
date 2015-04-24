@@ -10,26 +10,23 @@ angular.module('espy.controllers', [])
 
 	$scope.categories = Categories.all();
 	$scope.signIn = function() {
-		console.log('Sign-In');
 		$state.go('tab.home');
-		
-		username = $scope.params.myParameter; 
 
+		username = $scope.params.myParameter;
 
-		user ={
+		var user ={
 		  name: username,
 		  role: group[0],
 		  interests: pref,
 		  location: [{x:0,y:0}],
 		  visited: [],
 		  queue: [],
-		  id: "",
 		  r: 10,
 		  x: 0,
 		  y: 0
 		}
 		setStorage.user(user);
-		console.log(user);
+
 	};
 	$scope.check = false;
 	$scope.selectBox = function() {
@@ -44,7 +41,6 @@ angular.module('espy.controllers', [])
 		else{
 		pref.push(cat);
 		}
-		console.log(pref);
 		//$scope.selectBox();
 		
 	}
@@ -63,20 +59,13 @@ angular.module('espy.controllers', [])
 	}
 	$scope.addGroup= function(g,k){
 		//var pref = [];
-		
-		k = k-1
+		k = k-1;
 		console.log(k);
-		
 		group.shift();
 		group.push(g);
 		nums.shift();
 		nums.push(k);
 		console.log(group);
-		
-			
-	
-		
-		
 	}
 
 })
@@ -94,20 +83,17 @@ angular.module('espy.controllers', [])
 	$scope.search = function(element, searchTerm) {
 		$state.go('tab.home-search', {term: searchTerm});
 	}
-	
+
 //	if exhibit list hasn't been retrieved from db
 	if(! Exhibits.isSynced()) {
 		var dataPromise = Exhibits.all();
 		// this is only run after $http completes
 		dataPromise.then(function(result) {
-		   
 		   setStorage.exhibits(result);
 		   console.log(result);
 		   setStorage.exhibits(UtilService.addRec());
 		   console.log(UtilService.addRec());
 		});
-
-
 	} 
 	//console.log(UtilService.setDistances());
 		//setStorage.exhibits(UtilService.setDistances());
@@ -307,7 +293,6 @@ angular.module('espy.controllers', [])
 })
 
 .controller('AccountCtrl', function($scope, $state,getStorage) {
-	// make this a db call
 	var user = getStorage.user();
 	var name = user.name;
 	var role = user.role;

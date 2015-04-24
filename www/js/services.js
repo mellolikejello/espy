@@ -481,7 +481,7 @@ angular.module('espy.services', ['ngResource'])
 })
 
 .factory('Exhibits', function ($http,getStorage) {
-    var exhibits = getStorage.exhibits();;
+    var exhibits = getStorage.exhibits();
     var synced = false;
     //  $http.get('https://imagine-rit-espy.herokuapp.com/api/exhibits').
     //	success(function(data, status, headers, config) {
@@ -496,52 +496,7 @@ angular.module('espy.services', ['ngResource'])
     //		// or server returns response with an error status.
     //		console.log('error getting exhibit data');
     //	});
-    //	var exhibits = [{
-    //		id: 0,
-    //		name: 'The Application of Critical Thinking in Statistics',
-    //    categories: ['Science', 'Art'],
-    //		exhibitors: ['Rachael Stroebel', 'Kat Pillman'],
-    //		rating: 4,
-    //		img: 'img/logo.png',
-    //        description: 'This page will display lots of information.'
-    //	}, {
-    //		id: 1,
-    //		name: 'Exhibit 2',
-    //		rating: 3,
-    //        categories: ['Games', 'Art'],
-    //		img: 'img/logo.png'
-    //    }, {
-    //		id: 3,
-    //		name: 'Zombies: Flash as a Medium',
-    //		rating: 3,
-    //        categories: ['Games', 'Science'],
-    //		img: 'img/logo.png'
-    //    }, {
-    //		id: 4,
-    //		name: 'The Application of Critical Thinking in Statistics',
-    //		rating: 3,
-    //		img: 'img/logo.png'
-    //    }, {
-    //		id: 5,
-    //		name: 'Zombies: Flash as a Medium',
-    //		rating: 3,
-    //		img: 'img/logo.png'
-    //    }, {
-    //		id: 6,
-    //		name: 'Zombies: Flash as a Medium',
-    //		rating: 3,
-    //		img: 'img/logo.png'
-    //    }, {
-    //		id: 7,
-    //		name: 'The Application of Critical Thinking in Statistics',
-    //		rating: 3,
-    //		img: 'img/logo.png'
-    //    }, {
-    //		id: 8,
-    //		name: 'Zombies: Flash as a Medium',
-    //		rating: 3,
-    //		img: 'img/logo.png'
-    //	}];
+
     //	helper function - check if input contains searchString
     //			input: string to check
     function contains(input, searchString) {
