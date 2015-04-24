@@ -155,9 +155,7 @@ angular.module('espy.controllers', [])
 	};
 })
 
-.controller('MapCtrl', function($scope, MapService) {
-	// init maps?
-})
+.controller('MapCtrl', function($scope) {})
 
 .controller('QueueCtrl', function($scope, $state,$stateParams,$localstorage,getStorage,$window,$timeout,$document,Exhibits) {
 	

@@ -13,7 +13,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
     }, 5000);
 })
 
-.run(function($ionicPlatform, MapService, BeaconService, UtilService) {
+.run(function($ionicPlatform, UtilService) {
     $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -29,10 +29,8 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
 		if (window.hyper && window.hyper.log) {
 			console.log = hyper.log;
 		}
-        
+
 		setInterval(UtilService.updatePreferences, 3000);
-		BeaconService.init();
-		MapService.init();
 		})
 })
 
