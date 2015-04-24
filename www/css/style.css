@@ -587,8 +587,25 @@ h6 {
 	width: 50%;
 }
 
-.item .account-label {
+.settings-view .item .account-label {
   color: #9EA7B3;
+}
+
+.settings-view .item .account-bold {
+	color: #9EA7B3;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.settings-view .item {
+		text-overflow: inherit;
+		white-space: normal;
+}
+
+.settings-view .item-divider {
+	color: #5E6D81;
+	font-size: 12pt;
+	font-weight: 700;
 }
 
 .title-box {

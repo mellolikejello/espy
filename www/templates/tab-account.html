@@ -1,32 +1,32 @@
 <ion-view view-title="Settings">
-	<ion-content>
-		<h6 class="text-center">Profile</h6>
+	<ion-content class="settings-view">
+		<h6 class="text-center all-caps">Profile</h6>
 		<ion-list>
 			<ion-item>
 				<p class="account-label">Nickname</p>
-				<p>{{nickname}}</p>
+				<p class="account-bold">{{nickname}}</p>
 			</ion-item>
 			<ion-item>
 				<p class="account-label">Role</p>
-				<p>{{userRole}}</p>
+				<p class="account-bold">{{userRole}}</p>
 			</ion-item>
 			<ion-item>
 				<p class="account-label">Interests</p>
-				<p>
+				<p class="account-bold">
 					<span ng-repeat="interest in interests">{{interest}} {{$last ? '' : ($index==interests.length-1) ? '' : ', '}} </span>
 				</p>
 			</ion-item>
-			<ion-item class="item-divider text-center">
+			<ion-item class="item-divider text-center all-caps">
 				Notifications
 			</ion-item>
 			<ion-toggle ng-model="settings.enablePush">
-				Send Push Notifications
+				<p class="account-bold">Send Push Notifications</p>
 			</ion-toggle>
-			<ion-item class="item-divider text-center">
+			<ion-item class="item-divider text-center all-caps">
 				Support
 			</ion-item>
 			<ion-item class="item-icon-right" ng-click="viewStatement()">
-				<span>Privacy & Security</span>
+				<p class="account-bold">Privacy & Security</p>
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
 		</ion-list>
