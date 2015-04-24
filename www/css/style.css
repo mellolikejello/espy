@@ -440,8 +440,36 @@ h6 {
 	color: #9EA7B3;
 	font-size: 16px;
 }
+
+.icon-box {
+	color: #5E6D81;
+}
+
+.icon-box.active{
+	color: #FFFFFF;
+}
+
+.cat-check {
+	display: none;
+	color: #FFFFFF;
+}
+
+.cat-plus.active {
+	display: none;
+}
+
+.cat-check.active {
+	display: inline;
+}
+
 .select-box.active {
+	color: #FFFFFF;
+	border-color: #FFD464;
 	background-color: #FFD464;
+}
+
+.select-box.active.icon-box {
+	color: #FFFFFF;
 }
 
 .box-inline {
@@ -459,10 +487,6 @@ h6 {
 
 .ion-record {
 	color: #3DB4C8;
-}
-
-.icon-box {
-	color: #5E6D81;
 }
 
 .start-access-box {
@@ -525,4 +549,15 @@ h6 {
 
 .start-slide-body {
 	margin-bottom: 30px;
+}
+
+.security-view p {
+	color: #9EA7B3;
+	font-size: 12pt;
+}
+
+.security-view .security-statement {
+	padding-top: 25px;
+	padding-left: 15px;
+	padding-right: 15px;
 }

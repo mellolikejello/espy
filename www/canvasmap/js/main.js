@@ -107,7 +107,7 @@ app.main = {
 	pushXYtimer:undefined,
 	mapMult: .45,
 	queueClock: undefined,
-
+	userRad:undefined,
 //nw 43.086354,-77.681498
 
     
@@ -152,7 +152,7 @@ app.main = {
 		this.tut1 = window.localStorage.getItem("tut1");
 		this.tut2 = window.localStorage.getItem("tut2");
 		this.tut3 = window.localStorage.getItem("tut3");
-		t.pushXYtimer = 10800;
+		t.pushXYtimer = 300;
 		console.log(t.fhx,t.fhy);
 
 		for(var k = 0; k < this.exhibits.length; k++){
@@ -290,11 +290,10 @@ app.main = {
 			x: this.FHcol.x + this.FHcol.w/2,
 			y: this.FHcol.y + this.FHcol.h/2,
 		};
-		this.user = {
-			x: -100,
-			y:-100,
-			r: 10,
-		};
+		this.user = JSON.parse(window.localStorage.getItem('user'));
+		console.log(this.user);
+			
+		
 		
 	},
 	initExZones: function (){
@@ -556,6 +555,7 @@ app.main = {
 		t.updateQueue();
 		t.handleCollisons();
 		t.updateUserLocation();
+		t.pushNewUserXY();
 		t.pan();
 		t.draw();
 
@@ -629,10 +629,21 @@ app.main = {
    			);
     },
     pushNewUserXY: function(){
-    	var xy = [user.x,user.y];
+    	var xy = {x:this.user.x,y:this.user.y};
     	if(this.pushXYtimer <= 0){
-
-    		//PUSH NEW XY
+    		var locations = this.user.location;
+    			locations.push(xy);
+    			console.log(locations);
+    			this.user.location = locations;
+    		$.ajax({
+				 type: "PUT",
+				 url: "https://imagine-rit-espy.herokuapp.com:443/api/users",
+				data: { 
+						location: locations,
+						id: this.user.id,
+						}
+					
+			 });
     		this.pushXYtimer = 10800;
     	}
 
@@ -683,8 +694,26 @@ app.main = {
 						var seconds = t.times[u] / 60;
 
 						if(t.clock == t.times[u]){
+
+							var visited =  this.user.visited;
+								if(visited.indexOf(t.currentCollider[0]) > -1){
+								
+								}
+								else{
+									visited.push(t.currentCollider[0]);
 							
-							/// INSERT USER IS AT LOCATION INTO DB
+									$.ajax({
+								        type: "PUT",
+								        url: "https://imagine-rit-espy.herokuapp.com:443/api/users",
+								        data: { 
+												  visited: visited,
+												  
+												  id: this.user.id,
+											}
+								    });
+
+						   }
+							
 						}
 					}
 				}
@@ -708,7 +737,24 @@ app.main = {
 
 						if(t.clock == t.times[u]){
 							console.log(seconds);
-							/// INSERT USER IS AT LOCATION INTO DB
+							var visited =  this.user.visited;
+								if(visited.indexOf(t.currentCollider[0]) > -1){
+								
+								}
+								else{
+									visited.push(t.currentCollider[0]);
+							
+									$.ajax({
+								        type: "PUT",
+								        url: "https://imagine-rit-espy.herokuapp.com:443/api/users",
+								        data: { 
+												  visited: visited,
+												  
+												  id: this.user.id,
+											}
+								    });
+
+						   }
 						}
 					}
 				}
@@ -789,10 +835,10 @@ app.main = {
 	if(t.userLat != null && t.userLong != null){
 	t.user.x = t.getDistance(t.userLat,t.originLong,t.userLat,t.userLong);
 	t.user.y = t.getDistance(t.originLat,t.userLong,t.userLat,t.userLong);
-
+	window.localStorage.setItem('user',this.user);
 	t.user.x = t.user.x * t.mapMult;
 	t.user.y = t.user.y * t.mapMult;
-}
+	}
 	//set these variables to the geolcation lon/lat
 	
 	//convert user lon/lat to X/Y
@@ -800,6 +846,7 @@ app.main = {
 		var userPosition = app.trilateration.getLocation();
 		this.userX = userPosition.x;
 		this.userY = userPosition.y;
+		window.localStorage.setItem('user',this.user);
 	}
 		
 	},

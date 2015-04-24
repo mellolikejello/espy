@@ -1,15 +1,84 @@
 angular.module('espy.controllers', [])
 
-.controller('SignInCtrl', function($scope, $state, Categories) {
+.controller('SignInCtrl', function($scope, $state, Categories,getStorage,setStorage) {
+
+	var pref = [];
+	var group = [];
+	var nums=[];
+	var username;
+	$scope.params = {};
+
 	$scope.categories = Categories.all();
 	$scope.signIn = function() {
 		console.log('Sign-In');
 		$state.go('tab.home');
+		
+		username = $scope.params.myParameter; 
+
+
+		user ={
+		  name: username,
+		  role: group[0],
+		  interests: pref,
+		  location: [{x:0,y:0}],
+		  visited: [],
+		  queue: [],
+		  id: "",
+		  r: 10,
+		  x: 0,
+		  y: 0
+		}
+		setStorage.user(user);
+		console.log(user);
 	};
 	$scope.check = false;
 	$scope.selectBox = function() {
     $scope.check = $scope.check === false ? true: false;
 	};
+	
+	$scope.addPref= function(cat){
+		//var pref = [];
+		if(pref.indexOf(cat) >-1){
+			pref.splice(pref.indexOf(cat),1);
+		}
+		else{
+		pref.push(cat);
+		}
+		console.log(pref);
+		//$scope.selectBox();
+		
+	}
+	$scope.wact = function(w){
+		if(pref.indexOf(w) >-1 ){
+			return true;
+		}
+		else{return false};
+	}
+	$scope.act = function(i){
+		if(i -1 == nums[0]){
+			return true;
+		}
+		else{return false};
+		console.log(i);
+	}
+	$scope.addGroup= function(g,k){
+		//var pref = [];
+		
+		k = k-1
+		console.log(k);
+		
+		group.shift();
+		group.push(g);
+		nums.shift();
+		nums.push(k);
+		console.log(group);
+		
+			
+	
+		
+		
+	}
+
 })
 
 .controller('HomeCtrl', function($scope, $state, $document, Exhibits, Categories,setStorage,getStorage,UtilService) {
@@ -46,8 +115,7 @@ angular.module('espy.controllers', [])
 	$scope.$on('$ionicView.enter', function () { 
 		   var reco = UtilService.addRec();
 		   $scope.exhibits = reco;
-		   var set = getStorage.exhibits();
-		   console.log(set[0]);
+		   
 
 	});
 
@@ -133,7 +201,7 @@ angular.module('espy.controllers', [])
 })
 
 
-.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window, $document,getStorage) {
+.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window, $document,getStorage,setStorage ){
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
   var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
 	$scope.zoneColor = zoneColor;
@@ -148,10 +216,45 @@ angular.module('espy.controllers', [])
 			info.style["display"] = "block";
 		}
 	}
+	var user = getStorage.user();
+	var pref = user.interests;
+	
+	
+	$scope.addPref= function(cat){
+		//var pref = [];
+		if(pref.indexOf(cat) >-1){
+			pref.splice(pref.indexOf(cat),1);
+			
+		}
+		else{
+		pref.push(cat);
+		}
+		var updatedUser={
+			  name: user.name,
+			  role: user.role,
+			  interests: pref,
+			  location: user.location,
+			  visited: user.visited,
+			  queue: [],
+			  id: user.id,
+			  r: user.r,
+			  x:user.x,
+			  y:user.y
+			}
+		setStorage.user(updatedUser);
+		//$scope.selectBox();
+		
+	}
+	$scope.wact = function(w){
+		if(pref.indexOf(w) >-1 ){
+			return true;
+		}
+		else{return false};
+	}
 	
 })
 
-.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window,$document) {
+.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window,$document,getStorage,setStorage) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
 	var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
 	$scope.zoneColor = zoneColor;
@@ -166,13 +269,49 @@ angular.module('espy.controllers', [])
 			info.style["display"] = "block";
 		}
 	}
+	var user = getStorage.user();
+	var pref = user.interests;
+	
+	
+	$scope.addPref= function(cat){
+		//var pref = [];
+		if(pref.indexOf(cat) >-1){
+			pref.splice(pref.indexOf(cat),1);
+			
+		}
+		else{
+		pref.push(cat);
+		}
+		var updatedUser={
+			  name: user.name,
+			  role: user.role,
+			  interests: pref,
+			  location: user.location,
+			  visited: user.visited,
+			  queue: [],
+			  id: user.id,
+			  r: user.r,
+			  x:user.x,
+			  y:user.y
+			}
+		setStorage.user(updatedUser);
+		//$scope.selectBox();
+		
+	}
+	$scope.wact = function(w){
+		if(pref.indexOf(w) >-1 ){
+			return true;
+		}
+		else{return false};
+	}
 })
 
-.controller('AccountCtrl', function($scope, $state) {
+.controller('AccountCtrl', function($scope, $state,getStorage) {
 	// make this a db call
-	var name = "bob";
-	var role = "College Student";
-	var interests = ['Science', 'Art', 'Dance'];
+	var user = getStorage.user();
+	var name = user.name;
+	var role = user.role;
+	var interests = user.interests;
 	$scope.nickname = name;
 	$scope.userRole = role;
 	$scope.interests = interests;
