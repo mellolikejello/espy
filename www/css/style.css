@@ -90,12 +90,12 @@ h3 {
 
 h4 {
 	color: #DBE1E8;
-	font-size: 14pt;
+	font-size: 16pt;
 }
 
 h5 {
 	color: #9EA7B3;
-	font-size: 16pt;
+	font-size: 18px;
 }
 
 h6 {
@@ -115,7 +115,7 @@ h6 {
 
 .b3 {
 	color: #9EA7B3;
-	font-size: 14pt;
+	font-size: 16px;
 }
 
 .ion-search {
@@ -381,12 +381,19 @@ h6 {
 
 .exhibit-detail-view .info-box .bold {
 	color: #5E6D81;
-	font-size: 18px;
+	font-size: 14px;
 }
 
 .exhibit-detail-view .info-box-desc {
 	color: #9EA7B3;
-	font-size: 18px;
+	font-size: 14px;
+}
+
+.exhibit-detail-view .box {
+	color: white;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 24px;
 }
 
 .exhibit-detail-view .ion-record {
