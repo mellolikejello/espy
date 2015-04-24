@@ -195,6 +195,9 @@ angular.module('espy.directives', [])
 				case 'Student Organizations':
 					iconClass = iconClass.concat('studentorganizations');
 					break;
+				case 'Student Organization':
+					iconClass = iconClass.concat('studentorganizations');
+					break;
 				case 'Sustainability':
 					iconClass = iconClass.concat('sustainability');
 					break;

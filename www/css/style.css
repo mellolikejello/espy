@@ -115,7 +115,7 @@ h6 {
 
 .b3 {
 	color: #9EA7B3;
-	font-size: 18pt;
+	font-size: 14pt;
 }
 
 .ion-search {
@@ -166,7 +166,7 @@ h6 {
 }
 
 .img-icon {
-	width: 30px;
+	width: 25px;
 }
 
 .item-input {
@@ -359,6 +359,7 @@ h6 {
 
 .exhibit-detail-view .exhibitor-names {
 	color: white;
+	font-weight: 700;
 }
 
 .exhibit-detail-view .bullet {
@@ -371,18 +372,21 @@ h6 {
 
 .exhibit-detail-view .info-box {
 	display: none;
-	width: 80%;
+	width: 85%;
 	margin-left: auto;
 	margin-right: auto;
+	padding-top: 15px;
+	border-top: 2px solid #DBE1E8;
 }
 
 .exhibit-detail-view .info-box .bold {
 	color: #5E6D81;
+	font-size: 18px;
 }
 
 .exhibit-detail-view .info-box-desc {
 	color: #9EA7B3;
-	font-weight: 20px;
+	font-size: 18px;
 }
 
 .exhibit-detail-view .ion-record {
@@ -397,7 +401,7 @@ h6 {
 	margin-left: auto;
 	margin-right: auto;
 	padding-top: 15px;
-	width: 83%;
+	width: 88%;
 }
 
 .exhibit-detail-view .icon-detail-bar {
@@ -405,7 +409,18 @@ h6 {
 	border-bottom: 2px solid #DBE1E8;
 	margin-left: auto;
 	margin-right: auto;
-	width: 80%;
+	padding-top: 15px;
+	width: 85%;
+}
+
+.exhibit-detail-view .icon-detail-bar .row {
+	padding-bottom: 15px;
+}
+
+.exhibit-detail-view .icon-detail-bar .col {
+	text-align: left;
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 .exhibit-action-icon {
@@ -416,7 +431,7 @@ h6 {
 
 .exhibit-list-icon {
 	display: inline-block;
-	width: 36px;
+	width: 22px;
 }
 
 .list-content {
@@ -424,7 +439,7 @@ h6 {
 }
 
 .exhibit-bottom-detail {
-	padding-top: 10px;
+	padding-top: 20px;
 }
 
 .slider {
@@ -434,7 +449,7 @@ h6 {
 .slider-slide {
 	height: 100%;
 	padding-top: 40px;
-	padding-bottom: 40px;
+	padding-bottom: 70px;
 }
 
 .slider-slide {
@@ -442,8 +457,8 @@ h6 {
 	padding-right: 5vw;
 }
 
-.slider-pager-page {
-	cursor: pointer;
+.slider-pager {
+	bottom: 30px;
 }
 
 .button-list {
