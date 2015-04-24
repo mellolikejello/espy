@@ -13,7 +13,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
     }, 5000);
 })
 
-.run(function($ionicPlatform, UtilService) {
+.run(function($ionicPlatform, $state, UtilService, User, $window) {
     $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -28,6 +28,19 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
 		// Redirect console.log to Evothings Workbench.
 		if (window.hyper && window.hyper.log) {
 			console.log = hyper.log;
+		}
+
+		//TODO: remove for final copy
+		// debugging
+		$window.appLogout = function() {
+			var user = $window.localStorage['user'];
+			console.log('logging out: ' + user);
+			$window.localStorage['user'] = null;
+		};
+
+		if(User.isLoggedIn()) {
+//		go to the home screen instead of login
+			$state.go('tab.home');
 		}
 
 		setInterval(UtilService.updatePreferences, 3000);

@@ -35,11 +35,11 @@ angular.module('espy.services', ['ngResource'])
 
                     if (n > requiredVisits) {   // TODO: NEED TO UPDATE THE USER PREFERENCES, PROBABLY IN LOCAL STORAGE
                         //console.log("MeetsRec: " +curTag);
-                        if (userPrefrences.indexOf(exhibits[i].tags[k]) > -1) {
+                        if (userPreferences.indexOf(exhibits[i].tags[k]) > -1) {
                             //console.log("already Exist:" + exhibits[i].tags[k]);
                         }
                         else {
-                            userPrefrences.push(exhibits[i].tags[k]);
+                            userPreferences.push(exhibits[i].tags[k]);
 
                         }
                     }
@@ -281,7 +281,7 @@ angular.module('espy.services', ['ngResource'])
     }
 })
 
-.factory('UserService', function ($http, $localstorage) {
+.factory('User', function ($http, $localstorage, Exhibits) {
 	var name;
 	var role;
 	var id;
@@ -295,14 +295,17 @@ angular.module('espy.services', ['ngResource'])
 
 	// private function
 	// as far as I know, storage wouldn't be set by outside sources
-	function setStorage() {
+	function store() {
+		console.log('storing ... ' + id);
 		var userObj = {
+			id: id,
 			name: name,
 			role: role,
 			interests: interests,
 			// objects need to be JSONified
 			location: [ {x:0, y:0} ],
 			visited: [],
+			// list of exhibit ids
 			queue: [],
 			r: r,
 			x: x,
@@ -321,11 +324,11 @@ angular.module('espy.services', ['ngResource'])
 
 		$http.post("https://imagine-rit-espy.herokuapp.com/api/users",
 							userObj).
-			success(function(data, status, headers, config) {
-				id = data.id;
-			}).
-			error(function(data, status, headers, config) {
-				console.log(status);
+//			once the user has been added, store the generated id
+//				and store to local storage
+			then(function(result) {
+				id = result.data.id;
+				store();
 			});
 	}
 
@@ -334,9 +337,69 @@ angular.module('espy.services', ['ngResource'])
 			name = username;
 			role = newRole;
 			interests = newInterests;
+
 			addToDB();
-			setStorage();
+		},
+
+		// if user is logged in, sychronize this service with local storage
+		isLoggedIn: function() {
+			var user = $localstorage.getObject('user');
+			console.log(user);
+			if(user == null) {
+				return false;
+			}
+
+			name = user.name;
+			role = user.role;
+			id = user.id;
+			interests = user.interests;
+			location = user.location;
+			visited = user.visited;
+			queue = user.queue;
+			r = user.r;
+			x = user.x;
+			y = user.y;
+
+			return true;
+		},
+
+		addToQueue: function(exbId) {
+			queue.push(exbId);
+		},
+
+//		remove exhibit id from queue
+		removeFromQueue: function(exbId) {
+			for(var i in queue) {
+				if(queue[i] == exbId) {
+					queue.splice(i, 1);
+					return true;
+				}
+			}
+			return false;
+		},
+
+		// getters
+		getName: function() {
+			return name;
+		},
+		getRole: function() {
+			return role;
+		},
+		getInterests: function() {
+			console.log(interests);
+			return interests;
+		},
+
+		// returns a list of exhibit objects
+		getQueue: function() {
+			var exbQueue = [];
+			for(var i in queue) {
+				var exb = Exhibits.get(queue[i]);
+				exbQueue.push(exb);
+			}
+			return exbQueue;
 		}
+
 	}
 })
 
@@ -354,7 +417,7 @@ angular.module('espy.services', ['ngResource'])
     }
 })
 
-.factory('Exhibits', function ($http,getStorage) {
+.factory('Exhibits', function ($http, getStorage, setStorage) {
     var exhibits = getStorage.exhibits();
     var synced = false;
     //  $http.get('https://imagine-rit-espy.herokuapp.com/api/exhibits').
@@ -389,6 +452,8 @@ angular.module('espy.services', ['ngResource'])
                         synced = true;
                         exhibits = result.data;
                         console.log('exhibits loaded: ' + exhibits.length);
+												// set local storage to data pulled via API
+												setStorage.exhibits(exhibits);
                         return exhibits;
                     });
             } else {

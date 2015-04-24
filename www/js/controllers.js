@@ -1,11 +1,15 @@
 angular.module('espy.controllers', [])
 
-.controller('SignInCtrl', function($scope, $state, Categories, UserService) {
-
+.controller('SignInCtrl', function($scope, $state, Categories, User) {
 	var pref = [];
 	var group = [];
 	var nums=[];
 	var username;
+
+	if(User.isLoggedIn()) {
+		$state.go('tab.home');
+	}
+
 	$scope.params = {};
 
 	$scope.categories = Categories.all();
@@ -13,7 +17,7 @@ angular.module('espy.controllers', [])
 		$state.go('tab.home');
 		username = $scope.params.myParameter;
 		// 							 username, role, interests
-		UserService.init(username, group[0], pref);
+		User.init(username, group[0], pref);
 
 //		setStorage.user(user);
 
@@ -145,7 +149,7 @@ angular.module('espy.controllers', [])
 
 .controller('MapCtrl', function($scope) {})
 
-.controller('QueueCtrl', function($scope, $state,$stateParams,$localstorage,getStorage,$window,$timeout,$document,Exhibits) {
+.controller('QueueCtrl', function($scope, $state,$stateParams,$localstorage,getStorage,$window,$document,Exhibits) {
 	
 	//TODO set this to a global array?? that updates everytime a queue is added
 	$scope.viewExhibit = function(id) {
@@ -155,17 +159,12 @@ angular.module('espy.controllers', [])
 		// do this everytime a queue is added
 	
 
-   $scope.$on('$ionicView.enter', function () { 
+   $scope.$on('$ionicView.enter', function () {
 	    var queue = getStorage.queue();
 		$scope.exhibits = queue;
-		
-
-
 		var header = $document[0].querySelector("ion-header-bar");
 		header.style['background-color'] = '#3DB4C8';
 		header.style['border-color'] = '#3DB4C8';
-
-
 
 	});
 	
@@ -278,14 +277,10 @@ angular.module('espy.controllers', [])
 	}
 })
 
-.controller('AccountCtrl', function($scope, $state,getStorage) {
-	var user = getStorage.user();
-	var name = user.name;
-	var role = user.role;
-	var interests = user.interests;
-	$scope.nickname = name;
-	$scope.userRole = role;
-	$scope.interests = interests;
+.controller('AccountCtrl', function($scope, $state, User) {
+	$scope.nickname = User.getName();
+	$scope.userRole = User.getRole();
+	$scope.interests = User.getInterests();
   $scope.viewStatement = function() {
 		$state.go('tab.privacy');
 	}
