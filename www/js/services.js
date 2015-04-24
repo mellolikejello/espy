@@ -281,6 +281,65 @@ angular.module('espy.services', ['ngResource'])
     }
 })
 
+.factory('UserService', function ($http, $localstorage) {
+	var name;
+	var role;
+	var id;
+	var interests = [];
+	var location = [ {x:0, y:0} ];
+	var visited = [];
+	var queue = [];
+	var r = 10;
+	var x = 0;
+	var y = 0;
+
+	// private function
+	// as far as I know, storage wouldn't be set by outside sources
+	function setStorage() {
+		var userObj = {
+			name: name,
+			role: role,
+			interests: interests,
+			// objects need to be JSONified
+			location: [ {x:0, y:0} ],
+			visited: [],
+			queue: [],
+			r: r,
+			x: x,
+			y: y
+		};
+
+		$localstorage.setObject('user', userObj);
+	}
+
+	function addToDB() {
+		var userObj = {
+			name: name,
+			role: role,
+			interests: interests
+		};
+
+		$http.post("https://imagine-rit-espy.herokuapp.com/api/users",
+							userObj).
+			success(function(data, status, headers, config) {
+				id = data.id;
+			}).
+			error(function(data, status, headers, config) {
+				console.log(status);
+			});
+	}
+
+	return {
+		init: function (username, newRole, newInterests) {
+			name = username;
+			role = newRole;
+			interests = newInterests;
+			addToDB();
+			setStorage();
+		}
+	}
+})
+
 .factory('Categories', function () {
     var categories = ['Art', 'Business', 'Communication', 'Community',
 		'Dance', 'Design', 'Energy', 'Engineering', 'Environment', 'Gaming',

@@ -1,6 +1,6 @@
 angular.module('espy.controllers', [])
 
-.controller('SignInCtrl', function($scope, $state, Categories,getStorage,setStorage) {
+.controller('SignInCtrl', function($scope, $state, Categories, UserService) {
 
 	var pref = [];
 	var group = [];
@@ -11,30 +11,19 @@ angular.module('espy.controllers', [])
 	$scope.categories = Categories.all();
 	$scope.signIn = function() {
 		$state.go('tab.home');
-
 		username = $scope.params.myParameter;
+		// 							 username, role, interests
+		UserService.init(username, group[0], pref);
 
-		var user ={
-		  name: username,
-		  role: group[0],
-		  interests: pref,
-		  location: [{x:0,y:0}],
-		  visited: [],
-		  queue: [],
-		  r: 10,
-		  x: 0,
-		  y: 0
-		}
-		setStorage.user(user);
+//		setStorage.user(user);
 
 	};
 	$scope.check = false;
 	$scope.selectBox = function() {
     $scope.check = $scope.check === false ? true: false;
 	};
-	
+
 	$scope.addPref= function(cat){
-		//var pref = [];
 		if(pref.indexOf(cat) >-1){
 			pref.splice(pref.indexOf(cat),1);
 		}
@@ -42,7 +31,6 @@ angular.module('espy.controllers', [])
 		pref.push(cat);
 		}
 		//$scope.selectBox();
-		
 	}
 	$scope.wact = function(w){
 		if(pref.indexOf(w) >-1 ){
