@@ -182,10 +182,6 @@ h6 {
     padding: 2px;
 }
 
-.rating li:hover {
-    cursor: pointer;
-}
-
 .home-view .suggestions {
 	padding-top: 20px;
 }
@@ -356,6 +352,19 @@ h6 {
 	background-color: white;
 }
 
+.exhibit-detail-view .exhibit-name {
+	padding-top: 15px;
+	color: white;
+}
+
+.exhibit-detail-view .exhibitor-names {
+	color: white;
+}
+
+.exhibit-detail-view .bullet {
+	font-size: 10px;
+}
+
 .exhibit-detail-view row{
 	padding-top: 18px;
 }
@@ -367,13 +376,36 @@ h6 {
 	margin-right: auto;
 }
 
-.exhibit-detail-view .info-box hr {
-	width: 100%;
+.exhibit-detail-view .info-box .bold {
+	color: #5E6D81;
 }
 
 .exhibit-detail-view .info-box-desc {
 	color: #9EA7B3;
 	font-weight: 20px;
+}
+
+.exhibit-detail-view .ion-record {
+	color: white;
+}
+
+.exhibit-detail-view .tag-element {
+	float: left;
+}
+
+.exhibit-detail-view .tag-list {
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 15px;
+	width: 83%;
+}
+
+.exhibit-detail-view .icon-detail-bar {
+	border-top: 2px solid #DBE1E8;
+	border-bottom: 2px solid #DBE1E8;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
 }
 
 .exhibit-action-icon {

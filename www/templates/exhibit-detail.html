@@ -8,9 +8,9 @@
                 <img class="full-image exhibit-img" src="{{exhibit.img}}">
             </div>
             <div exb-rating rating-value="exhibit.rating" max="5" on-rating-selected="saveRatingToServer(rating)"></div>
-            <h4>{{exhibit.name}}</h4>
-						<span ng-repeat="exhibitor in exhibit.exhibitors">
-							{{exhibitor}} <span ng-show="!$last">&bull;</span>
+            <h4 class="exhibit-name">{{exhibit.name}}</h4>
+						<span class="exhibitor-names" ng-repeat="exhibitor in exhibit.exhibitors">
+							{{exhibitor}} <span class="bullet" ng-show="!$last">&bull;</span>
 						</span>
 				</div>
       </ion-slide>
@@ -35,48 +35,49 @@
 					<h5 class="all-caps">Share</h5>
 				</li>
 			</ul>
-			<hr class="button-list-border">
 			<div class="info-box">
 			<p class="bold">Hey, thanks for wanting to share this event!</p>
 			<p class="info-box-desc">Espy is a work in progress, and we aren’t able to support social media in this version of the app. However, we wanted to give you an idea of what the future would look like!</p>
-			<hr class="button-list-border">
 			</div>
-			<div class="row">
-				<div class="col-20">
-					<img class="img-icon exhibit-list-icon" src="/icons/interaction/distance.png">
+			<div class="icon-detail-bar">
+				<div class="row">
+					<div class="col-20">
+						<img class="img-icon exhibit-list-icon" src="/icons/interaction/distance.png">
+					</div>
+					<div class="col list-content" >
+						<span class="b3"> ~ {{exhibit.distance}} Miles</span>
+					</div>
 				</div>
-				<div class="col list-content" >
-					<span class="b3"> ~ {{exhibit.distance}} Miles</span>
+				<div class="row">
+					<div class="col-20">
+						<img class="img-icon exhibit-list-icon" src="/icons/interaction/location.png">
+					</div>
+					<div class="col list-content">
+						<span class="b3">{{exhibit.location}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-20">
+						<img class="img-icon exhibit-list-icon" src="/icons/interaction/time.png">
+					</div>
+					<div class="col list-content">
+						<span class="b3">{{exhibit.time}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-20">
+						<img class="img-icon exhibit-list-icon" src="/icons/interaction/age.png">
+					</div>
+					<div class="col list-content">
+						<span class="b3">{{exhibit.ageGroup}}</span>
+					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-20">
-					<img class="img-icon exhibit-list-icon" src="/icons/interaction/location.png">
-				</div>
-				<div class="col list-content">
-					<span class="b3">{{exhibit.location}}</span>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-20">
-					<img class="img-icon exhibit-list-icon" src="/icons/interaction/time.png">
-				</div>
-				<div class="col list-content">
-					<span class="b3">{{exhibit.time}}</span>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-20">
-					<img class="img-icon exhibit-list-icon" src="/icons/interaction/age.png">
-				</div>
-				<div class="col list-content">
-					<span class="b3">{{exhibit.ageGroup}}</span>
-				</div>
-			</div>
-			<hr class="button-list-border">
-			<div class="select-box box-inline padding-horizontal all-caps"  ng-repeat="category in exhibit.tags" ng-click="addPref(category)" ng-class="{'active': wact(category)}" >
+			<div class="tag-list">
+			<div class="select-box box-inline padding-horizontal all-caps tag-element"  ng-repeat="category in exhibit.tags" ng-click="addPref(category)" ng-class="{'active': wact(category)}" >
 				<div category-box></div>
 				</div>
+			</div>
 		</div>
   </ion-content>
 </ion-view>
