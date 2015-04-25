@@ -54,14 +54,14 @@ app.trilateration = {
                 success: function (data) {
                     app.OurBEACONS = data;
                     window.localStorage.setItem('beacons', JSON.stringify(data));
-                    console.log(JSON.stringify(data));
+                    console.log("AJAX Our Beacons = " + data);
                     document.addEventListener('deviceready', this.onDeviceReady, false);
                 }
             });
         }
         else {
             app.OurBEACONS = JSON.parse(window.localStorage.getItem('beacons'));
-            console.log(JSON.stringify(data));
+            console.log("Our Beacons = " + app.OurBEACONS);
             document.addEventListener('deviceready', this.onDeviceReady, false);
         }
     },
@@ -73,7 +73,7 @@ app.trilateration = {
         setInterval(app.trilateration.startScan, 250);
         setInterval(app.trilateration.getLocation, 500);
         window.localStorage.atExhibit = "false";
-        console.log("here2");
+        console.log("app.js DeviceReady()");
     },
 
     getLocation: function () {

@@ -301,12 +301,12 @@ app.main = {
             y: this.FHcol.y + this.FHcol.h / 2,
         };
 
-        console.log(app.User);
+        console.log("User = " + JSON.stringify(app.User));
     },
     initExZones: function () {
 
         var exArray = (window.localStorage.getItem('exhibits') === null) ? [] : JSON.parse(window.localStorage.getItem('exhibits'));
-        console.log(exArray);
+        console.log("All exhibits = " + exArray);
         for (var i = 0; i < exArray.length; i++) {
 
             if (exArray[i].zone == 'Field House') {
@@ -314,7 +314,7 @@ app.main = {
             }
 
         }
-        console.log(this.exhibits);
+        console.log("Field house exhibits = " + this.exhibits);
 
 
         this.zoneColliders = [
@@ -640,7 +640,7 @@ app.main = {
         if (this.pushXYtimer <= 0) {
             var locations = app.User.location;
             locations.push(xy);
-            console.log(locations);
+            console.log("User locations = " + locations);
             app.User.location = locations;
             $.ajax({
                 type: "PUT",
