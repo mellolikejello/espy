@@ -10,6 +10,7 @@ app.trilateration = {
 	locationTimer: null,
 	enoughbeacons: undefined,
 	ourBeacons: [],
+    user: undefined,
 
 	startScan: function()
 	{
@@ -51,6 +52,16 @@ app.trilateration = {
 	initialize: function()
 	{
 	    console.log("app.js init");
+	    var tempUser = {
+	        "name": "No user found",
+            "role": "none",
+            "interests": [
+              "none"
+            ],
+            "id": "5539cd75f5f4650300681cb5"
+	    }
+	    user = (localStorage.getItem('user') === null) ? tempUser : JSON.parse(localStorage.getItem('user'));
+
 	    $.ajax({
 	        type: "GET",
 	        url: "https://imagine-rit-espy.herokuapp.com/api/estimotes",
@@ -60,16 +71,6 @@ app.trilateration = {
 	            document.addEventListener('deviceready', this.onDeviceReady, false);
 	        }
 	    });
-        //$.ajax({
-        //    type: "DELETE",
-        //    url: "https://imagine-rit-espy.herokuapp.com/api/userAtExhibit/58aeab324214ae58aeab3242"
-        //});
-	    //$.ajax({
-	    //    type: "POST",
-	    //    url: "https://imagine-rit-espy.herokuapp.com/api/userAtExhibit",
-	    //    data: { "id": "58aeab324214ae58aeab3242" }
-	    //});
-	    
 	},
 	
 	onDeviceReady: function()
@@ -101,7 +102,6 @@ app.trilateration = {
 			        if (beacon.distance < 1.5 && localStorage.atExhibit == "false") {
 			            // User just arived at booth
 			            localStorage.atExhibit = "true";
-			            var user = JSON.parse(localStorage.getItem('user'));
 			            $.ajax({
 			                type: "POST",
 			                url: "https://imagine-rit-espy.herokuapp.com/api/userAtExhibit",
@@ -112,7 +112,6 @@ app.trilateration = {
 			        if (beacon.distance > 1.5 && localStorage.atExhibit == "true") {
 			            // user just left booth
 			            localStorage.atExhibit = "false";
-			            var user = JSON.parse(localStorage.getItem('user'));
 			            $.ajax({
 			                type: "DELETE",
 			                url: "https://imagine-rit-espy.herokuapp.com/api/userAtExhibit/"+user.userId
