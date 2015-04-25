@@ -1,11 +1,12 @@
 angular.module('espy.controllers', [])
 
-.controller('SignInCtrl', function($scope, $state, Categories, User) {
+.controller('SignInCtrl', function($scope, $state, Categories, User,setStorage) {
 	var pref = [];
 	var group = [];
 	var nums=[];
 	var username;
-
+	var blank = [];
+	setStorage.queue(blank);
 	if(User.isLoggedIn()) {
 		$state.go('tab.home');
 	}
@@ -283,7 +284,54 @@ angular.module('espy.controllers', [])
 	$scope.interests = User.getInterests();
   $scope.viewStatement = function() {
 		$state.go('tab.privacy');
+		console.log('clicked');
 	}
+  $scope.viewTags = function() {
+  	console.log('clicked');
+		$state.go('tab.editPrefs');
+
+	}
+
 })
 
-.controller('PrivacyCtrl', function($scope) { });
+.controller('PrivacyCtrl', function($scope) { })
+
+.controller('PrefsCtrl', function($scope,getStorage,setStorage,Categories) { 
+
+	var user = getStorage.user();
+	var pref = user.interests;
+	$scope.categories = Categories.all();
+	
+	$scope.addPref= function(cat){
+		//var pref = [];
+		if(pref.indexOf(cat) >-1){
+			pref.splice(pref.indexOf(cat),1);
+			
+		}
+		else{
+		pref.push(cat);
+		}
+		var updatedUser={
+			  name: user.name,
+			  role: user.role,
+			  interests: pref,
+			  location: user.location,
+			  visited: user.visited,
+			  queue: [],
+			  id: user.id,
+			  r: user.r,
+			  x:user.x,
+			  y:user.y
+			}
+		setStorage.user(updatedUser);
+		//$scope.selectBox();
+		
+	}
+	$scope.wact = function(w){
+		if(pref.indexOf(w) >-1 ){
+			return true;
+		}
+		else{return false};
+	}
+
+});

@@ -196,6 +196,16 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
         controller: 'PrivacyCtrl'
       }
     }
+  })
+  
+  .state('tab.editPrefs', {
+    url: '/account/editPrefs',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/edit-prefrences.html',
+        controller: 'PrefsCtrl'
+      }
+    }
   });
 
     // if none of the above states are matched, use this as the fallback

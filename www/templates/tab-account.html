@@ -10,11 +10,13 @@
 				<p class="account-label">Role</p>
 				<p class="account-bold">{{userRole}}</p>
 			</ion-item>
-			<ion-item>
+			<ion-item class="item-icon-right" ng-click="viewTags()">
 				<p class="account-label">Interests</p>
 				<p class="account-bold">
-					<span ng-repeat="interest in interests">{{interest}} {{$last ? '' : ($index==interests.length-1) ? '' : ', '}} </span>
+					<span  ng-repeat="interest in interests">{{interest}} {{$last ? '' : ($index==interests.length-1) ? '' : ', '}} </span>
+					
 				</p>
+				<i  class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
 			<ion-item class="item-divider text-center all-caps">
 				Notifications

@@ -239,9 +239,10 @@ angular.module('espy.services', ['ngResource'])
         
             //console.log(cur);
            queue: function(cur){
-          
+            console.log(cur);
             var curEx  = JSON.parse(cur);
-            var queue = $localstorage.getObject('queue');
+            var queue = [];
+                queue = $localstorage.getObject('queue');
                
             
                 console.log(curEx);
