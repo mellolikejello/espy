@@ -223,7 +223,7 @@ app.main = {
     },
     updateQueue: function () {
         if (this.queueClock <= 0) {
-            var queueArray = JSON.parse(window.localStorage.getItem('queue'));
+            var queueArray = (window.localStorage.getItem('queue') != null) ? JSON.parse(window.localStorage.getItem('queue')) : [];
             this.queued = [];
             for (var i = 0; i < queueArray.length; i++) {
                 var qa = queueArray[i];
@@ -476,7 +476,7 @@ app.main = {
     update: function () {
         var t = this;
         requestAnimationFrame(this.update.bind(this));
-        t.queued = JSON.parse(window.localStorage['queue']);
+        t.queued = (window.localStorage.getItem('queue') != null) ? JSON.parse(window.localStorage.getItem('queue')) : [];
         //console.log(t.queued);
         t.alertTimer--;
         t.zoomTick--;
