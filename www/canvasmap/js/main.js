@@ -128,6 +128,10 @@ app.main = {
             "y": 50,
         }
         app.User = (window.localStorage.getItem('user') === null) ? tempUser : JSON.parse(window.localStorage.getItem('user'));
+        app.User.x = 0;
+        app.User.y = 0;
+        app.User.r = 10;
+
         app.trilateration.initialize(); // init beacon code
 
         this.initExZones();
@@ -427,11 +431,11 @@ app.main = {
 
     draw: function () {
         this.clearCanvas();
+        var user = app.User;
 
         if (this.fhMode == false) {
 
             var fh = this.FHcol;
-            var user = app.User;
             //this.clearCanvas();
             this.drawImage(this.mapSmall, 0, 0, this.WIDTH, this.HEIGHT);
             //draw the user 
@@ -638,7 +642,7 @@ app.main = {
     pushNewUserXY: function () {
         var xy = { x: app.User.x, y: app.User.y };
         if (this.pushXYtimer <= 0) {
-            var locations = app.User.location;
+            var locations = app.User.location || [];
             locations.push(xy);
             console.log("User locations = " + locations);
             app.User.location = locations;
@@ -837,17 +841,17 @@ app.main = {
         }
     },
     updateUserLocation: function () {
-        //set collison radius for user
-        // WE NEED TO ONLY DO THIS ONLY IF USER DOES NOT HAVE BLUETOOTH ENABLED - OTHERWISE IT OVERRIDES OUR ESTIMOTE LOCATION
-        //var t = this;
-        //t.getLocation();
-        //if(t.userLat != null && t.userLong != null){
-        //    app.User.x = t.getDistance(t.userLat, t.originLong, t.userLat, t.userLong);
-        //    app.User.y = t.getDistance(t.originLat, t.userLong, t.userLat, t.userLong);
-        //    window.localStorage.setItem('user', app.User);
-        //    app.User.x = app.User.x * t.mapMult;
-        //    app.User.y = app.User.y * t.mapMult;
-        //}
+        if (this.tfhMode == false) {
+            var t = this;
+            t.getLocation();
+            if (t.userLat != null && t.userLong != null) {
+                app.User.x = t.getDistance(t.userLat, t.originLong, t.userLat, t.userLong);
+                app.User.y = t.getDistance(t.originLat, t.userLong, t.userLat, t.userLong);
+                window.localStorage.setItem('user', app.User);
+                app.User.x = app.User.x * t.mapMult;
+                app.User.y = app.User.y * t.mapMult;
+            }
+        }
     },
     checkUserInFH: function () {
         var u = app.User;
