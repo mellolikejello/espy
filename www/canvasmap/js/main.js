@@ -525,7 +525,7 @@ app.main = {
             t.userAnimate -= .4;
         }
 
-
+        console.log("update");
 
         t.updateUserLocation();
         if (t.fhMode == true) {
@@ -646,6 +646,7 @@ app.main = {
             locations.push(xy);
             console.log("User locations = " + locations);
             app.User.location = locations;
+
             $.ajax({
                 type: "PUT",
                 url: "https://imagine-rit-espy.herokuapp.com:443/api/users",
@@ -694,87 +695,41 @@ app.main = {
         var t = this;
         for (var i = 0; i < t.exhibits.length; i++) {
             var ex = t.exColliders[i];
+            ex.clock = ex.clock || 0;
+            ex.buffer = ex.buffer || 0;
             if (t.fhMode == true) {
                 if (t.isPointinCircle(app.User.x, app.User.y, ex)) {
-                    var distance = t.isPointinCircle(app.User.x, app.User.y, ex);
-                    t.currentCollider.push({ name: ex.name, dist: distance });
+                    t.exhibits[i].distance = t.isPointinCircle(app.User.x, app.User.y, ex);
+                    t.currentCollider.push(t.exhibits[i]);
                     t.currentCollider.sort(function (a, b) { return parseFloat(a.dist) - parseFloat(b.dist) });
-                    t.clock++;
-                    t.buffer = 300;
-                    for (var u = 0; u < t.times.length; u++) {
-                        var seconds = t.times[u] / 60;
+                    ex.clock++;
+                    ex.buffer = 300;
 
-                        if (t.clock == t.times[u]) {
+                    if (t.clock == t.times[0]) {
 
-                            var visited = app.User.visited;
-                            if (visited.indexOf(t.currentCollider[0]) > -1) {
-
-                            }
-                            else {
-                                visited.push(t.currentCollider[0]);
-
-                                $.ajax({
-                                    type: "PUT",
-                                    url: "https://imagine-rit-espy.herokuapp.com:443/api/users",
-                                    data: {
-                                        visited: visited,
-
-                                        id: app.User.id,
-                                    }
-                                });
-
-                            }
-
+                        var visited = app.User.visited;
+                        if (visited.indexOf(t.currentCollider[0]) < 0) {
+                            visited.push(t.currentCollider[0]);
+                            
+                            //$.ajax({
+                            //    type: "PUT",
+                            //    url: "https://imagine-rit-espy.herokuapp.com:443/api/users",
+                            //    data: {
+                            //        visited: visited,
+                            //        id: app.User.id
+                            //    }
+                            //});
+                            
                         }
                     }
                 }
                 else {
                     t.currentCollider = [];
                     if (t.buffer <= 0) {
-                        t.clock = 0;
-                        t.buffer = 180;
+                        ex.clock = 0;
                     }
-                }
-            }
-            if (t.fhMode == false) {
-                var mapex = t.wholeMapLocations[i];
-                if (t.isPointinCircle(app.User.x, app.User.y, mapex)) {
-                    var distance = t.isPointinCircle(app.User.x, app.User.y, mapex);
-                    t.currentCollider.push({ name: ex.name, dist: distance });
-                    t.currentCollider.sort(function (a, b) { return parseFloat(a.dist) - parseFloat(b.dist) });
-                    t.clock++;
-                    t.buffer = 300;
-                    for (var u = 0; u < t.times.length; u++) {
-                        var seconds = t.times[u] / 60;
-
-                        if (t.clock == t.times[u]) {
-                            console.log(seconds);
-                            var visited = app.User.visited;
-                            if (visited.indexOf(t.currentCollider[0]) > -1) {
-
-                            }
-                            else {
-                                visited.push(t.currentCollider[0]);
-
-                                $.ajax({
-                                    type: "PUT",
-                                    url: "https://imagine-rit-espy.herokuapp.com:443/api/users",
-                                    data: {
-                                        visited: visited,
-
-                                        id: app.User.id,
-                                    }
-                                });
-
-                            }
-                        }
-                    }
-                }
-                else {
-                    t.currentCollider = [];
-                    if (t.buffer <= 0) {
-                        t.clock = 0;
-                        t.buffer = 180;
+                    else {
+                        t.buffer--;
                     }
                 }
             }
@@ -830,24 +785,24 @@ app.main = {
 
     },
     getLocation: function () {
-
+        var that = this;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                this.userLat = position.coords.latitude;
-                this.userLong = position.coords.longitude;
+                that.userLat = position.coords.latitude;
+                that.userLong = position.coords.longitude;
             });
         } else {
             console.log("didnt work");
         }
     },
     updateUserLocation: function () {
-        if (this.tfhMode == false) {
+        if (this.fhMode == false) {
             var t = this;
             t.getLocation();
             if (t.userLat != null && t.userLong != null) {
                 app.User.x = t.getDistance(t.userLat, t.originLong, t.userLat, t.userLong);
                 app.User.y = t.getDistance(t.originLat, t.userLong, t.userLat, t.userLong);
-                window.localStorage.setItem('user', app.User);
+                window.localStorage.setItem('user', JSON.stringify(app.User));
                 app.User.x = app.User.x * t.mapMult;
                 app.User.y = app.User.y * t.mapMult;
             }
@@ -1030,7 +985,7 @@ app.main = {
             if (this.queued.indexOf(ex.code) > -1) {
                 this.drawCircle(ex.x, ex.y, this.qCirc, this.colors.gold, 1);
             }
-            this.exImgs[i].src = 'img/Icons/' + ex.tags[0] + '.png';
+            this.exImgs[i].src = '../icons/categories/' + ex.tags[0] + '.png';
             //this.drawCircle(ex.x,ex.y,ex.r,"red",.2);
             this.drawImage(this.exImgs[i], x, y, w, h);
         }
@@ -1125,7 +1080,7 @@ app.main = {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.globalAlpha = alph;
-        this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        this.ctx.arc(centerX + this.xOffset, centerY + this.yOffset, radius, 0, 2 * Math.PI, false);
         this.ctx.fillStyle = col;
         this.ctx.fill();
         this.ctx.restore();

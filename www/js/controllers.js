@@ -161,15 +161,13 @@ angular.module('espy.controllers', [])
 	
 
    $scope.$on('$ionicView.enter', function () {
-	    var queue = getStorage.queue();
+       var queue = (getStorage.queue() == null) ? [] : getStorage.queue();
 		$scope.exhibits = queue;
 		var header = $document[0].querySelector("ion-header-bar");
 		header.style['background-color'] = '#3DB4C8';
 		header.style['border-color'] = '#3DB4C8';
 
 	});
-	
-	
 })
 
 

@@ -339,7 +339,7 @@ angular.module('espy.directives', [])
 			link: function(scope, element, attrs) {
 					element.bind("click", function() {
 
-						var currentQueue = getStorage.queue();
+					    var currentQueue = (getStorage.queue() == null) ? [] : getStorage.queue();
 						var toRemove = attrs.ex;
 						console.log(toRemove);
 						console.log(currentQueue);

@@ -55,7 +55,7 @@ angular.module('espy.services', ['ngResource'])
             var exhibits = getStorage.exhibits();
             var userPreferences = []; // TODO: Get user preferences
             var user = {x:100,y:100}; //TODO: Get current user
-            var queued = getStorage.queue(); //TODO: Get queued ?
+            var queued = (getStorage.queue() == null) ? [] : getStorage.queue(); //TODO: Get queued ?
             var rec = []; // our response array
             var recHolder = [];
             for(var i = 0; i < exhibits.length; i++){
