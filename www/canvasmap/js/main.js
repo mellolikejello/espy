@@ -656,9 +656,8 @@ app.main = {
                 }
 
             });
-            this.pushXYtimer = 10800;
+            this.pushXYtimer = 1800;
         }
-
     },
 
     //utils 
@@ -985,7 +984,7 @@ app.main = {
             if (this.queued.indexOf(ex.code) > -1) {
                 this.drawCircle(ex.x, ex.y, this.qCirc, this.colors.gold, 1);
             }
-            this.exImgs[i].src = '../icons/categories/' + ex.tags[0] + '.png';
+            this.exImgs[i].src = '../icons/categories/' + ex.tags[0].toLowerCase.replace(" ", "_") + '.png';
             //this.drawCircle(ex.x,ex.y,ex.r,"red",.2);
             this.drawImage(this.exImgs[i], x, y, w, h);
         }
