@@ -802,8 +802,8 @@ app.main = {
                 app.User.x = t.getDistance(t.userLat, t.originLong, t.userLat, t.userLong);
                 app.User.y = t.getDistance(t.originLat, t.userLong, t.userLat, t.userLong);
                 window.localStorage.setItem('user', JSON.stringify(app.User));
-                app.User.x = app.User.x * t.mapMult;
-                app.User.y = app.User.y * t.mapMult;
+                app.User.x = (app.User.x + this.xOffset) * t.mapMult;
+                app.User.y = (app.User.y + this.yOffset) * t.mapMult;
             }
         }
     },
@@ -1079,7 +1079,7 @@ app.main = {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.globalAlpha = alph;
-        this.ctx.arc(centerX + this.xOffset, centerY + this.yOffset, radius, 0, 2 * Math.PI, false);
+        this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
         this.ctx.fillStyle = col;
         this.ctx.fill();
         this.ctx.restore();
@@ -1126,10 +1126,10 @@ mc.on("panleft panright panup pandown pinchin pinchout", function (ev) {
             app.main.pan("DOWN");
             break;
         case "pinchin":
-            app.main.zoomCanvas("OUT");
+            //app.main.zoomCanvas("OUT");
             break;
         case "pinchout":
-            app.main.zoomCanvas("IN");
+            //app.main.zoomCanvas("IN");
             break;
     }
 });
