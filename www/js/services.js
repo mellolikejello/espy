@@ -8,7 +8,7 @@ angular.module('espy.services', ['ngResource'])
         // Called from app.js every 3 minutes
         // Updates a users preferences based on the exhibits they have been to
         updatePreferences: function () {   // NEED CALL TO GET ALL USERS VISITED EXHIBITS
-            var exhibits = getStorage.exhibits();
+            var exhibits = (getStorage.exhibits() == null) ? [] : getStorage.exhibits();
             var visitedExhibits = []; // TODO: Get users visited exhibits
             var userPreferences = [];
             var tags = Categories.all();
@@ -52,7 +52,7 @@ angular.module('espy.services', ['ngResource'])
 
         // Called from HomeController - Gets 10 recommendations
         addRec: function () {
-            var exhibits = getStorage.exhibits();
+            var exhibits = (getStorage.exhibits() == null) ? [] : getStorage.exhibits();
             var userPreferences = []; // TODO: Get user preferences
             var user = {x:100,y:100}; //TODO: Get current user
             var queued = (getStorage.queue() == null) ? [] : getStorage.queue(); //TODO: Get queued ?
@@ -419,7 +419,7 @@ angular.module('espy.services', ['ngResource'])
 })
 
 .factory('Exhibits', function ($http, getStorage, setStorage) {
-    var exhibits = getStorage.exhibits();
+    var exhibits = (getStorage.exhibits() == null) ? [] : getStorage.exhibits();
     var synced = false;
     //  $http.get('https://imagine-rit-espy.herokuapp.com/api/exhibits').
     //	success(function(data, status, headers, config) {
@@ -458,7 +458,7 @@ angular.module('espy.services', ['ngResource'])
                         return exhibits;
                     });
             } else {
-                exhibits = getStorage.exhibits();
+                exhibits = (getStorage.exhibits() == null) ? [] : getStorage.exhibits();
                 return exhibits;
             }
         },
@@ -488,7 +488,7 @@ angular.module('espy.services', ['ngResource'])
         },
 
         get: function (exhibitId) {
-            exhibits = getStorage.exhibits();
+            exhibits = (getStorage.exhibits() == null) ? [] : getStorage.exhibits();
             for (var i in exhibits) {
 
                 if (exhibits[i].code === exhibitId) {

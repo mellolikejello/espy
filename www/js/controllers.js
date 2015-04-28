@@ -186,7 +186,7 @@ angular.module('espy.controllers', [])
 			info.style["display"] = "block";
 		}
 	}
-	var user = getStorage.user();
+	var user = (getStorage.user() == null) ? {} : getStorage.user();
 	var pref = user.interests;
 	
 	
@@ -239,7 +239,7 @@ angular.module('espy.controllers', [])
 			info.style["display"] = "block";
 		}
 	}
-	var user = getStorage.user();
+	var user = (getStorage.user() == null) ? {} : getStorage.user();
 	var pref = user.interests;
 	
 	
@@ -296,7 +296,7 @@ angular.module('espy.controllers', [])
 
 .controller('PrefsCtrl', function($scope,getStorage,setStorage,Categories) { 
 
-	var user = getStorage.user();
+    var user = (getStorage.user() == null) ? {} : getStorage.user();
 	var pref = user.interests;
 	$scope.categories = Categories.all();
 	

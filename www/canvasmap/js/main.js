@@ -640,7 +640,14 @@ app.main = {
    			);
     },
     pushNewUserXY: function () {
-        var xy = { x: app.User.x, y: app.User.y };
+        var xy = {};
+        if(this.fhMode){
+            xy = { x: (app.User.x / this.fhMult) + this.fhx + this.xOffset, y: (app.User.y / this.fhMult) + this.fhy + this.yOffset };
+        }
+        else
+        {
+            xy = { x: app.User.x, y: app.User.y };
+        }
         if (this.pushXYtimer <= 0) {
             var locations = app.User.location || [];
             locations.push(xy);
