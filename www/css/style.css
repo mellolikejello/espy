@@ -632,3 +632,17 @@ h6 {
 	padding-left: 15px;
 	padding-right: 15px;
 }
+
+.booth-box-style {
+	font-size: 60px;
+}
+
+.booth-box-detail .booth-box-style {
+	border: solid 5px;
+	padding: 10px;
+}
+
+.booth-box-tile .booth-box-style {
+	color: #FFFFFF;
+	padding: 10px;
+}

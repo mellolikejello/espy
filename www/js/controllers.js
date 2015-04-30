@@ -87,20 +87,20 @@ angular.module('espy.controllers', [])
 		   setStorage.exhibits(UtilService.addRec());
 		   console.log(UtilService.addRec());
 		});
-	} 
+	}
 	//console.log(UtilService.setDistances());
 		//setStorage.exhibits(UtilService.setDistances());
 		//$scope.exhibits = getStorage.exhibits();
-	$scope.$on('$ionicView.enter', function () { 
+	$scope.$on('$ionicView.enter', function () {
 		   var reco = UtilService.addRec();
 		   $scope.exhibits = reco;
-		   
+
 
 	});
 
 	var header = $document[0].querySelector("ion-header-bar");
 	header.style['background-color'] = '#3DB4C8';
-	header.style['border-color'] = '#3DB4C8';
+	header.style['border-color'] = '#3DB4C8';1
 })
 
 .controller('SearchCtrl', function($scope, $stateParams, $state, Categories, Exhibits) {
@@ -151,14 +151,14 @@ angular.module('espy.controllers', [])
 .controller('MapCtrl', function($scope) {})
 
 .controller('QueueCtrl', function($scope, $state,$stateParams,$localstorage,getStorage,$window,$document,Exhibits) {
-	
+
 	//TODO set this to a global array?? that updates everytime a queue is added
 	$scope.viewExhibit = function(id) {
 		$state.go('tab.queue-exhibit', {exhibitId: id});
 	};
 	//call this to add the queued array to the local storage
 		// do this everytime a queue is added
-	
+
 
    $scope.$on('$ionicView.enter', function () {
        var queue = (getStorage.queue() == null) ? [] : getStorage.queue();
@@ -188,13 +188,12 @@ angular.module('espy.controllers', [])
 	}
 	var user = (getStorage.user() == null) ? {} : getStorage.user();
 	var pref = user.interests;
-	
-	
+
 	$scope.addPref= function(cat){
 		//var pref = [];
 		if(pref.indexOf(cat) >-1){
 			pref.splice(pref.indexOf(cat),1);
-			
+
 		}
 		else{
 		pref.push(cat);
@@ -213,7 +212,7 @@ angular.module('espy.controllers', [])
 			}
 		setStorage.user(updatedUser);
 		//$scope.selectBox();
-		
+
 	}
 	$scope.wact = function(w){
 		if(pref.indexOf(w) >-1 ){
@@ -221,7 +220,7 @@ angular.module('espy.controllers', [])
 		}
 		else{return false};
 	}
-	
+
 })
 
 .controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window,$document,getStorage,setStorage) {
@@ -241,13 +240,13 @@ angular.module('espy.controllers', [])
 	}
 	var user = (getStorage.user() == null) ? {} : getStorage.user();
 	var pref = user.interests;
-	
-	
+
+
 	$scope.addPref= function(cat){
 		//var pref = [];
 		if(pref.indexOf(cat) >-1){
 			pref.splice(pref.indexOf(cat),1);
-			
+
 		}
 		else{
 		pref.push(cat);
@@ -266,7 +265,7 @@ angular.module('espy.controllers', [])
 			}
 		setStorage.user(updatedUser);
 		//$scope.selectBox();
-		
+
 	}
 	$scope.wact = function(w){
 		if(pref.indexOf(w) >-1 ){
@@ -294,17 +293,17 @@ angular.module('espy.controllers', [])
 
 .controller('PrivacyCtrl', function($scope) { })
 
-.controller('PrefsCtrl', function($scope,getStorage,setStorage,Categories) { 
+.controller('PrefsCtrl', function($scope,getStorage,setStorage,Categories) {
 
     var user = (getStorage.user() == null) ? {} : getStorage.user();
 	var pref = user.interests;
 	$scope.categories = Categories.all();
-	
+
 	$scope.addPref= function(cat){
 		//var pref = [];
 		if(pref.indexOf(cat) >-1){
 			pref.splice(pref.indexOf(cat),1);
-			
+
 		}
 		else{
 		pref.push(cat);
@@ -323,7 +322,7 @@ angular.module('espy.controllers', [])
 			}
 		setStorage.user(updatedUser);
 		//$scope.selectBox();
-		
+
 	}
 	$scope.wact = function(w){
 		if(pref.indexOf(w) >-1 ){
