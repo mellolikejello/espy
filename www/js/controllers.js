@@ -167,7 +167,7 @@ angular.module('espy.controllers', [])
 })
 
 
-.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $document,getStorage,setStorage ){
+.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $document, User){
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
   var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
 	$scope.zoneColor = zoneColor;
@@ -181,36 +181,13 @@ angular.module('espy.controllers', [])
 			info.style["display"] = "block";
 		}
 	}
-	var user = (getStorage.user() == null) ? {} : getStorage.user();
-	var pref = user.interests;
 
 	$scope.addPref= function(cat){
-		//var pref = [];
-		if(pref.indexOf(cat) >-1){
-			pref.splice(pref.indexOf(cat),1);
-
-		}
-		else{
-		pref.push(cat);
-		}
-		var updatedUser={
-			  name: user.name,
-			  role: user.role,
-			  interests: pref,
-			  location: user.location,
-			  visited: user.visited,
-			  queue: [],
-			  id: user.id,
-			  r: user.r,
-			  x:user.x,
-			  y:user.y
-			}
-		setStorage.user(updatedUser);
-		//$scope.selectBox();
-
+		User.toggleInterest(cat);
 	}
 	$scope.wact = function(w){
 //		TODO: fix this, error w is null at some point?
+		var pref = User.getInterests();
 		if(pref.indexOf(w) >-1 ){
 			return true;
 		}
