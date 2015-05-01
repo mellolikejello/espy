@@ -36,6 +36,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
 			var user = $window.localStorage['user'];
 			console.log('logging out: ' + user);
 			$window.localStorage['user'] = null;
+			$window.localStorage['queue'] = null;
 		};
 
 		if(User.isLoggedIn()) {

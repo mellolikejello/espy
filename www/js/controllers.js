@@ -1,11 +1,11 @@
 angular.module('espy.controllers', [])
 
-.controller('SignInCtrl', function($scope, $state, Categories, User,setStorage) {
+.controller('SignInCtrl', function($scope, $state, Categories, User) {
 	var pref = [];
 	var group = [];
 	var nums=[];
 	var username;
-	setStorage.queue(null);
+
 	if(User.isLoggedIn()) {
 		$state.go('tab.home');
 	}

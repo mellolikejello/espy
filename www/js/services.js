@@ -280,9 +280,10 @@ angular.module('espy.services', ['ngResource'])
 })
 
 .factory('User', function ($http, $localstorage, Exhibits) {
+	// value will display if DB cannot connect
 	var name;
 	var role;
-	var id;
+	var id = "FAILDB";
 	var interests = [];
 	var location = [ {x:0, y:0} ];
 	// stores as a list of exhibit ids
@@ -293,24 +294,27 @@ angular.module('espy.services', ['ngResource'])
 	var x = 0;
 	var y = 0;
 
-	function addToDB() {
-		var userObj = {
-			name: name,
-			role: role,
-			interests: interests
-		};
-
-		$http.post("https://imagine-rit-espy.herokuapp.com/api/users",
-							userObj).
-//			once the user has been added, store the generated id
-//				and store to local storage
-			then(function(result) {
-				id = result.data.id;
-				this.store();
-			});
-	}
-
 	return {
+		addToDB: function() {
+			var userObj = {
+				name: name,
+				role: role,
+				interests: interests
+			};
+
+	//		TODO: handle connection errors
+			$http.post("https://imagine-rit-espy.herokuapp.com/api/users",
+								userObj).
+	//			once the user has been added, store the generated id
+	//				and store to local storage
+				then(function(result) {
+					id = result.data.id;
+					this.store();
+				});
+	//		TODO: remove once connection error set up
+			this.store();
+		},
+
 		store: function() {
 			var queueObj = this.getQueue();
 			var visitedObj = this.getVisitedExhibits();
@@ -425,8 +429,12 @@ angular.module('espy.services', ['ngResource'])
 		// also sychronizes locations with localstorage
 		getLocation: function() {
 			var lsUser = $localstorage.getObject('user');
-			location = lsUser.location;
-			return location[0];
+			if(lsUser != null && lsUser.location.length != 0) {
+				location = lsUser.location;
+				return location[0];
+			} else {
+				return {x: 0, y: 0};
+			}
 		}
 
 	}
@@ -447,21 +455,12 @@ angular.module('espy.services', ['ngResource'])
 })
 
 .factory('Exhibits', function ($http, getStorage, setStorage) {
-    var exhibits = (getStorage.exhibits() == null) ? [] : getStorage.exhibits();
-    var synced = false;
-    //  $http.get('https://imagine-rit-espy.herokuapp.com/api/exhibits').
-    //	success(function(data, status, headers, config) {
-    //		// this callback will be called asynchronously
-    //		// when the response is available
-    //		exhibits = data;
-    //		synced = true;
-    //		console.log('Exhibits found: ' + data.length);
-    //	}).
-    //	error(function(data, status, headers, config) {
-    //		// called asynchronously if an error occurs
-    //		// or server returns response with an error status.
-    //		console.log('error getting exhibit data');
-    //	});
+	var synced = true;
+	var exhibits = getStorage.exhibits();
+	if(exhibits == null || exhibits.length == 0) {
+		synced = false;
+		exhibits = [];
+	}
 
     //	helper function - check if input contains searchString
     //			input: string to check
