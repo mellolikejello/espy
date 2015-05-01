@@ -16,12 +16,12 @@ angular.module('espy.controllers', [])
 	$scope.signIn = function() {
 		$state.go('tab.home');
 		username = $scope.params.myParameter;
-		// 							 username, role, interests
+		// 		username, role, interests
 		User.init(username, group[0], pref);
 	};
 	$scope.check = false;
 	$scope.selectBox = function() {
-    $scope.check = $scope.check === false ? true: false;
+    	$scope.check = $scope.check === false ? true: false;
 	};
 
 	$scope.addPref= function(cat){
@@ -95,7 +95,7 @@ angular.module('espy.controllers', [])
 	header.style['background-color'] = '#3DB4C8';
 })
 
-.controller('SearchCtrl', function($scope, $stateParams, $state, Categories, Exhibits) {
+.controller('SearchCtrl', function($scope, $stateParams, $state, Categories) {
 	var category = $stateParams.category;
 	$scope.categories = Categories.all();
 	$scope.search = function(element, searchTerm) {
@@ -141,7 +141,7 @@ angular.module('espy.controllers', [])
 
 .controller('MapCtrl', function($scope) {})
 
-.controller('QueueCtrl', function($scope, $state, getStorage,$window,$document,Exhibits) {
+.controller('QueueCtrl', function($scope, $state, getStorage, $document) {
 
 	$scope.viewExhibit = function(id) {
 		$state.go('tab.queue-exhibit', {exhibitId: id});
@@ -169,7 +169,7 @@ angular.module('espy.controllers', [])
 })
 
 
-.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $window, $document,getStorage,setStorage ){
+.controller('ExhibitDetailCtrl', function($scope, $stateParams, Exhibits, $document,getStorage,setStorage ){
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
   var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
 	$scope.zoneColor = zoneColor;
@@ -221,7 +221,7 @@ angular.module('espy.controllers', [])
 
 })
 
-.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $window,$document,getStorage,setStorage) {
+.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $document,getStorage,setStorage) {
   $scope.exhibit = Exhibits.get($stateParams.exhibitId);
 	var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
 	$scope.zoneColor = zoneColor;
@@ -276,12 +276,11 @@ angular.module('espy.controllers', [])
 	$scope.nickname = User.getName();
 	$scope.userRole = User.getRole();
 	$scope.interests = User.getInterests();
-  $scope.viewStatement = function() {
+	$scope.viewStatement = function() {
 		$state.go('tab.privacy');
 	}
-  $scope.viewTags = function() {
+	$scope.viewTags = function() {
 		$state.go('tab.editPrefs');
-
 	}
 
 })
