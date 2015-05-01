@@ -5,8 +5,7 @@ angular.module('espy.controllers', [])
 	var group = [];
 	var nums=[];
 	var username;
-	var blank = [];
-	setStorage.queue(blank);
+	setStorage.queue(null);
 	if(User.isLoggedIn()) {
 		$state.go('tab.home');
 	}

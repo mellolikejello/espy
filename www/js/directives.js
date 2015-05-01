@@ -425,7 +425,7 @@ angular.module('espy.directives', [])
 			link: function(scope, element, attrs) {
 					element.bind("click", function() {
 						//console.log(attrs.ex.distance);
-						setStorage.queue(attrs.ex);
+						setStorage.queue(attrs.exhibit);
 			});
     	}
 		}

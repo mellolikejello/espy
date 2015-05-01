@@ -236,39 +236,37 @@ angular.module('espy.services', ['ngResource'])
             $localstorage.setObject('user',u);
           
         },
-        
-            //console.log(cur);
-           queue: function(cur){
-            console.log(cur);
-            var curEx  = JSON.parse(cur);
+
+	   queue: function(exhibit) {
+           	console.log('adding exhibit: ' + exhibit);
+		   if(exhibit == null) {
+			   $localstorage.setObject('queue', []);
+			   return;
+		   }
+//		   var curEx = Exhibits.get(exhibitId);
+		   var curEx  = JSON.parse(exhibit);
             var queue = [];
                 queue = $localstorage.getObject('queue');
-               
-            
-                console.log(curEx);
-                console.log(queue);
-                if(this.objIsinArray(curEx,queue)){
-                    console.log('exist');
-                }
-                else{
-                    queue.push(curEx);
-                    console.log('dont exist');
-                    $localstorage.setObject('queue',queue);
-                }
-               
-                
-             
-        },
-        objIsinArray: function (obj,list){
-                var i;
-                for (i = 0; i < list.length; i++) {
-                    if (list[i].code === obj.code) {
-                        return true;
-                    }
-                }
 
-                return false;
-            },
+			if(this.objIsinArray(curEx,queue)){
+				console.log('exist');
+			}
+			else {
+				queue.push(curEx);
+				console.log('doesnt exist');
+				$localstorage.setObject('queue',queue);
+			}
+        },
+
+        objIsinArray: function (obj,list) {
+		  for (var i = 0; i < list.length; i++) {
+			  if (list[i].code === obj.code) {
+				  return true;
+			  }
+		  }
+
+		  return false;
+		},
        
         
         exhibits: function(ex){
