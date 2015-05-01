@@ -342,6 +342,7 @@ angular.module('espy.services', ['ngResource'])
 		// if user is logged in, sychronize this service with local storage
 		isLoggedIn: function() {
 			var user = $localstorage.getObject('user');
+			var savedQueue = $localstorage.getObject('queue');
 			console.log(user);
 			if(user == null) {
 				return false;
@@ -357,7 +358,7 @@ angular.module('espy.services', ['ngResource'])
 			r = user.r;
 			x = user.x;
 			y = user.y;
-
+			queue = savedQueue;
 			return true;
 		},
 
@@ -597,7 +598,7 @@ angular.module('espy.services', ['ngResource'])
 					}
 				}
 			}
-			console.log('exhibits in category: ' + categoryList.length);
+
 			return categoryList;
 		}
 	};

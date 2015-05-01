@@ -219,57 +219,6 @@ angular.module('espy.controllers', [])
 
 })
 
-.controller('QueueDetailCtrl', function($scope, $stateParams, Exhibits, $document,getStorage,setStorage) {
-  $scope.exhibit = Exhibits.get($stateParams.exhibitId);
-	var zoneColor = Exhibits.getZoneColor($stateParams.exhibitId);
-	$scope.zoneColor = zoneColor;
-	var header = $document[0].querySelector("ion-header-bar");
-	header.style['background-color'] = zoneColor;
-	$scope.share = function() {
-		var info = $document[0].querySelector(".info-box");
-		if(info.style["display"] == "block") {
-			info.style["display"] = "none";
-		} else {
-			info.style["display"] = "block";
-		}
-	}
-	var user = (getStorage.user() == null) ? {} : getStorage.user();
-	var pref = user.interests;
-
-
-	$scope.addPref= function(cat){
-		//var pref = [];
-		if(pref.indexOf(cat) >-1){
-			pref.splice(pref.indexOf(cat),1);
-
-		}
-		else{
-		pref.push(cat);
-		}
-		var updatedUser={
-			  name: user.name,
-			  role: user.role,
-			  interests: pref,
-			  location: user.location,
-			  visited: user.visited,
-			  queue: [],
-			  id: user.id,
-			  r: user.r,
-			  x:user.x,
-			  y:user.y
-			}
-		setStorage.user(updatedUser);
-		//$scope.selectBox();
-
-	}
-	$scope.wact = function(w){
-		if(pref.indexOf(w) >-1 ){
-			return true;
-		}
-		else{return false};
-	}
-})
-
 .controller('AccountCtrl', function($scope, $state, User) {
 	$scope.nickname = User.getName();
 	$scope.userRole = User.getRole();
