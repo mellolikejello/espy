@@ -285,36 +285,12 @@ angular.module('espy.controllers', [])
 
 .controller('PrivacyCtrl', function($scope) { })
 
-.controller('PrefsCtrl', function($scope,getStorage,setStorage,Categories) {
-
-    var user = (getStorage.user() == null) ? {} : getStorage.user();
-	var pref = user.interests;
+.controller('PrefsCtrl', function($scope, Categories, User) {
+	var pref = User.getInterests();
 	$scope.categories = Categories.all();
 
-	$scope.addPref= function(cat){
-		//var pref = [];
-		if(pref.indexOf(cat) >-1){
-			pref.splice(pref.indexOf(cat),1);
-
-		}
-		else{
-		pref.push(cat);
-		}
-		var updatedUser={
-			  name: user.name,
-			  role: user.role,
-			  interests: pref,
-			  location: user.location,
-			  visited: user.visited,
-			  queue: [],
-			  id: user.id,
-			  r: user.r,
-			  x:user.x,
-			  y:user.y
-			}
-		setStorage.user(updatedUser);
-		//$scope.selectBox();
-
+	$scope.addPref= function(interest){
+		User.toggleInterest(interest);
 	}
 	$scope.wact = function(w){
 		if(pref.indexOf(w) >-1 ){

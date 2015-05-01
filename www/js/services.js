@@ -293,27 +293,6 @@ angular.module('espy.services', ['ngResource'])
 	var x = 0;
 	var y = 0;
 
-	// private function
-	function store() {
-		// TODO: store queue exhibit info separately
-		var userObj = {
-			id: id,
-			name: name,
-			role: role,
-			interests: interests,
-			// objects need to be JSONified
-			location: [ {x:0, y:0} ],
-			visited: [],
-			// list of exhibit ids
-			queue: [],
-			r: r,
-			x: x,
-			y: y
-		};
-
-		$localstorage.setObject('user', userObj);
-	}
-
 	function addToDB() {
 		var userObj = {
 			name: name,
@@ -327,11 +306,31 @@ angular.module('espy.services', ['ngResource'])
 //				and store to local storage
 			then(function(result) {
 				id = result.data.id;
-				store();
+				this.store();
 			});
 	}
 
 	return {
+		store: function() {
+			var queueObj = this.getQueue();
+			var visitedObj = this.getVisitedExhibits();
+
+			var userObj = {
+				id: id,
+				name: name,
+				role: role,
+				interests: interests,
+				location: location,
+				visited: visitedObj,
+				r: r,
+				x: x,
+				y: y
+			};
+
+			$localstorage.setObject('user', userObj);
+			$localstorage.setObject('queue', visitedObj);
+		},
+
 		init: function (username, newRole, newInterests) {
 			name = username;
 			role = newRole;
@@ -364,6 +363,17 @@ angular.module('espy.services', ['ngResource'])
 
 		addToQueue: function(exbId) {
 			queue.push(exbId);
+			this.store();
+		},
+
+		toggleInterest: function(interest) {
+			if(interests.indexOf(interest) > -1) {
+				interests.splice(interests.indexOf(interest), 1);
+			} else {
+				interests.push(interest);
+			}
+
+			this.store();
 		},
 
 //		remove exhibit id from queue
@@ -371,6 +381,7 @@ angular.module('espy.services', ['ngResource'])
 			for(var i in queue) {
 				if(queue[i] == exbId) {
 					queue.splice(i, 1);
+					this.store();
 					return true;
 				}
 			}

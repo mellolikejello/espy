@@ -202,7 +202,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
     url: '/account/editPrefs',
     views: {
       'tab-account': {
-        templateUrl: 'templates/edit-prefrences.html',
+        templateUrl: 'templates/edit-preferences.html',
         controller: 'PrefsCtrl'
       }
     }
