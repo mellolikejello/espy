@@ -76,6 +76,7 @@ angular.module('espy.controllers', [])
 		// this is only run after $http completes
 		dataPromise.then(function(result) {
 //		   setStorage.exhibits(result);
+			User.store();
 		   console.log(result);
 		   setStorage.exhibits(UtilService.addRec());
 		   console.log(UtilService.addRec());
@@ -140,7 +141,7 @@ angular.module('espy.controllers', [])
 
 .controller('MapCtrl', function($scope) {})
 
-.controller('QueueCtrl', function($scope, $state, getStorage, $document) {
+.controller('QueueCtrl', function($scope, $state, getStorage, $document, User) {
 
 	$scope.viewExhibit = function(id) {
 		$state.go('tab.queue-exhibit', {exhibitId: id});
@@ -151,7 +152,7 @@ angular.module('espy.controllers', [])
 	}
 
    $scope.$on('$ionicView.enter', function () {
-	   var queue = getStorage.queue();
+	   var queue = User.getQueue();
 	   var emptyDisplay = "none";
 	   // TODO: is queue ever null?
 	   if(queue == null || queue.length == 0) {

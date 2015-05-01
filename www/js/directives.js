@@ -102,6 +102,9 @@ angular.module('espy.directives', [])
 				case 'Student Organizations':
 					iconClass = iconClass.concat('studentorganizations');
 					break;
+				case 'Student Organization':
+					iconClass = iconClass.concat('studentorganizations');
+					break;
 				case 'Sustainability':
 					iconClass = iconClass.concat('sustainability');
 					break;
@@ -425,8 +428,8 @@ angular.module('espy.directives', [])
 			link: function(scope, element, attrs) {
 					element.bind("click", function() {
 						//console.log(attrs.ex.distance);
-//						TODO: just store exhibit id?
-						User.addToQueue(attrs.exhibit.id);
+						console.log('adding to queue: ' + attrs.exhibitId);
+						User.addToQueue(attrs.exhibitId);
 			});
     	}
 		}

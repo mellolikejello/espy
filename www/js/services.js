@@ -283,18 +283,38 @@ angular.module('espy.services', ['ngResource'])
 	// value will display if DB cannot connect
 	var name;
 	var role;
-	var id = "FAILDB";
-	var interests = [];
-	var location = [ {x:0, y:0} ];
+	var id;
+	var interests;
+	var location;
 	// stores as a list of exhibit ids
-	var visited = [];
+	var visited;
 	// stored as a list of exhibit ids
-	var queue = [];
-	var r = 10;
-	var x = 0;
-	var y = 0;
+	var queue;
+	var r;
+	var x;
+	var y;
 
 	return {
+		store: function() {
+			var queueObj = this.getQueue();
+			var visitedObj = this.getVisitedExhibits();
+
+			var userObj = {
+				id: id,
+				name: name,
+				role: role,
+				interests: interests,
+				location: location,
+				visited: visitedObj,
+				r: r,
+				x: x,
+				y: y
+			};
+
+			$localstorage.setObject('user', userObj);
+			$localstorage.setObject('queue', visitedObj);
+		},
+
 		addToDB: function() {
 			var userObj = {
 				name: name,
@@ -309,7 +329,6 @@ angular.module('espy.services', ['ngResource'])
 	//				and store to local storage
 				then(function(result) {
 					id = result.data.id;
-					this.store();
 				});
 	//		TODO: remove once connection error set up
 			this.store();
@@ -331,8 +350,9 @@ angular.module('espy.services', ['ngResource'])
 				y: y
 			};
 
+			console.log('queue storing...' + queueObj);
 			$localstorage.setObject('user', userObj);
-			$localstorage.setObject('queue', visitedObj);
+			$localstorage.setObject('queue', queueObj);
 		},
 
 		init: function (username, newRole, newInterests) {
@@ -340,7 +360,19 @@ angular.module('espy.services', ['ngResource'])
 			role = newRole;
 			interests = newInterests;
 
-			addToDB();
+			// init variables here if a user signs out
+			id = "FAILDB";
+			interests = [];
+			location = [ {x:0, y:0} ];
+			// stores as a list of exhibit ids
+			visited = [];
+			// stored as a list of exhibit ids
+			queue = [];
+			r = 10;
+			x = 0;
+			y = 0;
+
+			this.addToDB();
 		},
 
 		// if user is logged in, sychronize this service with local storage
@@ -367,8 +399,12 @@ angular.module('espy.services', ['ngResource'])
 		},
 
 		addToQueue: function(exbId) {
-			queue.push(exbId);
-			this.store();
+			if(queue.indexOf(exbId) != -1) {
+				queue.push(exbId);
+				this.store();
+			} else {
+				console.log('already in queue');
+			}
 		},
 
 		toggleInterest: function(interest) {
