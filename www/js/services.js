@@ -1,6 +1,6 @@
 angular.module('espy.services', ['ngResource'])
 
-.factory('UtilService', function (getStorage,setStorage,Categories,GetDistance) {
+.factory('UtilService', function (getStorage,setStorage,Categories,GetDistance, User) {
     // TODO: decide which variables are needed for MapService
     // and which should be specific to each function
 
@@ -9,7 +9,7 @@ angular.module('espy.services', ['ngResource'])
         // Updates a users preferences based on the exhibits they have been to
         updatePreferences: function () {   // NEED CALL TO GET ALL USERS VISITED EXHIBITS
             var exhibits = (getStorage.exhibits() == null) ? [] : getStorage.exhibits();
-            var visitedExhibits = []; // TODO: Get users visited exhibits
+            var visitedExhibits = User.getVisitedExhibits();
             var userPreferences = [];
             var tags = Categories.all();
             var requiredVisits = 2;
@@ -52,10 +52,12 @@ angular.module('espy.services', ['ngResource'])
 
         // Called from HomeController - Gets 10 recommendations
         addRec: function () {
+			User.getLocation();
             var exhibits = (getStorage.exhibits() == null) ? [] : getStorage.exhibits();
-            var userPreferences = []; // TODO: Get user preferences
-            var user = {x:100,y:100}; //TODO: Get current user
-            var queued = (getStorage.queue() == null) ? [] : getStorage.queue(); //TODO: Get queued ?
+            var userPreferences = User.getInterests();
+            var user = User.getLocation();
+            var queued = User.getQueue();
+
             var rec = []; // our response array
             var recHolder = [];
             for(var i = 0; i < exhibits.length; i++){
@@ -82,8 +84,7 @@ angular.module('espy.services', ['ngResource'])
                 }
                 //console.log(exhibits[i].name+":",n);
                 var ex = exhibits[i];
-              
-                    //console.log("yay");
+
                     recHolder.push({name:ex.name,
                                     x:ex.x,
                                     y:ex.y,
@@ -104,7 +105,7 @@ angular.module('espy.services', ['ngResource'])
                 // console.log(recHolder);
 
             }
-            setStorage.exhibits(recHolder);
+
             recHolder.sort(function(a,b) { return parseFloat(b.num) - parseFloat(a.num) } );
             for(var t = 0; t < recHolder.length; t++){
                 var ex = recHolder[t];
@@ -123,12 +124,10 @@ angular.module('espy.services', ['ngResource'])
                                     code:ex.code,
                                     img:ex.img,
                                     distance:ex.distance
-                                    });       
+                                    });
                 }
             }
-           // console.log(recHolder);
-           // console.log(rec);
-           
+
             return rec;
             
         },
@@ -286,16 +285,17 @@ angular.module('espy.services', ['ngResource'])
 	var id;
 	var interests = [];
 	var location = [ {x:0, y:0} ];
+	// stores as a list of exhibit ids
 	var visited = [];
+	// stored as a list of exhibit ids
 	var queue = [];
 	var r = 10;
 	var x = 0;
 	var y = 0;
 
 	// private function
-	// as far as I know, storage wouldn't be set by outside sources
 	function store() {
-		console.log('storing ... ' + id);
+		// TODO: store queue exhibit info separately
 		var userObj = {
 			id: id,
 			name: name,
@@ -385,7 +385,6 @@ angular.module('espy.services', ['ngResource'])
 			return role;
 		},
 		getInterests: function() {
-			console.log(interests);
 			return interests;
 		},
 
@@ -397,6 +396,25 @@ angular.module('espy.services', ['ngResource'])
 				exbQueue.push(exb);
 			}
 			return exbQueue;
+		},
+
+		// returns a list of exhibit objects
+		getVisitedExhibits: function() {
+			var visitedList = [];
+			for(var i in visited) {
+				var exb = Exhibits.get(visited[i]);
+				visitedList.push(exb);
+			}
+			return visitedList;
+		},
+
+		// returns location object
+		// for example: { x: 0, y: 0}
+		// also sychronizes locations with localstorage
+		getLocation: function() {
+			var lsUser = $localstorage.getObject('user');
+			location = lsUser.location;
+			return location[0];
 		}
 
 	}

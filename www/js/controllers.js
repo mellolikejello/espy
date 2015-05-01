@@ -87,8 +87,6 @@ angular.module('espy.controllers', [])
 	$scope.$on('$ionicView.enter', function () {
 		   var reco = UtilService.addRec();
 		   $scope.exhibits = reco;
-
-
 	});
 
 	var header = $document[0].querySelector("ion-header-bar");
