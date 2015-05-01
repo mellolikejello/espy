@@ -18,9 +18,6 @@ angular.module('espy.controllers', [])
 		username = $scope.params.myParameter;
 		// 							 username, role, interests
 		User.init(username, group[0], pref);
-
-//		setStorage.user(user);
-
 	};
 	$scope.check = false;
 	$scope.selectBox = function() {
@@ -47,17 +44,14 @@ angular.module('espy.controllers', [])
 			return true;
 		}
 		else{return false};
-		console.log(i);
 	}
 	$scope.addGroup= function(g,k){
-		//var pref = [];
 		k = k-1;
 		console.log(k);
 		group.shift();
 		group.push(g);
 		nums.shift();
 		nums.push(k);
-		console.log(group);
 	}
 
 })
@@ -151,13 +145,13 @@ angular.module('espy.controllers', [])
 
 .controller('QueueCtrl', function($scope, $state,$stateParams,$localstorage,getStorage,$window,$document,Exhibits) {
 
-	//TODO set this to a global array?? that updates everytime a queue is added
 	$scope.viewExhibit = function(id) {
 		$state.go('tab.queue-exhibit', {exhibitId: id});
 	};
-	//call this to add the queued array to the local storage
-		// do this everytime a queue is added
 
+	$scope.explore = function() {
+		$state.go('tab.home');
+	}
 
    $scope.$on('$ionicView.enter', function () {
        var queue = (getStorage.queue() == null) ? [] : getStorage.queue();
@@ -281,10 +275,8 @@ angular.module('espy.controllers', [])
 	$scope.interests = User.getInterests();
   $scope.viewStatement = function() {
 		$state.go('tab.privacy');
-		console.log('clicked');
 	}
   $scope.viewTags = function() {
-  	console.log('clicked');
 		$state.go('tab.editPrefs');
 
 	}

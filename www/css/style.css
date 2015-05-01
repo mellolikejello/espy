@@ -335,17 +335,20 @@ h6 {
     max-width: 100px;
 }
 
-.exhibit-queue-icon img{
-/*
-    font-size: 30px;
-    position: absolute;
-    top: 2vh;
-    left: 27vw;
-*/
+.queue-view .queue-empty {
+    padding-top: 35vh;
 }
 
-.queue-empty {
-    padding-top: 35vh;
+.queue-view p {
+	color: #5E6D81;
+}
+
+.queue-view .button.browse {
+	color: white;
+	background-color: #3DB4C8;
+	border: none;
+	font-size: 18px;
+	padding: 0px 50px;
 }
 
 .exhibit-detail-view {
