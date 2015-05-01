@@ -1,7 +1,7 @@
 {
-  "name": "testionic",
+  "name": "Espy: Dynamic Exploration",
   "version": "1.0.0",
-  "description": "testIonic: An Ionic project",
+  "description": "Espy is a dynamic and interactive wayfinding experience for ImagineRIT. Through a mobile app that people download, Espy tracks the attendee's location in order to learn about their interests as they move around the festival and attend different events. The Espy mobile app then gives attendees recommendations for events to visit based on their interests. At our exhibit, attendees can further explore the festival through an interactive map display.",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",

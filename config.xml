@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-  <name>Hello World</name>
+  <name>Espy: Dynamic Exploration</name>
   <description>
-        Hello World sample application that responds to the deviceready event.
+        Espy is a dynamic and interactive wayfinding experience for ImagineRIT. Through a mobile app that people download, Espy tracks the attendee's location in order to learn about their interests as they move around the festival and attend different events. The Espy mobile app then gives attendees recommendations for events to visit based on their interests. At our exhibit, attendees can further explore the festival through an interactive map display.
     </description>
-  <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+  <author email="support@phonegap.com" href="http://imagine-rit-espy.tumblr.com/">
+        Espy Team
     </author>
   <content src="index.html"/>
   <preference name="permissions" value="none"/>
