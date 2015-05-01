@@ -480,8 +480,8 @@ angular.module('espy.services', ['ngResource'])
                         synced = true;
                         exhibits = result.data;
                         console.log('exhibits loaded: ' + exhibits.length);
-												// set local storage to data pulled via API
-												setStorage.exhibits(exhibits);
+						// set local storage to data pulled via API
+						setStorage.exhibits(exhibits);
                         return exhibits;
                     });
             } else {

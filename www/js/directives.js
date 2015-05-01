@@ -417,7 +417,7 @@ angular.module('espy.directives', [])
     }
 })
 
-.directive('addQueue', function(setStorage) {
+.directive('addQueue', function(User) {
     return {
         restrict: 'A',
 
@@ -425,7 +425,8 @@ angular.module('espy.directives', [])
 			link: function(scope, element, attrs) {
 					element.bind("click", function() {
 						//console.log(attrs.ex.distance);
-						setStorage.queue(attrs.exhibit);
+//						TODO: just store exhibit id?
+						User.addToQueue(attrs.exhibit.id);
 			});
     	}
 		}

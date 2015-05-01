@@ -69,12 +69,13 @@ angular.module('espy.controllers', [])
 		$state.go('tab.home-search', {term: searchTerm});
 	}
 
+//	TODO: check if this is needed?
 //	if exhibit list hasn't been retrieved from db
 	if(! Exhibits.isSynced()) {
 		var dataPromise = Exhibits.all();
 		// this is only run after $http completes
 		dataPromise.then(function(result) {
-		   setStorage.exhibits(result);
+//		   setStorage.exhibits(result);
 		   console.log(result);
 		   setStorage.exhibits(UtilService.addRec());
 		   console.log(UtilService.addRec());
