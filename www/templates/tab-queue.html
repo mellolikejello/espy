@@ -1,7 +1,7 @@
 <ion-view class="queue-view" view-title="Queue">
     <ion-content class="padding text-center queue">
     	<div queue-list></div>
-        <div class="queue-empty">
+        <div class="queue-empty" style="display: {{emptyDisplay}}">
 			<p class="b3">Your queue is empty!</p>
             <button class="button browse" ng-click="explore()">Browse Exhibits</button>
         </div>

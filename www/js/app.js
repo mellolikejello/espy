@@ -162,7 +162,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
       url: '/queue/:exhibitId',
       views: {
         'tab-queue': {
-          templateUrl: 'templates/queue-detail.html',
+          templateUrl: 'templates/exhibit-detail.html',
           controller: 'QueueDetailCtrl'
         }
       }

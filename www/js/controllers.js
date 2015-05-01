@@ -93,7 +93,6 @@ angular.module('espy.controllers', [])
 
 	var header = $document[0].querySelector("ion-header-bar");
 	header.style['background-color'] = '#3DB4C8';
-	header.style['border-color'] = '#3DB4C8';1
 })
 
 .controller('SearchCtrl', function($scope, $stateParams, $state, Categories, Exhibits) {
@@ -130,7 +129,6 @@ angular.module('espy.controllers', [])
 	};
 	var header = $document[0].querySelector("ion-header-bar");
 	header.style['background-color'] = '#3DB4C8';
-	header.style['border-color'] = '#3DB4C8';
 })
 
 .controller('SearchResultCtrl', function($scope, $state, $stateParams, Exhibits) {
@@ -143,7 +141,7 @@ angular.module('espy.controllers', [])
 
 .controller('MapCtrl', function($scope) {})
 
-.controller('QueueCtrl', function($scope, $state,$stateParams,$localstorage,getStorage,$window,$document,Exhibits) {
+.controller('QueueCtrl', function($scope, $state, getStorage,$window,$document,Exhibits) {
 
 	$scope.viewExhibit = function(id) {
 		$state.go('tab.queue-exhibit', {exhibitId: id});
@@ -154,11 +152,18 @@ angular.module('espy.controllers', [])
 	}
 
    $scope.$on('$ionicView.enter', function () {
-       var queue = (getStorage.queue() == null) ? [] : getStorage.queue();
-		$scope.exhibits = queue;
+	   var queue = getStorage.queue();
+	   var emptyDisplay = "none";
+	   // TODO: is queue ever null?
+	   if(queue == null || queue.length == 0) {
+		   console.log('empty queue');
+		   queue = [];
+		   emptyDisplay = "block";
+	   }
+	   $scope.exhibits = queue;
+	   $scope.emptyDisplay = emptyDisplay;
 		var header = $document[0].querySelector("ion-header-bar");
 		header.style['background-color'] = '#3DB4C8';
-		header.style['border-color'] = '#3DB4C8';
 
 	});
 })
@@ -170,7 +175,6 @@ angular.module('espy.controllers', [])
 	$scope.zoneColor = zoneColor;
 	var header = $document[0].querySelector("ion-header-bar");
 	header.style['background-color'] = zoneColor;
-	header.style['border-color'] = zoneColor;
 	$scope.share = function() {
 		var info = $document[0].querySelector(".info-box");
 		if(info.style["display"] == "block") {
@@ -223,7 +227,6 @@ angular.module('espy.controllers', [])
 	$scope.zoneColor = zoneColor;
 	var header = $document[0].querySelector("ion-header-bar");
 	header.style['background-color'] = zoneColor;
-	header.style['border-color'] = zoneColor;
 	$scope.share = function() {
 		var info = $document[0].querySelector(".info-box");
 		if(info.style["display"] == "block") {

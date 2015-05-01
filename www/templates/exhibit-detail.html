@@ -45,7 +45,7 @@
 						<img class="img-icon exhibit-list-icon" src="/icons/interaction/distance.png">
 					</div>
 					<div class="col list-content" >
-						<span class="b3"> ~ {{exhibit.distance}} Miles</span>
+						<span class="b3"> ~ {{exhibit.distance || "N/A"}} Miles</span>
 					</div>
 				</div>
 				<div class="row">
@@ -61,7 +61,7 @@
 						<img class="img-icon exhibit-list-icon" src="/icons/interaction/time.png">
 					</div>
 					<div class="col list-content">
-						<span class="b3">{{exhibit.time}}</span>
+						<span class="b3">{{exhibit.time || "All Day"}}</span>
 					</div>
 				</div>
 				<div class="row">
@@ -69,7 +69,7 @@
 						<img class="img-icon exhibit-list-icon" src="/icons/interaction/age.png">
 					</div>
 					<div class="col list-content">
-						<span class="b3">{{exhibit.ageGroup}}</span>
+						<span class="b3">{{exhibit.ageGroup || "Appropriate for All Ages"}}</span>
 					</div>
 				</div>
 			</div>
