@@ -525,8 +525,6 @@ app.main = {
             t.userAnimate -= .4;
         }
 
-        console.log("update");
-
         t.updateUserLocation();
         if (t.fhMode == true) {
             t.topText = 'Field House';

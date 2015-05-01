@@ -214,6 +214,7 @@ angular.module('espy.controllers', [])
 
 	}
 	$scope.wact = function(w){
+//		TODO: fix this, error w is null at some point?
 		if(pref.indexOf(w) >-1 ){
 			return true;
 		}

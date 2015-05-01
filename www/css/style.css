@@ -633,6 +633,11 @@ h6 {
 	padding-right: 15px;
 }
 
+.exhibit-container .item-image {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 .booth-box-style {
 	font-size: 60px;
 }
