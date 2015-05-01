@@ -56,8 +56,7 @@ angular.module('espy.controllers', [])
 
 })
 
-.controller('HomeCtrl', function($scope, $state, $document, Exhibits, Categories,setStorage,getStorage,UtilService) {
-    $scope.categories = Categories.all();
+.controller('HomeCtrl', function($scope, $state, $document, Exhibits, Categories,setStorage,getStorage,UtilService, User) {
     $scope.saveRatingToServer = function(rating) {
       /* TODO - add server call, update rating */
 //      console.log('Rating selected - ' + rating);
@@ -87,6 +86,7 @@ angular.module('espy.controllers', [])
 	$scope.$on('$ionicView.enter', function () {
 		   var reco = UtilService.addRec();
 		   $scope.exhibits = reco;
+		$scope.categories = User.getInterests();
 	});
 
 	var header = $document[0].querySelector("ion-header-bar");
