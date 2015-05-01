@@ -87,8 +87,9 @@ app.trilateration = {
         $.each(app.BEACONS, function (key, beacon) {
             // Only show beacons that are updated during the last 20 seconds.
             if (beacon.timeStamp + 20000 > timeNow) {
-                if (key == "REPLACE"/* PUT EXHIBIT BEACON KEY HERE */) {
+                if (key == "40792:24830"/* PUT EXHIBIT BEACON KEY HERE */) {
                     if (beacon.distance < 1.5 && window.localStorage.atExhibit == "false") {
+						console.log('user at exhibit');
                         // User just arived at booth
                         window.localStorage.atExhibit = "true";
                         $.ajax({
@@ -100,6 +101,7 @@ app.trilateration = {
                     }
                     if (beacon.distance > 1.5 && window.localStorage.atExhibit == "true") {
                         // user just left booth
+						console.log('user left exhibit');
                         window.localStorage.atExhibit = "false";
                         $.ajax({
                             type: "DELETE",
