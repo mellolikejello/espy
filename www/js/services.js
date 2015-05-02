@@ -365,7 +365,6 @@ angular.module('espy.services', ['ngResource'])
 
 			// init variables here if a user signs out
 			id = "FAILDB";
-			interests = [];
 			location = [ {x:0, y:0} ];
 			// stores as a list of exhibit ids
 			visited = [];
