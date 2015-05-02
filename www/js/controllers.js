@@ -6,9 +6,9 @@ angular.module('espy.controllers', [])
 	var nums=[];
 	var username;
 
-	if(User.isLoggedIn()) {
-		$state.go('tab.home');
-	}
+//	if(User.isLoggedIn()) {
+//		$state.go('tab.home');
+//	}
 	User.resetLocalStorage();
 
 	$scope.params = {};
@@ -177,7 +177,16 @@ angular.module('espy.controllers', [])
 	var header = $document[0].querySelector("ion-header-bar");
 	header.style['background-color'] = zoneColor;
 	$scope.share = function() {
-		var info = $document[0].querySelector(".info-box");
+		var info = $document[0].querySelector(".info-box-share");
+		if(info.style["display"] == "block") {
+			info.style["display"] = "none";
+		} else {
+			info.style["display"] = "block";
+		}
+	}
+
+	$scope.rate = function() {
+		var info = $document[0].querySelector(".info-box-rate");
 		if(info.style["display"] == "block") {
 			info.style["display"] = "none";
 		} else {

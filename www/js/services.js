@@ -455,6 +455,7 @@ angular.module('espy.services', ['ngResource'])
 		// getters
 		getName: function() {
 			if(name == null) {
+//				console.log('name is null');
 				this.syncWithStorage();
 			}
 			return name;

@@ -62,6 +62,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
     $stateProvider
 	.state('signin', {
       url: "/signin",
+		cache: false,
       templateUrl: "templates/signin.html",
       controller: 'SignInCtrl'
     })
