@@ -37,6 +37,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
 			console.log('logging out: ' + user);
 			$window.localStorage['user'] = null;
 			$window.localStorage['queue'] = null;
+			$state.go('signin');
 		};
 
 		// TODODODO: remove for final presentation
@@ -186,6 +187,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
 
   .state('tab.account', {
     url: '/account',
+	cache: false,
     views: {
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
@@ -203,9 +205,10 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
       }
     }
   })
-  
+
   .state('tab.editPrefs', {
     url: '/account/editPrefs',
+	cache: false,
     views: {
       'tab-account': {
         templateUrl: 'templates/edit-preferences.html',
@@ -218,5 +221,5 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
     $urlRouterProvider.otherwise('/signin');
 
 	$ionicConfigProvider.backButton.previousTitleText(false).text('');
-
+	$ionicConfigProvider.tabs.position("bottom");
 });
