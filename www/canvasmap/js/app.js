@@ -166,9 +166,9 @@ app.trilateration = {
         var yb = b.y;
         var xc = c.x;
         var yc = c.y;
-        var ra = a.distance * 5;
-        var rb = b.distance * 5;
-        var rc = c.distance * 5;
+        var ra = a.distance;
+        var rb = b.distance;
+        var rc = c.distance;
 
         var j, k, x, y;
 
