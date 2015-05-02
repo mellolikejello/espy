@@ -202,7 +202,9 @@ angular.module('espy.controllers', [])
 
 })
 
-.controller('AccountCtrl', function($scope, $state, User) {
+.controller('AccountCtrl', function($scope, $state, User, $localstorage) {
+	console.log($localstorage.get('user'));
+	console.log(User.getName());
 	$scope.nickname = User.getName();
 	$scope.userRole = User.getRole();
 	$scope.interests = User.getInterests();
@@ -225,6 +227,9 @@ angular.module('espy.controllers', [])
 		User.toggleInterest(interest);
 	}
 	$scope.wact = function(w){
+		if(pref.length == 0 || pref == null) {
+			return false;
+		}
 		if(pref.indexOf(w) >-1 ){
 			return true;
 		}

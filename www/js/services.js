@@ -62,7 +62,9 @@ angular.module('espy.services', ['ngResource'])
             var recHolder = [];
             for(var i = 0; i < exhibits.length; i++){
                 var n = 0;
-	
+				if(exhibits[i].tags == null || exhibits[i].tags.length == 0) {
+					break;
+				}
                 for(var g = 0; g < exhibits[i].tags.length; g++){
 					if(userPreferences == null || userPreferences.length == 0) {
 						break;
@@ -584,6 +586,10 @@ angular.module('espy.services', ['ngResource'])
 			var exhibit = this.get(exhibitId);
 			var zone = exhibit.zone;
 			var color = "#9EA7B3";
+
+			if(zone == null || zone == '') {
+				return '#3DB4C8';
+			}
 			switch(zone) {
 				case 'Green Place':
 					color = "#4BE530";
