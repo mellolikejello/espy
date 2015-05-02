@@ -186,6 +186,7 @@ angular.module('espy.services', ['ngResource'])
     
 
     return {
+		// TODO: use User service instead
         user: function() {
             
             var user = $localstorage.getObject('user');
@@ -195,7 +196,7 @@ angular.module('espy.services', ['ngResource'])
             else{
                 //var user = JSON.parse(user);
                 return user;
-            }   
+            }
         },
         queue: function(){
             var queued = $localstorage.getObject('queue');
@@ -353,7 +354,6 @@ angular.module('espy.services', ['ngResource'])
 				y: y
 			};
 
-			console.log('queue storing...' + queueObj);
 			$localstorage.setObject('user', userObj);
 			$localstorage.setObject('queue', queueObj);
 		},
@@ -402,7 +402,6 @@ angular.module('espy.services', ['ngResource'])
 		},
 
 		addToQueue: function(exbId) {
-			console.log("adding " + exbId + " to " + queue);
 			if(queue.indexOf(exbId) != -1 || queue.length == 0) {
 				queue.push(exbId);
 				this.store();
@@ -505,6 +504,9 @@ angular.module('espy.services', ['ngResource'])
     //	helper function - check if input contains searchString
     //			input: string to check
     function contains(input, searchString) {
+		if(input == null || input == '' || input == ' ') {
+			return false;
+		}
         if (input.toLowerCase().indexOf(searchString) >= 0) {
             return true;
         } else {
