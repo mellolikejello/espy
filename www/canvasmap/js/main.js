@@ -1063,10 +1063,10 @@ app.main = {
                 this.drawText("~ " + dist + " miles away", x + w / 2, y + h - textsize, textsize / 2, this.textCol.mid, maxtextWidth);
             }
         }
-        if (zone.name == 'Field House') {
+       /* if (zone.name == 'Field House') {
             var mb = this.mapBtn;
             this.drawImage(this.mapIcon, mb.x, mb.y, mb.w, mb.h);
-        }
+        }*/
         var zr = zone.r;
 
         this.updateCIZone(x, y, w, h, zone.name, zone.col, zr);
@@ -1170,9 +1170,9 @@ function getTapPos(event) {
             if (ci.name == 'Field House') {
 
                 if (t.isPointinRect(x, y, t.mapBtn)) {
-                    t.fhMode = true;
+                   /* t.fhMode = true;
                     t.handlefhMode();
-                    t.currentInfo = [];
+                    t.currentInfo = [];*/
                 }
 
             }
