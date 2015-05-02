@@ -402,7 +402,8 @@ angular.module('espy.services', ['ngResource'])
 		},
 
 		addToQueue: function(exbId) {
-			if(queue.indexOf(exbId) != -1) {
+			console.log("adding " + exbId + " to " + queue);
+			if(queue.indexOf(exbId) != -1 || queue.length == 0) {
 				queue.push(exbId);
 				this.store();
 			} else {

@@ -47,7 +47,7 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
 ////		go to the home screen instead of login
 //			$state.go('tab.home');
 //		}
-		$state.go('tab.signin');
+		$state.go('signin');
 
 		setInterval(UtilService.updatePreferences, 3000);
 		})
