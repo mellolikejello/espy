@@ -800,7 +800,7 @@ app.main = {
         }
     },
     updateUserLocation: function () {
-        if (this.fhMode == false) {
+//        if (this.fhMode == false) {
             var t = this;
             t.getLocation();
             if (t.userLat != null && t.userLong != null) {
@@ -810,7 +810,7 @@ app.main = {
                 app.User.x = (app.User.x + this.xOffset) * t.mapMult;
                 app.User.y = (app.User.y + this.yOffset) * t.mapMult;
             }
-        }
+//        }
     },
     checkUserInFH: function () {
         var u = app.User;
