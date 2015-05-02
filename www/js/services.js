@@ -389,7 +389,7 @@ angular.module('espy.services', ['ngResource'])
 
 		addToQueue: function(exbId) {
       var icon = document.querySelector('#queue-icon');
-			if(queue.indexOf(exbId) != -1 || queue.length == 0) {
+			if(queue.indexOf(exbId) == -1 || queue.length == 0) {
 				queue.push(exbId);
 				this.store();
         icon.setAttribute('src', "/icons/interaction/queueminus.png");
