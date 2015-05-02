@@ -6,9 +6,9 @@ angular.module('espy.controllers', [])
 	var nums=[];
 	var username;
 
-	if(User.isLoggedIn()) {
-		$state.go('tab.home');
-	}
+//	if(User.isLoggedIn()) {
+//		$state.go('tab.home');
+//	}
 
 	$scope.params = {};
 
@@ -190,6 +190,10 @@ angular.module('espy.controllers', [])
 	$scope.wact = function(w){
 //		TODO: fix this, error w is null at some point?
 		var pref = User.getInterests();
+		if(pref == null) {
+			console.err('User Preferences is null!');
+			return false;
+		}
 		if(pref.indexOf(w) >-1 ){
 			return true;
 		}

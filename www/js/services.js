@@ -64,6 +64,9 @@ angular.module('espy.services', ['ngResource'])
                 var n = 0;
 	
                 for(var g = 0; g < exhibits[i].tags.length; g++){
+					if(userPreferences == null || userPreferences.length == 0) {
+						break;
+					}
                     for(var j = 0; j < userPreferences.length; j++){
 			
                         //add another loop to get tages array
@@ -465,7 +468,7 @@ angular.module('espy.services', ['ngResource'])
 		// also sychronizes locations with localstorage
 		getLocation: function() {
 			var lsUser = $localstorage.getObject('user');
-			if(lsUser != null && lsUser.location.length != 0) {
+			if(lsUser != null && lsUser.location != null && lsUser.location.length != 0) {
 				location = lsUser.location;
 				return location[0];
 			} else {

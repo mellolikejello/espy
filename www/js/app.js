@@ -39,10 +39,15 @@ angular.module('espy', ['ionic', 'ngCordova', 'espy.controllers', 'espy.services
 			$window.localStorage['queue'] = null;
 		};
 
-		if(User.isLoggedIn()) {
-//		go to the home screen instead of login
-			$state.go('tab.home');
-		}
+		// TODODODO: remove for final presentation
+		// figure out why signin isn't working on mobile
+//		$window.appLogout();
+
+//		if(User.isLoggedIn()) {
+////		go to the home screen instead of login
+//			$state.go('tab.home');
+//		}
+		$state.go('tab.signin');
 
 		setInterval(UtilService.updatePreferences, 3000);
 		})
