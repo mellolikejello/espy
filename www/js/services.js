@@ -411,6 +411,18 @@ angular.module('espy.services', ['ngResource'])
 			}
 		},
 
+		existsInQueue: function(exbId) {
+			if(queue == null || queue.length == 0) {
+				return false;
+			}
+			for(var i in queue) {
+				if(queue[i] == exbId) {
+					return true;
+				}
+			}
+			return false;
+		},
+
 		toggleInterest: function(interest) {
 			if(interests.indexOf(interest) > -1) {
 				interests.splice(interests.indexOf(interest), 1);
@@ -433,20 +445,51 @@ angular.module('espy.services', ['ngResource'])
 			return false;
 		},
 
+		syncWithStorage: function() {
+			var lsUser = $localstorage.getObject('user');
+			var savedQueue = $localstorage.getObject('queue');
+			if(lsUser == null) {
+				console.log('local storage user is null!');
+				return;
+			}
+			id = lsUser.id;
+			name = lsUser.name;
+			role = lsUser.role;
+			interests = lsUser.interests;
+			location = lsUser.location;
+			visited = lsUser.visitedObj;
+			r = lsUser.r;
+			x = lsUser.x;
+			y = lsUser.y;
+			queue = savedQueue;
+		},
+
 		// getters
 		getName: function() {
+			if(name == null) {
+				this.syncWithStorage();
+			}
 			return name;
 		},
 		getRole: function() {
+			if(role == null) {
+				this.syncWithStorage();
+			}
 			return role;
 		},
 		getInterests: function() {
+			if(interests == null) {
+				this.syncWithStorage();
+			}
 			return interests;
 		},
 
 		// returns a list of exhibit objects
 		getQueue: function() {
 			var exbQueue = [];
+			if(queue == null) {
+				this.syncWithStorage();
+			}
 			for(var i in queue) {
 				var exb = Exhibits.get(queue[i]);
 				exbQueue.push(exb);
@@ -457,6 +500,9 @@ angular.module('espy.services', ['ngResource'])
 		// returns a list of exhibit objects
 		getVisitedExhibits: function() {
 			var visitedList = [];
+			if(visited == null || visited.length == 0) {
+				this.syncWithStorage();
+			}
 			for(var i in visited) {
 				var exb = Exhibits.get(visited[i]);
 				visitedList.push(exb);
