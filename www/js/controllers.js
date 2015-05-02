@@ -191,7 +191,7 @@ angular.module('espy.controllers', [])
 //		TODO: fix this, error w is null at some point?
 		var pref = User.getInterests();
 		if(pref == null) {
-			console.err('User Preferences is null!');
+			console.log('User Preferences is null!');
 			return false;
 		}
 		if(pref.indexOf(w) >-1 ){
