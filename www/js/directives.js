@@ -428,7 +428,6 @@ angular.module('espy.directives', [])
 			link: function(scope, element, attrs) {
 					element.bind("click", function() {
 						//console.log(attrs.ex.distance);
-						console.log('adding to queue: ' + attrs.exhibitId);
 						User.addToQueue(attrs.exhibitId);
 			});
     	}

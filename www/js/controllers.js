@@ -199,7 +199,8 @@ angular.module('espy.controllers', [])
 		}
 		else{return false};
 	}
-
+	
+	$scope.icon = "queueadd";
 })
 
 .controller('AccountCtrl', function($scope, $state, User, $localstorage) {

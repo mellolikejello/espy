@@ -44,7 +44,7 @@ angular.module('espy.services', ['ngResource'])
                         }
                     }
                 }
-                 
+
             }
             //console.log(n);
             return;
@@ -70,13 +70,13 @@ angular.module('espy.services', ['ngResource'])
 						break;
 					}
                     for(var j = 0; j < userPreferences.length; j++){
-			
+
                         //add another loop to get tages array
                         if(exhibits[i].tags[g] == userPreferences[j]){
                             n +=50;
                         }
                     }
-                }  
+                }
                 var dist = GetDistance.get(exhibits[i], user);
                 n -= Math.floor(dist);
                 var updatedDist = dist/5280;
@@ -104,8 +104,8 @@ angular.module('espy.services', ['ngResource'])
                                     code:ex.code,
                                     distance:updatedDist,
                                     img:ex.img,
-                                    num:n });			
-                
+                                    num:n });
+
                 //return rec;
                 // console.log(recHolder);
 
@@ -134,10 +134,10 @@ angular.module('espy.services', ['ngResource'])
             }
 
             return rec;
-            
+
         },
 
-     
+
 
 }
 })
@@ -149,21 +149,21 @@ angular.module('espy.services', ['ngResource'])
     return {
         get: function (point1,point2) {
             //console.log('getDist');
-           
+
               var xs = 0;
               var ys = 0;
-             
+
               xs = point2.x - point1.x;
               xs = xs * xs;
-             
+
               ys = point2.y - point1.y;
               ys = ys * ys;
-             
+
               return Math.sqrt( xs + ys );
             },
 
-            
-       
+
+
     }
 })
 
@@ -185,12 +185,12 @@ angular.module('espy.services', ['ngResource'])
 }])
 
 .factory('getStorage', function($localstorage) {
-    
+
 
     return {
 		// TODO: use User service instead
         user: function() {
-            
+
             var user = $localstorage.getObject('user');
             if(user === null){
                 console.log('user is null');
@@ -213,33 +213,33 @@ angular.module('espy.services', ['ngResource'])
                         //console.log(JSON.parse(queued[i]));
                         newQ.push(q);
                     }
-                
+
                 return newQ;
              }
         },
         exhibits: function(){
             var exhibits = $localstorage.getObject('exhibits');
             var newEx = [];
-            
+
                 for(var k = 0; k < exhibits.length; k++){
                         var ex = exhibits[k];
-                        
+
                         newEx.push(ex);
                     }
             return newEx;
         }
-            
+
 
     }
 })
 
 .factory('setStorage', function($localstorage) {
-    
+
 
     return {
         user: function(u) {
             $localstorage.setObject('user',u);
-          
+
         },
 
 	   queue: function(exhibit) {
@@ -272,15 +272,15 @@ angular.module('espy.services', ['ngResource'])
 
 		  return false;
 		},
-       
-        
+
+
         exhibits: function(ex){
            if(ex != null){
                 $localstorage.setObject('exhibits',ex);
                // console.log($localstorage.getObject('exhibits'))
             }
         }
-            
+
 
     }
 })
@@ -403,11 +403,19 @@ angular.module('espy.services', ['ngResource'])
 		},
 
 		addToQueue: function(exbId) {
+      var icon = document.querySelector('#queue-icon');
 			if(queue.indexOf(exbId) != -1 || queue.length == 0) {
 				queue.push(exbId);
 				this.store();
+        icon.setAttribute('src', "/icons/interaction/queueminus.png");
+        console.log('adding to queue: ' + exbId);
+        return true;
 			} else {
-				console.log('already in queue');
+				//console.log('already in queue');
+        queue.splice(exbId, 1);
+        icon.setAttribute('src', "/icons/interaction/queueadd.png");
+        console.log('removing from queue: ' + exbId);
+        return false;
 			}
 		},
 
