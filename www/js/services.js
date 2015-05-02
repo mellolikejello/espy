@@ -397,7 +397,12 @@ angular.module('espy.services', ['ngResource'])
         return true;
 			} else {
 				//console.log('already in queue');
-        queue.splice(exbId, 1);
+        for(var i in queue) {
+  				if(queue[i] == exbId) {
+  					queue.splice(i, 1);
+  					this.store();
+  				}
+  			}
         icon.setAttribute('src', "/icons/interaction/queueadd.png");
         console.log('removing from queue: ' + exbId);
         return false;
