@@ -301,24 +301,9 @@ angular.module('espy.services', ['ngResource'])
 	var y;
 
 	return {
-		store: function() {
-			var queueObj = this.getQueue();
-			var visitedObj = this.getVisitedExhibits();
-
-			var userObj = {
-				id: id,
-				name: name,
-				role: role,
-				interests: interests,
-				location: location,
-				visited: visitedObj,
-				r: r,
-				x: x,
-				y: y
-			};
-
-			$localstorage.setObject('user', userObj);
-			$localstorage.setObject('queue', visitedObj);
+		resetLocalStorage: function() {
+			$localstorage.setObject('user', []);
+			$localstorage.setObject('queue', []);
 		},
 
 		addToDB: function() {
@@ -433,8 +418,10 @@ angular.module('espy.services', ['ngResource'])
 
 		toggleInterest: function(interest) {
 			if(interests.indexOf(interest) > -1) {
+				console.log('removing ' + interest);
 				interests.splice(interests.indexOf(interest), 1);
 			} else {
+				console.log('adding ' + interest);
 				interests.push(interest);
 			}
 
@@ -454,6 +441,7 @@ angular.module('espy.services', ['ngResource'])
 		},
 
 		syncWithStorage: function() {
+			return;
 			var lsUser = $localstorage.getObject('user');
 			var savedQueue = $localstorage.getObject('queue');
 			if(lsUser == null) {
@@ -475,6 +463,7 @@ angular.module('espy.services', ['ngResource'])
 		// getters
 		getName: function() {
 			if(name == null) {
+//				console.log('name is null');
 				this.syncWithStorage();
 			}
 			return name;
@@ -488,6 +477,8 @@ angular.module('espy.services', ['ngResource'])
 		getInterests: function() {
 			if(interests == null) {
 				this.syncWithStorage();
+//				console.log('interests is null');
+				return [];
 			}
 			return interests;
 		},
@@ -497,6 +488,7 @@ angular.module('espy.services', ['ngResource'])
 			var exbQueue = [];
 			if(queue == null) {
 				this.syncWithStorage();
+//				console.log('queue is null');
 			}
 			for(var i in queue) {
 				var exb = Exhibits.get(queue[i]);

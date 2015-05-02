@@ -26,7 +26,7 @@
 					<div add-queue exhibit-id="{{exhibit.code}}"></div>
 					<h5 class="all-caps">Queue</h5>
 				</li>
-				<li class="button-list-item">
+				<li class="button-list-item" ng-click="rate()">
 					<img class="img-icon exhibit-action-icon" src="/icons/interaction/rate.png">
 					<h5 class="all-caps">Rate</h5>
 				</li>
@@ -35,9 +35,13 @@
 					<h5 class="all-caps">Share</h5>
 				</li>
 			</ul>
-			<div class="info-box">
+			<div class="info-box info-box-share">
 			<p class="bold">Hey, thanks for wanting to share this event!</p>
 			<p class="info-box-desc">Espy is a work in progress, and we aren’t able to support social media in this version of the app. However, we wanted to give you an idea of what the future would look like!</p>
+			</div>
+			<div class="info-box info-box-rate">
+			<p class="bold">Hey, thanks for wanting to rate this event!</p>
+			<p class="info-box-desc">Espy is a work in progress, and we aren’t able to support ratings in this version of the app. However, we wanted to give you an idea of what the future would look like!</p>
 			</div>
 			<div class="icon-detail-bar">
 				<div class="row">

@@ -9,6 +9,7 @@ angular.module('espy.controllers', [])
 //	if(User.isLoggedIn()) {
 //		$state.go('tab.home');
 //	}
+	User.resetLocalStorage();
 
 	$scope.params = {};
 
@@ -176,7 +177,16 @@ angular.module('espy.controllers', [])
 	var header = $document[0].querySelector("ion-header-bar");
 	header.style['background-color'] = zoneColor;
 	$scope.share = function() {
-		var info = $document[0].querySelector(".info-box");
+		var info = $document[0].querySelector(".info-box-share");
+		if(info.style["display"] == "block") {
+			info.style["display"] = "none";
+		} else {
+			info.style["display"] = "block";
+		}
+	}
+
+	$scope.rate = function() {
+		var info = $document[0].querySelector(".info-box-rate");
 		if(info.style["display"] == "block") {
 			info.style["display"] = "none";
 		} else {
@@ -203,12 +213,20 @@ angular.module('espy.controllers', [])
 	$scope.icon = "queueadd";
 })
 
-.controller('AccountCtrl', function($scope, $state, User, $localstorage) {
+.controller('AccountCtrl', function($scope, $state, User, $localstorage, $window) {
 	console.log($localstorage.get('user'));
 	console.log(User.getName());
 	$scope.nickname = User.getName();
 	$scope.userRole = User.getRole();
 	$scope.interests = User.getInterests();
+	$scope.logout = function() {
+		console.log('logging out');
+		var user = $window.localStorage['user'];
+		console.log('logging out: ' + user);
+		$window.localStorage['user'] = null;
+		$window.localStorage['queue'] = null;
+		$state.go('signin');
+	}
 	$scope.viewStatement = function() {
 		$state.go('tab.privacy');
 	}
