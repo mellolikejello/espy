@@ -82,6 +82,9 @@ angular.module('espy.controllers', [])
 		   setStorage.exhibits(UtilService.addRec());
 		   console.log(UtilService.addRec());
 		});
+	} else {
+		$scope.exhibits = Exhibits.all();
+		console.log($scope.exhibits.length + 'exhibits synced');
 	}
 	//console.log(UtilService.setDistances());
 		//setStorage.exhibits(UtilService.setDistances());
@@ -225,6 +228,7 @@ angular.module('espy.controllers', [])
 		console.log('logging out: ' + user);
 		$window.localStorage['user'] = null;
 		$window.localStorage['queue'] = null;
+		$window.localStorage['exhibit'] = null;
 		$state.go('signin');
 	}
 	$scope.viewStatement = function() {
